@@ -1,12 +1,12 @@
 {
   "name": "geotoolbox",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A tool to add, remove, change and filter fields within a geojson",
   "main": "index.js",
   "module": "index.js",
   "jsdelivr": "dist/index.min.js",
   "unpkg": "dist/index.min.js",
-    "exports": {
+  "exports": {
     "umd": "./dist/index.min.js",
     "default": "./src/index.js"
   },
