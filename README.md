@@ -16,7 +16,7 @@ Pinned version
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.0"
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.2"
   charset="utf-8"
 ></script>
 ```
@@ -32,7 +32,7 @@ geo = require("geotoolbox");
 Pinned version
 
 ```js
-geo = require("geotoolbox@1.0");
+geo = require("geotoolbox@1.2");
 ```
 
 ### 2. Documentation
