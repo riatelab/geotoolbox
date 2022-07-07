@@ -46,12 +46,23 @@ geo.add({
     expression: "gdp/pop*1000" // a string containing an expression
 })
 ```
+
 **filter()** allow to filter a geojson from its attribute table.This function return a new object and do not modify the initial object.
 
 ```js
 geo.filter({
     x: world, // a geojson
     expression: "pop2022 >= 100000" // an expression (string) 
+})
+```
+
+**head()** allow to get the n top values from a given field.This function return a new object and do not modify the initial object.
+
+```js
+geo.head({
+    x: world, // a geojson
+    field: "gdp", // a colname (string)
+    nb: 5 // default:10. Number of features to get. Here, the 5 richest countries.
 })
 ```
 
@@ -73,9 +84,29 @@ geo.remove({
 })
 ```
 
+**subset()** allow to create a subset from an array of values. This function return a new object and do not modify the initial object.
+
+```js
+geo.subset({
+    x: world, // a geojson
+    field: "ISO3", // colname (string)
+    selection: ["USA", "CAN", "MEX"], // values to be kept. Here, North american countries
+    inverse: false // default: false. If true, all countries except USA, CAN and MEX are kept 
+})
+```
+
 **table()** allow to get a geojson attribute table.
 
 ```js
 geo.table(world // a geojson)
 ```
 
+**tail()** allow to get the n bottom values from a given field.This function return a new object and do not modify the initial object.
+
+```js
+geo.tail({
+    x: world, // a geojson
+    field: "gdp", // a colname (string)
+    nb: 5 // default:10. Number of features to get. Here, the 5 least wealthy countries
+})
+```
