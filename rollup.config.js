@@ -7,7 +7,7 @@ import copy from "rollup-plugin-copy";
 import del from "rollup-plugin-delete";
 
 export default {
-  input: "./index.js",
+  input: "index.js",
   output: {
     format: "umd",
     file: "dist/index.min.js",
