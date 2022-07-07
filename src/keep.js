@@ -1,3 +1,5 @@
+import { remove } from "./remove.js";
+
 // Keep only theses fields
 export function keep({ x, field }) {
   // Get all keys
@@ -11,5 +13,5 @@ export function keep({ x, field }) {
 
   // Fields to be removed
   let diff = keys.filter((k) => !field.includes(k));
-  return remove(x, diff);
+  return remove({ x, field: diff });
 }
