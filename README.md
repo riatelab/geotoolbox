@@ -1,6 +1,6 @@
 # geotoolbox
 
-A js tool to add, remove, change and filter fields within a geojson
+*geotoolbox* is javascript tool for geographers. It allows to simply deal with geojson properties (attribute data) and provides several GIS opérations useful for thématic cartography.
 
 ## 1. Installation
 
@@ -35,7 +35,9 @@ Pinned version
 geo = require("geotoolbox@1.2");
 ```
 
-### 2. Documentation
+### 2. Handle properties
+
+**Here we are talking about some easy functions useful to handle attribute data.**
 
 **add()** allow to add a new field in the attribute table. This function return a new object and do not modify the initial object.
 
@@ -110,3 +112,7 @@ geo.tail({
     nb: 5 // default:10. Number of features to get. Here, the 5 least wealthy countries
 })
 ```
+
+### 3. Handle geometries
+
+**Here we are talking about some easy functions useful for thematic maps, based on topojson and turf.**
