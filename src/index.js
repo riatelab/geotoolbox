@@ -14,4 +14,4 @@ export { union } from "./gis/union.js";
 export { centroid } from "./gis/centroid.js";
 export { border } from "./gis/border.js";
 export { bbox } from "./gis/bbox.js";
-export { simple } from "./gis/simple.js";
+export { simplify } from "./gis/simplify.js";
