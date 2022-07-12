@@ -5,12 +5,12 @@ const topojson = Object.assign({}, { topology, merge });
 export function union(x, options = {}) {
   if (options.id != null && options.id != undefined) {
     let id = options.id;
-    let arr = Array.from(new Set(world.features.map((d) => d.properties[id])));
+    let arr = Array.from(new Set(x.features.map((d) => d.properties[id])));
     let features = [];
     arr.forEach((myid) => {
       let geo = {
         type: "FeatureCollection",
-        features: world.features.filter((d) => d.properties[id] == myid),
+        features: x.features.filter((d) => d.properties[id] == myid),
       };
       //return geo;
       let topo = topojson.topology({ foo: geo });
