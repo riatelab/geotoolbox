@@ -1,13 +1,13 @@
 import { topology } from "topojson-server";
 import { feature } from "topojson-client";
-import { presimplify, quantile, simplify } from "topojson-simplify";
+import { presimplify, quantile, simplify as simple } from "topojson-simplify";
 const topojson = Object.assign(
   {},
-  { topology, presimplify, quantile, simplify, feature }
+  { topology, presimplify, quantile, simple, feature }
 );
 import { union } from "./union.js";
 
-export function simple(geojson, options = {}) {
+export function simplify(geojson, options = {}) {
   let k = options.k ? options.k : 0.5;
   // union or not
   let merge = options.merge === true ? true : false;
@@ -20,7 +20,7 @@ export function simple(geojson, options = {}) {
   // simplification
   let topo = topojson.topology({ foo: geo });
   let simpl = topojson.presimplify(topo);
-  simpl = topojson.simplify(simpl, topojson.quantile(simpl, k));
+  simpl = topojson.simple(simpl, topojson.quantile(simpl, k));
   geo.features = topojson.feature(
     simpl,
     Object.keys(simpl.objects)[0]
