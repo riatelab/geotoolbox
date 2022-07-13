@@ -5,8 +5,11 @@
 import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
 
-export function bbox(geojson) {
-  let bounds = d3.geoBounds(geojson);
+export function bbox(_) {
+
+  let bounds	
+  if(!Array.isArray(_)){ bounds = d3.geoBounds(_)} else {bounds = _}
+  
   let λ0 = bounds[0][0];
   let φ0 = bounds[0][1];
   let λ1 = bounds[1][0];
