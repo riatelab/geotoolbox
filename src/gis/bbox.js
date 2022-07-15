@@ -6,10 +6,13 @@ import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
 
 export function bbox(_) {
+  let bounds;
+  if (!Array.isArray(_)) {
+    bounds = d3.geoBounds(_);
+  } else {
+    bounds = _;
+  }
 
-  let bounds	
-  if(!Array.isArray(_)){ bounds = d3.geoBounds(_)} else {bounds = _}
-  
   let λ0 = bounds[0][0];
   let φ0 = bounds[0][1];
   let λ1 = bounds[1][0];
@@ -110,7 +113,8 @@ const inverseResampleJSON = (projection, delta) => {
       GeometryCollection: (o) => o.geometries.forEach(convert),
       FeatureCollection: (o) => o.features.forEach(convert),
     };
-  convert = (o) => (convertType?.[o?.type]?.(o), o);
+  //  convert = (o) => (convertType?.[o?.type]?.(o), o);
+  convert = (o) => (convertType[o.type](o), o);
 
   return function (json) {
     json = JSON.parse(JSON.stringify(json)); // make deep copy
