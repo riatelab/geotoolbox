@@ -3,7 +3,7 @@
 ![license](https://img.shields.io/badge/license-MIT-success)
 ![code size](https://img.shields.io/github/languages/code-size/neocarto/bertin)
 
-*geotoolbox* is javascript tool for geographers. It allows to simply deal with geojson properties (attribute data) and provides several GIS opérations useful for thématic cartography.
+*geotoolbox* is javascript tool for geographers. It allows to simply deal with geojson properties (attribute data) and provides several GIS operations useful for thematic cartography.
 
 ## 1. <ins>Installation</ins>
 
