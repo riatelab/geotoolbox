@@ -1,3 +1,5 @@
+![logo](img/geotoolbox.svg)]
+
 ![npm](https://img.shields.io/npm/v/geotoolbox)
 ![jsdeliver](https://img.shields.io/jsdelivr/npm/hw/geotoolbox)
 ![license](https://img.shields.io/badge/license-MIT-success)
