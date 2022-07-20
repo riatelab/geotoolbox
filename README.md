@@ -167,6 +167,12 @@ geo.centroid(
     })
 ```
 
+**dissolve** allows to disolve geometries (multi parts to single parts)
+
+```js
+geo.dissolve(world) // a geojson
+```
+
 **union** allows to merge geometries
 
 ```js
