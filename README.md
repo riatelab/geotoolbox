@@ -45,7 +45,7 @@ Find a demo of all functions [here](https://observablehq.com/d/17367d9479d6156f)
 
 _Here we are talking about some easy functions useful to handle attribute data._
 
-**add()** allows to add a new field in the attribute table. This function return a new object and do not modify the initial object.
+**add** allows to add a new field in the attribute table. This function return a new object and do not modify the initial object.
 
 ```js
 geo.add({
@@ -55,7 +55,7 @@ geo.add({
 })
 ```
 
-**filter()** allows to filter a geojson from its attribute table.This function return a new object and do not modify the initial object.
+**filter** allows to filter a geojson from its attribute table.This function return a new object and do not modify the initial object.
 
 ```js
 geo.filter({
@@ -64,7 +64,7 @@ geo.filter({
 })
 ```
 
-**head()** allows to get the n top values from a given field.This function return a new object and do not modify the initial object.
+**head** allows to get the n top values from a given field.This function return a new object and do not modify the initial object.
 
 ```js
 geo.head({
@@ -74,7 +74,7 @@ geo.head({
 })
 ```
 
-**keep()** allows to select one or several columns to keep in the attribute table. All other columns are deleted. This function return a new object and do not modify the initial object.
+**keep** allows to select one or several columns to keep in the attribute table. All other columns are deleted. This function return a new object and do not modify the initial object.
 
 ```js
 geo.keep({
@@ -83,7 +83,7 @@ geo.keep({
 })
 ```
 
-**remove()** allow to remove one or several columns in the attribute table. This function return a new object and do not modify the initial object.
+**remove** allow to remove one or several columns in the attribute table. This function return a new object and do not modify the initial object.
 
 ```js
 geo.remove({
@@ -92,7 +92,7 @@ geo.remove({
 })
 ```
 
-**subset()** allow to create a subset from an array of values. This function return a new object and do not modify the initial object.
+**subset** allow to create a subset from an array of values. This function return a new object and do not modify the initial object.
 
 ```js
 geo.subset({
@@ -103,13 +103,13 @@ geo.subset({
 })
 ```
 
-**table()** allow to get a geojson attribute table.
+**table** allow to get a geojson attribute table.
 
 ```js
 geo.table(world // a geojson)
 ```
 
-**tail()** allow to get the n bottom values from a given field.This function return a new object and do not modify the initial object.
+**tail** allow to get the n bottom values from a given field.This function return a new object and do not modify the initial object.
 
 ```js
 geo.tail({
@@ -121,17 +121,15 @@ geo.tail({
 
 #### 3.2 Handle geometries
 
-<div style='background-color: #e0d5d5; color:#857171 ; font-style:italic ; padding: 5px 5px 5px 5px;'>Here we are talking about some easy functions useful for thematic maps, based on [topojson](https://github.com/topojson/topojson) and [turf](https://github.com/Turfjs/turf)</div>
-
 _Here we are talking about some easy functions useful for thematic maps, based on [topojson](https://github.com/topojson/topojson) and [turf](https://github.com/Turfjs/turf)._
 
-**bbox()** allow to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample).
+**bbox** allow to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample).
 
 ```js
 geo.bbox(world) // a geojson
 ```
 
-**borders()** allows to extract boundaries from a geojson (polygons). With options, you can get ids and calculate discontinuities
+**border** allows to extract boundaries from a geojson (polygons). With options, you can get ids and calculate discontinuities
 
 ```js
 geo.bbox(world) // a geojson
@@ -147,5 +145,48 @@ geo.border(
         values: "pop", // values
         type: "abs", // type of discontinuities calculated: rel (relative), abs(absolute) (default:"rel")
         share: 0.8 // share of kept borders (default: null for all)
+    })
+```
+
+**centroid** allows to compute centroids from polygons
+
+```js
+geo.centroid(world) // a geojson (polygons)
+```
+
+By default, the centroid is placed in the largest polygon. But yout can avoid it
+
+```js
+geo.centroid(
+    world, // a geojson
+    {
+        largest: false // largest polygon. true/false (default: true)
+    })
+```
+
+**union** allows to merge geometries
+
+```js
+geo.union(world) // a geojson
+```
+
+With options, you can compute an union by id.
+
+```js
+continents = geo.union(
+    world, // a geojson
+    { 
+        id: "continent" // ids
+    })
+```
+
+**simplify** allows to simplify geometries preserving topology (`topojson.simplify` algorithm)
+
+```js
+geo.simplify(
+    world, // a geojson
+    { 
+        k, // factor of simplification (default: 0.5)
+        merge: false // true to merge geometries(default: false)
     })
 ```
