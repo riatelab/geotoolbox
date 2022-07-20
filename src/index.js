@@ -15,3 +15,4 @@ export { centroid } from "./gis/centroid.js";
 export { border } from "./gis/border.js";
 export { bbox } from "./gis/bbox.js";
 export { simplify } from "./gis/simplify.js";
+export { dissolve } from "./gis/dissolve.js";
