@@ -97,7 +97,7 @@ geo.remove({
 })
 ```
 
-**subset** allow to create a subset from an array of values. This function return a new object and do not modify the initial object.
+**subset** allows to create a subset from an array of values. This function return a new object and do not modify the initial object.
 
 ```js
 geo.subset({
@@ -108,13 +108,13 @@ geo.subset({
 })
 ```
 
-**table** allow to get a geojson attribute table.
+**table** allows to get a geojson attribute table.
 
 ```js
 geo.table(world // a geojson)
 ```
 
-**tail** allow to get the n bottom values from a given field.This function return a new object and do not modify the initial object.
+**tail** allows to get the n bottom values from a given field.This function return a new object and do not modify the initial object.
 
 ```js
 geo.tail({
@@ -128,7 +128,7 @@ geo.tail({
 
 _Here we are talking about some easy functions useful for thematic maps, based on [topojson](https://github.com/topojson/topojson) and [turf](https://github.com/Turfjs/turf)._
 
-**bbox** allow to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample).
+**bbox** allows to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample).
 
 ```js
 geo.bbox(world) // a geojson
@@ -168,6 +168,45 @@ geo.centroid(
         largest: false // largest polygon. true/false (default: true)
     })
 ```
+
+**coords2geo** allows to build a geojson from a table with lat,lng coordinates.
+
+```js
+geo.coords2geo(
+    data, // a json
+    {
+        lat: "lat" // the field containig latitude coordinates (you can use also `latitude`) 
+        lng: "lon" // the field containig longitude coordinates (you can use also `longitude`) 
+    })
+```
+
+This function works also if coordinates are stored in a single field.
+
+```js
+geo.coords2geo(
+    data, // a json
+    {
+        coords: "Coordinates" // the field containig coordinates (you can use also `coordinates`) 
+    })
+```
+
+For an even simpler automatic use, you don't have to specify the name of the variables containing the coordinates. If your data table contains the following fields (`lat`, `latitude`, `lon`,`lng`, `longitude`, `coords`, `coordinates`, `coordinate`), they are automatically selected. It is convenient, but for a better control and a faster calculation, it is still better to define yourself where the coordinates are.
+
+```js
+geo.coords2geo(data) // a json
+```
+
+Sometimes there can be an unfortunate inversion of the coordinates. In this case you can simply set the reverse option to true. 
+
+```js
+geo.coords2geo(
+    data, // a json
+    {
+        reverse: true // to reverse latitudes and longitude coordinates
+    })
+```
+
+
 
 **dissolve** allows to disolve geometries (multi parts to single parts)
 
