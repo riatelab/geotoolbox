@@ -169,6 +169,17 @@ geo.centroid(
     })
 ```
 
+Moreover, it may happen that the coordinates of your base map are not in latitudes and longitudes, but already projected. In this case you can use the option `planar = true`
+
+```js
+geo.centroid(
+    world, // a geojson
+    {
+        largest: false, // largest polygon. true/false (default: true)
+        planar: true // if geometries are already projected
+    })
+```
+
 **coords2geo** allows to build a geojson from a table with lat,lng coordinates.
 
 ```js
