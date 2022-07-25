@@ -251,3 +251,9 @@ geo.simplify(
         merge: false // true to merge geometries(default: false)
     })
 ```
+
+**tissot** tissot allows to get the Tissot's indicatrix
+
+```js
+geo.tissot(20) // step (default; 10)
+```
