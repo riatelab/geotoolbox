@@ -1,6 +1,6 @@
 {
   "name": "geotoolbox",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "A tool to add, remove, change and filter fields within a geojson",
   "main": "src/index.js",
   "module": "src/index.js",
