@@ -21,7 +21,7 @@ Pinned version
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.2"
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.7"
   charset="utf-8"
 ></script>
 ```
@@ -37,7 +37,7 @@ geo = require("geotoolbox");
 Pinned version
 
 ```js
-geo = require("geotoolbox@1.2");
+geo = require("geotoolbox@1.7");
 ```
 
 ### 2. <ins>Demo</ins>
@@ -256,4 +256,10 @@ geo.simplify(
 
 ```js
 geo.tissot(20) // step (default; 10)
+```
+
+**geolines** allows to get the natural geographic lines such as equator, tropics & polar circles.
+
+```js
+geo.geolines() 
 ```
