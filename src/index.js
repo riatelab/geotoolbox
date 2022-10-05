@@ -19,3 +19,4 @@ export { dissolve } from "./gis/dissolve.js";
 export { coords2geo } from "./gis/coords2geo.js";
 export { tissot } from "./gis/tissot.js";
 export { geolines } from "./gis/geolines.js";
+export { buffer } from "./gis/buffer.js";
