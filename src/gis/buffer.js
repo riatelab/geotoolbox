@@ -1,6 +1,6 @@
 import * as jsts from "jsts/dist/jsts";
 import { km2deg } from "../helpers/km2deg.js";
-import { aggregate } from "./aggregate.js";
+import { union } from "./union.js";
 
 // TODO : clip world extent
 
@@ -33,7 +33,7 @@ export function buffer(geojson, options = {}) {
   });
 
   if (options.merge) {
-    return aggregate({ type: "FeatureCollection", features: buffs });
+    return union({ type: "FeatureCollection", features: buffs });
   } else {
     return { type: "FeatureCollection", features: buffs };
   }
