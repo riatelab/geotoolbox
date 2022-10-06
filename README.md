@@ -126,7 +126,23 @@ geo.tail({
 
 #### 3.2 Handle geometries
 
-_Here we are talking about some easy functions useful for thematic maps, based on [topojson](https://github.com/topojson/topojson) and [turf](https://github.com/Turfjs/turf)._
+_Here we are talking about some easy functions useful for thematic maps, based on [topojson](https://github.com/topojson/topojson), [d3geo](https://github.com/d3/d3-geo) and [jsts](https://github.com/bjornharrtell/jsts)._
+
+**aggregate** allows to merge geometries based on their topology. To merge polygon geometries, see ```union```.
+
+```js
+geo.aggregate(world) // a geojson
+```
+
+With options, you can compute an aggregate by id.
+
+```js
+continents = geo.aggregate(
+    world, // a geojson
+    { 
+        id: "continent" // ids
+    })
+```
 
 **bbox** allows to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample).
 
@@ -218,23 +234,22 @@ geo.coords2geo(
 ```
 
 
-
 **dissolve** allows to disolve geometries (multi parts to single parts)
 
 ```js
 geo.dissolve(world) // a geojson
 ```
 
-**aggregate** allows to merge geometries based on their topology
+**union** allows to merge polygon geometries
 
 ```js
-geo.aggregate(world) // a geojson
+geo.union(world) // a geojson
 ```
 
-With options, you can compute an aggregate by id.
+With options, you can compute an union by id.
 
 ```js
-continents = geo.aggregate(
+continents = geo.union(
     world, // a geojson
     { 
         id: "continent" // ids
