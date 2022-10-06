@@ -10,6 +10,7 @@ export { tail } from "./properties/tail.js";
 
 // GIS operations
 
+export { aggregate } from "./gis/aggregate.js";
 export { union } from "./gis/union.js";
 export { centroid } from "./gis/centroid.js";
 export { border } from "./gis/border.js";

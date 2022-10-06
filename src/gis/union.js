@@ -1,42 +1,23 @@
-import { topology } from "topojson-server";
-import { merge } from "topojson-client";
-const topojson = Object.assign({}, { topology, merge });
+import * as jsts from "jsts/dist/jsts";
 
-export function union(x, options = {}) {
-  if (options.id != null && options.id != undefined) {
-    let id = options.id;
-    let arr = Array.from(new Set(x.features.map((d) => d.properties[id])));
-    let features = [];
-    arr.forEach((myid) => {
-      let geo = {
-        type: "FeatureCollection",
-        features: x.features.filter((d) => d.properties[id] == myid),
-      };
-      //return geo;
-      let topo = topojson.topology({ foo: geo });
-      features.push({
-        type: "Feature",
-        properties: { id: myid },
-        geometry: topojson.merge(topo, topo.objects.foo.geometries),
-      });
-    });
+// Ajouter id comme option comme dans aggregate
 
-    return {
-      type: "FeatureCollection",
-      features: features,
-    };
-  } else {
+export function union(x) {
+  let reader = new jsts.io.GeoJSONReader();
+  let data = reader.read(x);
+
+  let geom = data.features[0].geometry;
+
+  for (let i = 1; i < data.features.length; i++) {
+    geom = geom.union(data.features[i].geometry);
   }
 
-  let topo = topojson.topology({ foo: x });
+  data.features.map((d) => d.geometry);
+
+  const result = new jsts.io.GeoJSONWriter().write(geom);
+
   return {
     type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: {},
-        geometry: topojson.merge(topo, topo.objects.foo.geometries),
-      },
-    ],
+    features: [{ type: "Feature", properties: {}, geometry: result }],
   };
 }

@@ -225,16 +225,16 @@ geo.coords2geo(
 geo.dissolve(world) // a geojson
 ```
 
-**union** allows to merge geometries
+**aggregate** allows to merge geometries based on their topology
 
 ```js
-geo.union(world) // a geojson
+geo.aggregate(world) // a geojson
 ```
 
-With options, you can compute an union by id.
+With options, you can compute an aggregate by id.
 
 ```js
-continents = geo.union(
+continents = geo.aggregate(
     world, // a geojson
     { 
         id: "continent" // ids
