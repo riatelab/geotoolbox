@@ -7,9 +7,32 @@ export function clip(x, options = {}) {
 
   let buffer = options.buffer ? options.buffer : 0.0000001;
 
-  let clip = "test"; //  ICI TODO le rectangle du monde
+  let clip = null;
   if (options.clip != null && options.clip != undefined) {
     clip = reader.read(options.clip);
+  } else {
+    let delta = 0.00001;
+    clip = reader.read({
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [-180 + delta, 90 - delta],
+                [180 - delta, 90 - delta],
+                [180 - delta, -90 + delta],
+                [-180 + delta, -90 + delta],
+                [-180 + delta, 90 - delta],
+              ],
+            ],
+          },
+        },
+      ],
+    });
   }
 
   // clip union
