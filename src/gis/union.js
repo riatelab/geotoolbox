@@ -1,10 +1,11 @@
 import * as jsts from "jsts/dist/jsts";
+import { featurecollection } from "../helpers/featurecollection.js";
 
 // Ajouter id comme option comme dans aggregate
 
 export function union(x, options = {}) {
   let reader = new jsts.io.GeoJSONReader();
-  let data = reader.read(x);
+  let data = reader.read(featurecollection(x));
 
   if (options.id != null && options.id != undefined) {
     // Union by id

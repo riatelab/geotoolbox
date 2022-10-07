@@ -278,3 +278,11 @@ geo.tissot(20) // step (default; 10)
 ```js
 geo.geolines() 
 ```
+
+#### 3.3 Helpers
+
+**featurecollection** allows to convert an array of features or an array of geometries to a well formated geosjon.
+
+```js
+geo.featurecollection(features) 
+```

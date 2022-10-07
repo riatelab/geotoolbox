@@ -1,10 +1,11 @@
 import * as jsts from "jsts/dist/jsts";
 import { km2deg } from "../helpers/km2deg.js";
 import { union } from "./union.js";
+import { featurecollection } from "../helpers/featurecollection.js";
 
 // TODO : clip world extent
 
-export function buffer(geojson, options = {}) {
+export function buffer(x, options = {}) {
   let distance = 0;
   switch (typeof options.dist) {
     case "number":
@@ -17,7 +18,7 @@ export function buffer(geojson, options = {}) {
       distance = km2deg(1000);
   }
   let reader = new jsts.io.GeoJSONReader();
-  let data = reader.read(geojson);
+  let data = reader.read(featurecollection(x));
   let buffs = [];
   data.features.forEach((d) => {
     const x =

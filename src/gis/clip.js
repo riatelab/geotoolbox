@@ -1,8 +1,9 @@
 import * as jsts from "jsts/dist/jsts"; // ICI AMELIORER LES DEPENDANCES
+import { featurecollection } from "../helpers/featurecollection.js";
 
 export function clip(x, options = {}) {
   let reader = new jsts.io.GeoJSONReader();
-  let data = reader.read(x);
+  let data = reader.read(featurecollection(x));
 
   let buffer = options.buffer ? options.buffer : 0.0000001;
 

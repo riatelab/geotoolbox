@@ -23,5 +23,8 @@ export { geolines } from "./gis/geolines.js";
 export { buffer } from "./gis/buffer.js";
 export { clip } from "./gis/clip.js";
 
+// Helpers
+export { featurecollection } from "./helpers/featurecollection.js";
+
 // Spatial queries
 // contain, intersect, ...
