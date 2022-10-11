@@ -1,4 +1,5 @@
 export function featurecollection(x) {
+  x = JSON.parse(JSON.stringify(x));
   if (x.type == "FeatureCollection" && !Array.isArray(x)) {
     return x;
   } else if (
