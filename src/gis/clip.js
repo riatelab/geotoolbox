@@ -1,4 +1,8 @@
-import * as jsts from "jsts/dist/jsts"; // ICI AMELIORER LES DEPENDANCES
+//import * as jsts from "jsts/dist/jsts";
+import { union } from "./union.js";
+import { io } from "jsts/dist/jsts";
+const jsts = Object.assign({}, { io });
+
 import { featurecollection } from "../helpers/featurecollection.js";
 
 export function clip(x, options = {}) {
@@ -40,7 +44,7 @@ export function clip(x, options = {}) {
   for (let i = 1; i < clip.features.length; i++) {
     geomclip = geomclip.union(clip.features[i].geometry);
   }
-  geomclip = geomclip.buffer(buffer); // ICI METTRE BUFFER EN KM
+  geomclip = geomclip.buffer(buffer);
 
   // Intersection
   let result = [];

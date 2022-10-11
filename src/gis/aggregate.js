@@ -3,6 +3,8 @@ import { merge } from "topojson-client";
 const topojson = Object.assign({}, { topology, merge });
 
 export function aggregate(x, options = {}) {
+
+  
   if (options.id != null && options.id != undefined) {
     let id = options.id;
     let arr = Array.from(new Set(x.features.map((d) => d.properties[id])));

@@ -1,4 +1,8 @@
-import * as jsts from "jsts/dist/jsts";
+//import * as jsts from "jsts/dist/jsts";
+
+import { io } from "jsts/dist/jsts";
+const jsts = Object.assign({}, { io });
+
 import { featurecollection } from "../helpers/featurecollection.js";
 
 // Ajouter id comme option comme dans aggregate

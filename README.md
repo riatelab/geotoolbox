@@ -42,13 +42,13 @@ geo = require("geotoolbox@1.8");
 
 ### 2. <ins>Demo</ins>
 
-Find a demo of all functions [here](https://observablehq.com/d/17367d9479d6156f).
+Find a demo of all functions [here](https://observablehq.com/@neocartocnrs/hello-geotoolbox?collection=@neocartocnrs/geotoolbox).
 
 ### 3. <ins>Documentation</ins>
 
 #### 3.1. Handle properties
 
-_Here we are talking about some easy functions useful to handle attribute data._
+_Here we are talking about some easy functions useful to handle attribute data. [Example](https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox)_
 
 **add** allows to add a new field in the attribute table. This function return a new object and do not modify the initial object.
 
@@ -128,7 +128,7 @@ geo.tail({
 
 _Here we are talking about some easy functions useful for thematic maps, based on [topojson](https://github.com/topojson/topojson), [d3geo](https://github.com/d3/d3-geo) and [jsts](https://github.com/bjornharrtell/jsts)._
 
-**aggregate** allows to merge geometries based on their topology. To merge polygon geometries, see ```union```.
+**aggregate** allows to merge geometries based on their topology. To merge polygon geometries, see ```union```. [Example](https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.aggregate(world) // a geojson
@@ -144,13 +144,13 @@ continents = geo.aggregate(
     })
 ```
 
-**bbox** allows to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample).
+**bbox** allows to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample). [Example](https://observablehq.com/@neocartocnrs/bbox?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.bbox(world) // a geojson
 ```
 
-**border** allows to extract boundaries from a geojson (polygons). With options, you can get ids and calculate discontinuities
+**border** allows to extract boundaries from a geojson (polygons). With options, you can get ids and calculate discontinuities. [Example](https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.bbox(world) // a geojson
@@ -169,13 +169,43 @@ geo.border(
     })
 ```
 
-**centroid** allows to compute centroids from polygons
+**buffer**  allows to build a buffer from points, lines or polygones. The distance is in kilimeters. 
+
+```js
+geo.buffer(geojson, { dist: 1000 }) // 1000 km 
+```
+
+The distance value can also be contained in a geojson field (in the properties). In this case, you just have to indicate the name of this field. 
+
+```js
+geo.buffer(geojson, { dist: "a field" }) // a filed in properties
+```
+
+The merge option allows to merging all the output buffers.
+
+```js
+geo.buffer(geojson, { dist: 1000, merge:true }) 
+```
+
+The clip option prevents the buffers from sticking out of the world outline. Not having coordinates that exceed [-90, 90] in latitude and [-180, 180] in longitude is necessary for the d3.js projection functions to work properly.
+
+```js
+geo.buffer(geojson, { dist: 1000, clip:true }) 
+```
+
+**clip** allows to clip geometries. [Example](https://observablehq.com/@neocartocnrs/clip?collection=@neocartocnrs/geotoolbox)
+
+```js
+geo.clip(geojson1, {clip:geojson2}) 
+```
+
+**centroid** allows to compute centroids from polygons. [Example](https://observablehq.com/@neocartocnrs/centroid?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.centroid(world) // a geojson (polygons)
 ```
 
-By default, the centroid is placed in the largest polygon. But yout can avoid it
+By default, the centroid is placed in the largest polygon. But yout can avoid it.
 
 ```js
 geo.centroid(
@@ -185,7 +215,7 @@ geo.centroid(
     })
 ```
 
-Moreover, it may happen that the coordinates of your base map are not in latitudes and longitudes, but already projected. In this case you can use the option `planar = true`
+Moreover, it may happen that the coordinates of your base map are not in latitudes and longitudes, but already projected. In this case you can use the option `planar = true`.
 
 ```js
 geo.centroid(
@@ -196,7 +226,7 @@ geo.centroid(
     })
 ```
 
-**coords2geo** allows to build a geojson from a table with lat,lng coordinates.
+**coords2geo** allows to build a geojson from a table with lat,lng coordinates. [Example](https://observablehq.com/@neocartocnrs/coords2geo?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.coords2geo(
@@ -223,7 +253,7 @@ For an even simpler automatic use, you don't have to specify the name of the var
 geo.coords2geo(data) // a json
 ```
 
-Sometimes there can be an unfortunate inversion of the coordinates. In this case you can simply set the reverse option to true. 
+Sometimes there can be an unfortunate inversion of the coordinates. In this case you can simply set the reverse option to true.
 
 ```js
 geo.coords2geo(
@@ -233,14 +263,13 @@ geo.coords2geo(
     })
 ```
 
-
-**dissolve** allows to disolve geometries (multi parts to single parts)
+**dissolve** allows to disolve geometries (multi parts to single parts). [Example](https://observablehq.com/@neocartocnrs/dissolve?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.dissolve(world) // a geojson
 ```
 
-**union** allows to merge polygon geometries
+**union** allows to merge polygon geometries. [Example](https://observablehq.com/@neocartocnrs/union?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.union(world) // a geojson
@@ -256,7 +285,7 @@ continents = geo.union(
     })
 ```
 
-**simplify** allows to simplify geometries preserving topology (`topojson.simplify` algorithm)
+**simplify** allows to simplify geometries preserving topology (`topojson.simplify` algorithm). [Example](https://observablehq.com/@neocartocnrs/simplify?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.simplify(
@@ -267,13 +296,13 @@ geo.simplify(
     })
 ```
 
-**tissot** tissot allows to get the Tissot's indicatrix
+**tissot** tissot allows to get the Tissot's indicatrix. [Example](https://observablehq.com/@neocartocnrs/tissot?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.tissot(20) // step (default; 10)
 ```
 
-**geolines** allows to get the natural geographic lines such as equator, tropics & polar circles.
+**geolines** allows to get the natural geographic lines such as equator, tropics & polar circles. [Example](https://observablehq.com/@neocartocnrs/geolines?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.geolines() 
@@ -281,7 +310,7 @@ geo.geolines()
 
 #### 3.3 Helpers
 
-**featurecollection** allows to convert an array of features or an array of geometries to a well formated geosjon.
+**featurecollection** allows to convert an array of features or an array of geometries to a well formated geosjon. [Example](https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox)
 
 ```js
 geo.featurecollection(features) 

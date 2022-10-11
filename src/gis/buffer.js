@@ -1,4 +1,9 @@
-import * as jsts from "jsts/dist/jsts";
+//import * as jsts from "jsts/dist/jsts";
+
+import { io } from "jsts/dist/jsts";
+const jsts = Object.assign({}, { io });
+import { clip } from "./clip.js";
+
 import { km2deg } from "../helpers/km2deg.js";
 import { union } from "./union.js";
 import { featurecollection } from "../helpers/featurecollection.js";
@@ -15,7 +20,7 @@ export function buffer(x, options = {}) {
       distance = options.dist;
       break;
     default:
-      distance = km2deg(1000);
+      distance = 0;
   }
   let reader = new jsts.io.GeoJSONReader();
   let data = reader.read(featurecollection(x));
@@ -33,9 +38,14 @@ export function buffer(x, options = {}) {
     }
   });
 
+  buffs = { type: "FeatureCollection", features: buffs };
+
   if (options.merge) {
-    return union({ type: "FeatureCollection", features: buffs });
-  } else {
-    return { type: "FeatureCollection", features: buffs };
+    buffs = union(buffs);
   }
+  if (options.clip) {
+    buffs = clip(buffs);
+  }
+
+  return buffs;
 }
