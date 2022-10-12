@@ -130,6 +130,8 @@ _Here we are talking about some easy functions useful for thematic maps, based o
 
 **aggregate** allows to merge geometries based on their topology. To merge polygon geometries, see ```union```. [Example](https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox)
 
+![logo](img/aggregate.svg)]
+
 ```js
 geo.aggregate(world) // a geojson
 ```
@@ -146,14 +148,18 @@ continents = geo.aggregate(
 
 **bbox** allows to return a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) in geojson from a geojson or a n array defining a bounding `[[left, bottom], [right, top]]`. This function is basend on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample). [Example](https://observablehq.com/@neocartocnrs/bbox?collection=@neocartocnrs/geotoolbox)
 
+![logo](img/bbox.svg)]
+
 ```js
 geo.bbox(world) // a geojson
 ```
 
 **border** allows to extract boundaries from a geojson (polygons). With options, you can get ids and calculate discontinuities. [Example](https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox)
 
+![logo](img/border.svg)]
+
 ```js
-geo.bbox(world) // a geojson
+geo.border(world) // a geojson
 ```
 
 With options:
@@ -169,7 +175,9 @@ geo.border(
     })
 ```
 
-**buffer**  allows to build a buffer from points, lines or polygones. The distance is in kilimeters. 
+**buffer**  allows to build a buffer from points, lines or polygones. The distance is in kilimeters.
+
+![logo](img/buffer.svg)]
 
 ```js
 geo.buffer(geojson, { dist: 1000 }) // 1000 km 
@@ -195,11 +203,15 @@ geo.buffer(geojson, { dist: 1000, clip:true })
 
 **clip** allows to clip geometries. [Example](https://observablehq.com/@neocartocnrs/clip?collection=@neocartocnrs/geotoolbox)
 
+![logo](img/clip.svg)]
+
 ```js
 geo.clip(geojson1, {clip:geojson2}) 
 ```
 
 **centroid** allows to compute centroids from polygons. [Example](https://observablehq.com/@neocartocnrs/centroid?collection=@neocartocnrs/geotoolbox)
+
+![logo](img/centroid.svg)]
 
 ```js
 geo.centroid(world) // a geojson (polygons)
@@ -227,6 +239,8 @@ geo.centroid(
 ```
 
 **coords2geo** allows to build a geojson from a table with lat,lng coordinates. [Example](https://observablehq.com/@neocartocnrs/coords2geo?collection=@neocartocnrs/geotoolbox)
+
+![logo](img/coords2geo.svg)]
 
 ```js
 geo.coords2geo(
@@ -265,11 +279,15 @@ geo.coords2geo(
 
 **dissolve** allows to disolve geometries (multi parts to single parts). [Example](https://observablehq.com/@neocartocnrs/dissolve?collection=@neocartocnrs/geotoolbox)
 
+![logo](img/dissolve.svg)]
+
 ```js
 geo.dissolve(world) // a geojson
 ```
 
 **union** allows to merge polygon geometries. [Example](https://observablehq.com/@neocartocnrs/union?collection=@neocartocnrs/geotoolbox)
+
+![logo](img/union.svg)]
 
 ```js
 geo.union(world) // a geojson
@@ -287,6 +305,8 @@ continents = geo.union(
 
 **simplify** allows to simplify geometries preserving topology (`topojson.simplify` algorithm). [Example](https://observablehq.com/@neocartocnrs/simplify?collection=@neocartocnrs/geotoolbox)
 
+![logo](img/simplify.svg)]
+
 ```js
 geo.simplify(
     world, // a geojson
@@ -298,11 +318,15 @@ geo.simplify(
 
 **tissot** tissot allows to get the Tissot's indicatrix. [Example](https://observablehq.com/@neocartocnrs/tissot?collection=@neocartocnrs/geotoolbox)
 
+![logo](img/tissot.svg)]
+
 ```js
 geo.tissot(20) // step (default; 10)
 ```
 
 **geolines** allows to get the natural geographic lines such as equator, tropics & polar circles. [Example](https://observablehq.com/@neocartocnrs/geolines?collection=@neocartocnrs/geotoolbox)
+
+![logo](img/geolines.svg)]
 
 ```js
 geo.geolines() 
@@ -311,6 +335,9 @@ geo.geolines()
 #### 3.3 Helpers
 
 **featurecollection** allows to convert an array of features or an array of geometries to a well formated geosjon. [Example](https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox)
+
+
+![logo](img/featurecollection.svg)]
 
 ```js
 geo.featurecollection(features) 
