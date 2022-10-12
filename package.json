@@ -1,6 +1,6 @@
 {
   "name": "geotoolbox",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "description": "geotoolbox is javascript tool for geographers based on d3geo, topojson and jsts. It allows to simply deal with geojson properties and provides several GIS operations useful for thematic cartography.",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -27,7 +27,6 @@
     "geospatial",
     "geocomputing",
     "geography"
-
   ],
   "author": "Nicolas Lambert",
   "license": "MIT",
