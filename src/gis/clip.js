@@ -1,5 +1,6 @@
 //import * as jsts from "jsts/dist/jsts";
 import { union } from "./union.js";
+import { km2deg } from "../helpers/km2deg.js";
 import { io } from "jsts/dist/jsts";
 const jsts = Object.assign({}, { io });
 
@@ -9,7 +10,8 @@ export function clip(x, options = {}) {
   let reader = new jsts.io.GeoJSONReader();
   let data = reader.read(featurecollection(x));
 
-  let buffer = options.buffer ? options.buffer : 0.0000001;
+  let buffer = options.buffer ? km2deg(options.buffer) : 0.0000001;
+  let reverse = options.reverse ? true : false;
 
   let clip = null;
   if (options.clip != null && options.clip != undefined) {
@@ -44,14 +46,16 @@ export function clip(x, options = {}) {
   for (let i = 1; i < clip.features.length; i++) {
     geomclip = geomclip.union(clip.features[i].geometry);
   }
-  geomclip = geomclip.buffer(buffer);
+  geomclip = geomclip.buffer(reverse ? -buffer : buffer);
 
-  // Intersection
+  // Intersection / difference
   let result = [];
 
   data.features.forEach((d) => {
     let geom = new jsts.io.GeoJSONWriter().write(
-      d.geometry.intersection(geomclip)
+      reverse
+        ? d.geometry.difference(geomclip)
+        : d.geometry.intersection(geomclip)
     );
 
     if (geom.coordinates[0].length !== 0) {
