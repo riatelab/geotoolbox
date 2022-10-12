@@ -1,7 +1,7 @@
 {
   "name": "geotoolbox",
   "version": "1.8.4",
-  "description": "A tool to add, remove, change and filter fields within a geojson",
+  "description": "geotoolbox is javascript tool for geographers based on d3geo, topojson and jsts. It allows to simply deal with geojson properties and provides several GIS operations useful for thematic cartography.",
   "main": "src/index.js",
   "module": "src/index.js",
   "jsdelivr": "dist/index.min.js",
@@ -23,8 +23,11 @@
     "url": "git+https://github.com/neocarto/geotoolbox.git"
   },
   "keywords": [
-    "iso3",
-    "countries"
+    "GIS",
+    "geospatial",
+    "geocomputing",
+    "geography"
+
   ],
   "author": "Nicolas Lambert",
   "license": "MIT",
