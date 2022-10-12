@@ -4,11 +4,12 @@
 // import * as d3geo from "d3-geo";
 import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
+import { featurecollection } from "../helpers/featurecollection.js";
 
 export function bbox(_) {
   let bounds;
   if (!Array.isArray(_)) {
-    bounds = d3.geoBounds(_);
+    bounds = d3.geoBounds(featurecollection(_));
   } else {
     bounds = _;
   }

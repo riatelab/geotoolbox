@@ -1,6 +1,8 @@
 import { topology } from "topojson-server";
 import { feature } from "topojson-client";
+import { featurecollection } from "../helpers/featurecollection.js";
 import { presimplify, quantile, simplify as simple } from "topojson-simplify";
+
 const topojson = Object.assign(
   {},
   { topology, presimplify, quantile, simple, feature }
@@ -15,7 +17,7 @@ export function simplify(geojson, options = {}) {
   if (merge) {
     geo = union(geojson);
   } else {
-    geo = JSON.parse(JSON.stringify(geojson));
+    geo = featurecollection(geojson);
   }
   // simplification
   let topo = topojson.topology({ foo: geo });

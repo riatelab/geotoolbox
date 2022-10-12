@@ -3,7 +3,6 @@
 import { io } from "jsts/dist/jsts";
 const jsts = Object.assign({}, { io });
 import { clip } from "./clip.js";
-
 import { km2deg } from "../helpers/km2deg.js";
 import { union } from "./union.js";
 import { featurecollection } from "../helpers/featurecollection.js";

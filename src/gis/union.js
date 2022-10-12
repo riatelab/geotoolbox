@@ -2,7 +2,6 @@
 
 import { io } from "jsts/dist/jsts";
 const jsts = Object.assign({}, { io });
-
 import { featurecollection } from "../helpers/featurecollection.js";
 
 // Ajouter id comme option comme dans aggregate

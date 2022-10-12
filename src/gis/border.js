@@ -1,11 +1,12 @@
 import { topology } from "topojson-server";
 import { neighbors, mesh } from "topojson-client";
 const topojson = Object.assign({}, { topology, neighbors, mesh });
+import { featurecollection } from "../helpers/featurecollection.js";
 import * as d3array from "d3-array";
 const d3 = Object.assign({}, d3array);
 
 export function border(geojson, options = {}) {
-  let geo = JSON.parse(JSON.stringify(geojson));
+  let geo = featurecollection(geojson);
 
   if (options.values == undefined && options.id == undefined) {
     const topo = topojson.topology({ d: geo });

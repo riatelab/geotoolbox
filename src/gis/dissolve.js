@@ -1,8 +1,10 @@
 import { geoArea } from "d3-geo";
+import { featurecollection } from "../helpers/featurecollection.js";
 
 // Multi part to single part geometries
 
 export function dissolve(geojson) {
+  geojson = featurecollection(geojson);
   let result = [];
   geojson.features.forEach((d) => {
     result.push(sp(d));
