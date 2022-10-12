@@ -26,5 +26,8 @@ export { clip } from "./gis/clip.js";
 // Helpers
 export { featurecollection } from "./helpers/featurecollection.js";
 
+// Tests
+export { buffer2 } from "./gis/buffer2.js";
+
 // Spatial queries
 // contain, intersect, ...

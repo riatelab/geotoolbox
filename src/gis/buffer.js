@@ -7,8 +7,6 @@ import { km2deg } from "../helpers/km2deg.js";
 import { union } from "./union.js";
 import { featurecollection } from "../helpers/featurecollection.js";
 
-// TODO : clip world extent
-
 export function buffer(x, options = {}) {
   let distance = 0;
   switch (typeof options.dist) {
