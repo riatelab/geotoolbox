@@ -1,7 +1,6 @@
-import { union } from "./union.js";
+import { union } from "../beta/union.js";
 import { km2deg } from "../helpers/km2deg.js";
-import { io } from "jsts/dist/jsts";
-const jsts = Object.assign({}, { io });
+import jsts from "jsts/dist/jsts";
 import { featurecollection } from "../helpers/featurecollection.js";
 
 export function clip(x, options = {}) {

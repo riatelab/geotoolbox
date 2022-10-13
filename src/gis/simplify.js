@@ -7,7 +7,7 @@ const topojson = Object.assign(
   {},
   { topology, presimplify, quantile, simple, feature }
 );
-import { union } from "./union.js";
+import { union } from "../beta/union.js";
 
 export function simplify(geojson, options = {}) {
   let k = options.k ? options.k : 0.5;

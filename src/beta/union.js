@@ -1,8 +1,11 @@
-import jsts from "jsts/dist/jsts";
+import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader.js";
+import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter.js";
+import UnionOp from "jsts/org/locationtech/jts/operation/union/UnionOp.js";
+const jsts = Object.assign({}, { GeoJSONReader, GeoJSONWriter, UnionOp });
 import { featurecollection } from "../helpers/featurecollection.js";
 
 export function union(x, options = {}) {
-  let reader = new jsts.io.GeoJSONReader();
+  let reader = new jsts.GeoJSONReader();
   let data = reader.read(featurecollection(x));
 
   if (options.id != null && options.id != undefined) {
@@ -17,13 +20,13 @@ export function union(x, options = {}) {
       let geom = features[0].geometry;
 
       for (let i = 1; i < features.length; i++) {
-        geom = geom.union(features[i].geometry);
+        geom = jsts.UnionOp.union(geom, features[i].geometry);
       }
 
       result.push({
         type: "Feature",
         properties: { id: d },
-        geometry: new jsts.io.GeoJSONWriter().write(geom),
+        geometry: new jsts.GeoJSONWriter().write(geom),
       });
     });
 
@@ -35,9 +38,9 @@ export function union(x, options = {}) {
     // Union all
     let geom = data.features[0].geometry;
     for (let i = 1; i < data.features.length; i++) {
-      geom = geom.union(data.features[i].geometry);
+      geom = jsts.UnionOp.union(geom, data.features[i].geometry);
     }
-    const result = new jsts.io.GeoJSONWriter().write(geom);
+    const result = new jsts.GeoJSONWriter().write(geom);
 
     return {
       type: "FeatureCollection",

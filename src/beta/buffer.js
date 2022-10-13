@@ -1,7 +1,10 @@
-import jsts from "jsts/dist/jsts";
+import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader.js";
+import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter.js";
+import BufferOp from "jsts/org/locationtech/jts/operation/buffer/BufferOp.js";
+const jsts = Object.assign({}, { GeoJSONReader, GeoJSONWriter, BufferOp });
 import { clip } from "./clip.js";
-import { union } from "../beta/union.js";
 import { km2deg } from "../helpers/km2deg.js";
+import { union } from "../beta/union.js";
 import { featurecollection } from "../helpers/featurecollection.js";
 
 export function buffer(x, options = {}) {
@@ -19,7 +22,7 @@ export function buffer(x, options = {}) {
       distance = 0;
   }
 
-  let reader = new jsts.io.GeoJSONReader();
+  let reader = new jsts.GeoJSONReader();
   let data = reader.read(featurecollection(x));
   let buffs = [];
   data.features.forEach((d) => {
@@ -32,10 +35,8 @@ export function buffer(x, options = {}) {
         : d.properties[distance];
     }
 
-    let buff = new jsts.io.GeoJSONWriter().write(
-      d.geometry.buffer(featdist, step)
-
-      // jsts.BufferOp.bufferOp(d.geometry, featdist, step)
+    let buff = new jsts.GeoJSONWriter().write(
+      jsts.BufferOp.bufferOp(d.geometry, featdist, step)
     );
 
     if (buff.coordinates[0].length !== 0) {
