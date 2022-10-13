@@ -1,9 +1,9 @@
 import jsts from "jsts/dist/jsts";
-import { featurecollection } from "../helpers/featurecollection.js";
+import { buffer } from "./buffer.js";
 
 export function union(x, options = {}) {
   let reader = new jsts.io.GeoJSONReader();
-  let data = reader.read(featurecollection(x));
+  let data = reader.read(buffer(x));
 
   if (options.id != null && options.id != undefined) {
     // Union by id

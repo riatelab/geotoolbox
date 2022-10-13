@@ -1,6 +1,6 @@
 import jsts from "jsts/dist/jsts";
 import { clip } from "./clip.js";
-import { union } from "../beta/union.js";
+import { union } from "./union.js";
 import { km2deg } from "../helpers/km2deg.js";
 import { featurecollection } from "../helpers/featurecollection.js";
 
