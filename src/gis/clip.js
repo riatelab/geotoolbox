@@ -1,4 +1,3 @@
-//import * as jsts from "jsts/dist/jsts";
 import { union } from "./union.js";
 import { km2deg } from "../helpers/km2deg.js";
 import { io } from "jsts/dist/jsts";

@@ -183,7 +183,7 @@ geo.border(
 geo.buffer(geojson, { dist: 1000 }) // 1000 km 
 ```
 
-The distance value can also be contained in a geojson field (in the properties). In this case, you just have to indicate the name of this field.
+The ```distance``` value can also be contained in a geojson field (in the properties). In this case, you just have to indicate the name of this field.
 
 ```js
 geo.buffer(geojson, { dist: "a field" }) // a filed in properties
@@ -195,10 +195,22 @@ The merge option allows to merging all the output buffers.
 geo.buffer(geojson, { dist: 1000, merge:true }) 
 ```
 
-The clip option prevents the buffers from sticking out of the world outline. Not having coordinates that exceed [-90, 90] in latitude and [-180, 180] in longitude is necessary for the d3.js projection functions to work properly.
+The ```clip``` option prevents the buffers from sticking out of the world outline. Not having coordinates that exceed [-90, 90] in latitude and [-180, 180] in longitude is necessary for the d3.js projection functions to work properly.
 
 ```js
 geo.buffer(geojson, { dist: 1000, clip:true }) 
+```
+
+The ```step``` option allows to define the precision of the buffer (default:8)
+
+```js
+geo.buffer(geojson, { dist: 1000, step:1 }) 
+```
+
+You can use ```wgs84=false``` if your gejson is not in wgs84. In this case, the distance will be given in the map coordinates. 
+
+```js
+geo.buffer(geojson, { dist: 1000, wgs84:false }) 
 ```
 
 **clip** allows to clip geometries. [Example](https://observablehq.com/@neocartocnrs/clip?collection=@neocartocnrs/geotoolbox)

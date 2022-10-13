@@ -9,7 +9,6 @@ export { head } from "./properties/head.js";
 export { tail } from "./properties/tail.js";
 
 // GIS operations
-
 export { aggregate } from "./gis/aggregate.js";
 export { union } from "./gis/union.js";
 export { centroid } from "./gis/centroid.js";
@@ -26,8 +25,5 @@ export { clip } from "./gis/clip.js";
 // Helpers
 export { featurecollection } from "./helpers/featurecollection.js";
 
-// Tests
-export { buffer2 } from "./gis/buffer2.js";
-
-// Spatial queries
+// Spatial queries (todo)
 // contain, intersect, ...
