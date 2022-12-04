@@ -5,7 +5,7 @@ describe('properties>remove module', () => {
     it('keeps only non-specified columns from feature properties', () => {
         const fc = remove({
             x: world,
-            field: ["ISO3", "NAMEfr", "name", "pop", "gdp", "year"]
+            field: ["ISO3", "NAMEfr", "name", "pop", "gdp", "year", "distance"]
         })
         expect(fc).toBeFeatureCollection();
         for (const feature of fc.features) {

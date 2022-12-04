@@ -16,7 +16,8 @@ describe('properties>table module', () => {
                 "name",
                 "pop",
                 "region",
-                "year"
+                "year",
+                "distance"
             ].sort());
         }
     })
