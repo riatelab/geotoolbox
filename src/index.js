@@ -27,9 +27,3 @@ export { clip } from "./gis/clip.js";
 
 // Spatial queries (todo)
 // contain, intersect, ...
-
-// Test
-export { multiPoint } from "./utils/multiPoint.js";
-export { multiPoly } from "./utils/multiPoly.js";
-export { multiLine } from "./utils/multiLine.js";
-export { type } from "./utils/type.js";
