@@ -1,29 +1,46 @@
-import jsts from "jsts/dist/jsts";
-import { buffer } from "./buffer.js";
+import { type } from "../utils/type.js";
+import { topology } from "topojson-server";
+import { merge } from "topojson-client";
+const topojson = Object.assign({}, { topology, merge });
+import { featurecollection } from "../utils/featurecollection.js";
+import UnaryUnionOp from "jsts/org/locationtech/jts/operation/union/UnaryUnionOp";
+import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader";
+import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter";
+
+const jsts = {
+  UnaryUnionOp,
+  GeoJSONReader,
+  GeoJSONWriter,
+};
 
 export function union(x, options = {}) {
-  let reader = new jsts.io.GeoJSONReader();
-  let data = reader.read(buffer(x));
+  x = featurecollection(x);
+  let geomtype = type(x);
 
+  let reader = new jsts.GeoJSONReader();
+  let writer = new jsts.GeoJSONWriter();
   if (options.id != null && options.id != undefined) {
     // Union by id
     let ids = Array.from(
-      new Set(data.features.map((d) => d.properties[options.id]))
+      new Set(x.features.map((d) => d.properties[options.id]))
     );
 
     let result = [];
     ids.forEach((d) => {
-      let features = data.features.filter((e) => e.properties[options.id] == d);
-      let geom = features[0].geometry;
+      let subx = featurecollection(
+        x.features.filter((e) => e.properties[options.id] == d)
+      );
 
-      for (let i = 1; i < features.length; i++) {
-        geom = geom.union(features[i].geometry);
-      }
-
+      let topo = topojson.topology({ foo: subx });
+      let geom = topojson.merge(topo, topo.objects.foo.geometries);
       result.push({
         type: "Feature",
-        properties: { id: d },
-        geometry: new jsts.io.GeoJSONWriter().write(geom),
+        properties: {},
+        geometry: writer.write(
+          jsts.UnaryUnionOp.union(
+            reader.read(featurecollection(geom)).features[0].geometry
+          )
+        ),
       });
     });
 
@@ -33,15 +50,25 @@ export function union(x, options = {}) {
     };
   } else {
     // Union all
-    let geom = data.features[0].geometry;
-    for (let i = 1; i < data.features.length; i++) {
-      geom = geom.union(data.features[i].geometry);
-    }
-    const result = new jsts.io.GeoJSONWriter().write(geom);
-
+    let topo = topojson.topology({ foo: x });
+    let geom = topojson.merge(topo, topo.objects.foo.geometries);
     return {
       type: "FeatureCollection",
-      features: [{ type: "Feature", properties: {}, geometry: result }],
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry:
+            geomtype == "poly"
+              ? writer.write(
+                  jsts.UnaryUnionOp.union(
+                    reader.read(featurecollection(geom)).features[0].geometry
+                  )
+                )
+              : geom,
+          //featurecollection(geom).features[0].geometry,
+        },
+      ],
     };
   }
 }

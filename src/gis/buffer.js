@@ -1,10 +1,18 @@
-import jsts from "jsts/dist/jsts";
-import { clip } from "./clip.js";
+import BufferOp from "jsts/org/locationtech/jts/operation/buffer/BufferOp";
+import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader";
+import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter";
+const jsts = {
+  BufferOp,
+  GeoJSONReader,
+  GeoJSONWriter,
+};
 import { union } from "./union.js";
-import { km2deg } from "../helpers/km2deg.js";
-import { featurecollection } from "../helpers/featurecollection.js";
+import { clip } from "./clip.js";
+import { km2deg } from "../utils/km2deg.js";
+import { featurecollection } from "../utils/featurecollection.js";
 
 export function buffer(x, options = {}) {
+  // Parameters
   let step = options.step ? options.step : 8;
   let wgs84 = options.wgs84 === false ? false : true;
   let distance = 0;
@@ -19,7 +27,9 @@ export function buffer(x, options = {}) {
       distance = 0;
   }
 
-  let reader = new jsts.io.GeoJSONReader();
+  let reader = new jsts.GeoJSONReader();
+  let writer = new jsts.GeoJSONWriter();
+
   let data = reader.read(featurecollection(x));
   let buffs = [];
   data.features.forEach((d) => {
@@ -32,11 +42,9 @@ export function buffer(x, options = {}) {
         : d.properties[distance];
     }
 
-    let buff = new jsts.io.GeoJSONWriter().write(
-      d.geometry.buffer(featdist, step)
+    let buff = jsts.BufferOp.bufferOp(d.geometry, featdist, step);
 
-      // jsts.BufferOp.bufferOp(d.geometry, featdist, step)
-    );
+    buff = writer.write(buff);
 
     if (buff.coordinates[0].length !== 0) {
       buffs.push({
@@ -51,6 +59,7 @@ export function buffer(x, options = {}) {
   if (options.merge) {
     buffs = union(buffs);
   }
+
   if (options.clip) {
     buffs = clip(buffs);
   }

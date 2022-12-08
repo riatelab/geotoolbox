@@ -1,3 +1,6 @@
+// Utils
+export { featurecollection } from "./utils/featurecollection.js";
+
 // Properties operations
 export { add } from "./properties/add.js";
 export { filter } from "./properties/filter.js";
@@ -22,8 +25,11 @@ export { geolines } from "./gis/geolines.js";
 export { buffer } from "./gis/buffer.js";
 export { clip } from "./gis/clip.js";
 
-// Helpers
-export { featurecollection } from "./helpers/featurecollection.js";
-
 // Spatial queries (todo)
 // contain, intersect, ...
+
+// Test
+export { multiPoint } from "./utils/multiPoint.js";
+export { multiPoly } from "./utils/multiPoly.js";
+export { multiLine } from "./utils/multiLine.js";
+export { type } from "./utils/type.js";
