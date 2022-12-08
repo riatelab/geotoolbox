@@ -4,7 +4,7 @@
 // import * as d3geo from "d3-geo";
 import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
-import { featurecollection } from "../helpers/featurecollection.js";
+import { featurecollection } from "../utils/featurecollection.js";
 
 export function bbox(_) {
   let bounds;

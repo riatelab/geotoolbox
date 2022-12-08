@@ -1,6 +1,6 @@
 import { topology } from "topojson-server";
 import { feature } from "topojson-client";
-import { featurecollection } from "../helpers/featurecollection.js";
+import { featurecollection } from "../utils/featurecollection.js";
 import { presimplify, quantile, simplify as simple } from "topojson-simplify";
 
 const topojson = Object.assign(

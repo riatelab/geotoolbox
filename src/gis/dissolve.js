@@ -1,5 +1,5 @@
 import { geoArea } from "d3-geo";
-import { featurecollection } from "../helpers/featurecollection.js";
+import { featurecollection } from "../utils/featurecollection.js";
 
 // Multi part to single part geometries
 

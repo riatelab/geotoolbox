@@ -1,7 +1,7 @@
 // Imports
 
 import { geoArea, geoCentroid, geoIdentity, geoPath } from "d3-geo";
-import { featurecollection } from "../helpers/featurecollection.js";
+import { featurecollection } from "../utils/featurecollection.js";
 
 const d3 = Object.assign({}, { geoArea, geoCentroid, geoIdentity, geoPath });
 export function centroid(geojson, options = {}) {
