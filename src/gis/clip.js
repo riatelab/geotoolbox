@@ -65,8 +65,18 @@ export function clip(x, options = {}) {
       ? jsts.OverlayOp.difference(d.geometry, geomclip)
       : jsts.OverlayOp.intersection(d.geometry, geomclip);
 
-    geom = writer.write(geom);
+    // fix point intersection
+    if (geom.hasOwnProperty("_coordinates")) {
+      if (geom._coordinates._coordinates.length == 0) {
+        geom = { type: "Point", coordinates: [] };
+      } else {
+        geom = writer.write(geom);
+      }
+    } else {
+      geom = writer.write(geom);
+    }
 
+    // build features
     if (geom.coordinates.flat().length !== 0) {
       result.push({
         type: "Feature",
