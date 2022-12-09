@@ -67,8 +67,7 @@ export function clip(x, options = {}) {
 
     geom = writer.write(geom);
 
-    //result.push(geom);
-    if (geom.coordinates[0].length !== 0) {
+    if (geom.coordinates.flat().length !== 0) {
       result.push({
         type: "Feature",
         properties: d.properties,
