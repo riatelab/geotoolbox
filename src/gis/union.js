@@ -39,7 +39,7 @@ export function union(x, options = {}) {
         let geom = topojson.merge(topo, topo.objects.foo.geometries);
         result.push({
           type: "Feature",
-          properties: {},
+          properties: { id: d },
           geometry: writer.write(
             jsts.UnaryUnionOp.union(
               reader.read(featurecollection(geom)).features[0].geometry
