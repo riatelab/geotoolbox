@@ -1,6 +1,6 @@
 // Filter
 import { str2fun } from "./str2fun.js";
-export function filter({ x, expression }) {
+export function strfilter({ x, expression }) {
   let features = [...x.features];
 
   // Get keys

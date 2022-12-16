@@ -3,13 +3,17 @@ export { featurecollection } from "./utils/featurecollection.js";
 
 // Properties operations
 export { add } from "./properties/add.js";
-export { filter } from "./properties/filter.js";
+export { strfilter } from "./properties/filter.js";
 export { keep } from "./properties/keep.js";
 export { remove } from "./properties/remove.js";
 export { table } from "./properties/table.js";
 export { subset } from "./properties/subset.js";
 export { head } from "./properties/head.js";
 export { tail } from "./properties/tail.js";
+
+// Iterators
+export { map } from "./iterator/map.js";
+export { filter } from "./iterator/filter.js";
 
 // GIS operations
 export { aggregate } from "./gis/aggregate.js";
