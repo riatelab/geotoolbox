@@ -3,7 +3,7 @@ export { featurecollection } from "./utils/featurecollection.js";
 
 // Properties operations
 export { add } from "./properties/add.js";
-export { strfilter } from "./properties/filter.js";
+export { select } from "./properties/select.js";
 export { keep } from "./properties/keep.js";
 export { remove } from "./properties/remove.js";
 export { table } from "./properties/table.js";

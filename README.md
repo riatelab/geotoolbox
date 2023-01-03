@@ -48,7 +48,7 @@ Find a demo of all functions [here](https://observablehq.com/@neocartocnrs/hello
 
 #### 3.1. Handle properties
 
-_Here we are talking about some basic functions which are useful for handling attribute data. [Example](https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox)_
+_Here we are talking about some basic functions which are useful for handling attribute data. [Example](https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox).
 
 **add** allows adding a new field in the attribute table. This function returns a new object and does not modify the initial object.
 
@@ -57,15 +57,6 @@ geo.add({
     x: world, // a geojson object
     field: "gdppc", // new colname (string) 
     expression: "gdp/pop*1000" // a string containing an expression
-})
-```
-
-**filter** allows filtering a geojson object by its attribute table. This function returns a new object and does not modify the initial object.
-
-```js
-geo.filter({
-    x: world, // a geojson object
-    expression: "pop2022 >= 100000" // an expression (string) 
 })
 ```
 
@@ -97,6 +88,15 @@ geo.remove({
 })
 ```
 
+**select** allows filtering a geojson object by its attribute table. This function returns a new object and does not modify the initial object.
+
+```js
+geo.select({
+    x: world, // a geojson object
+    expression: "pop2022 >= 100000" // an expression (string) 
+})
+```
+
 **subset** allows creating a subset from an array of values. This function returns a new object and does not modify the initial object.
 
 ```js
@@ -123,7 +123,6 @@ geo.tail({
     nb: 5 // default:10. Number of features to get. Here, the 5 least wealthy countries
 })
 ```
-
 #### 3.2 Handle geometries
 
 _Here we are talking about some basic functions which are useful for thematic maps, based on [topojson](https://github.com/topojson/topojson), [d3geo](https://github.com/d3/d3-geo) and [jsts](https://github.com/bjornharrtell/jsts)._
@@ -359,6 +358,38 @@ geo.geolines()
 ```
 
 #### 3.3 Utils
+
+**filter** allows to create and returns a new geojson containing all the elements of the original geojson that meet a condition determined by the callback function applied on properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/map-filter-geojson?collection=@neocartocnrs/geotoolbox).
+
+```js
+newworld = geo.filter(world, (d) => d.CNTR_ID == "BR")
+```
+
+You can also do the same thing on geometries by specifying a third argument as "geometry". For example:
+
+```js
+newworld = geo.filter(world, (d) => d3.geoArea(d) > area, "geometry")
+```
+
+**map** allows to create a new geojson with the results of a function call provided on each element of geojson properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/map-filter-geojson?collection=@neocartocnrs/geotoolbox).
+
+```js
+renameproperties = geo.map(world, (d, i) => ({
+  index: i,
+  id: d.CNTR_ID,
+  name: d.CNTR_NAME
+}))
+```
+
+You can also do the same thing on geometries by specifying a third argument as "geometry". For example:
+
+```js
+dot = geo.map(
+  world,
+  (d) => ({ type: "Point", coordinates: d3.geoCentroid(d) }),
+  "geometry"
+)
+```
 
 **featurecollection** allows converting an array of features or an array of geometries to a well formated geosjon. [Example](https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox)
 
