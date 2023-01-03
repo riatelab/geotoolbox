@@ -21,7 +21,7 @@ Pinned version
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.1"
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.2"
   charset="utf-8"
 ></script>
 ```
@@ -37,7 +37,7 @@ geo = require("geotoolbox");
 Pinned version
 
 ```js
-geo = require("geotoolbox@1.9.1");
+geo = require("geotoolbox@1.9.2");
 ```
 
 ### 2. <ins>Demo</ins>
@@ -361,6 +361,8 @@ geo.geolines()
 
 **filter** allows to create and returns a new geojson containing all the elements of the original geojson that meet a condition determined by the callback function applied on properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/filter-geojson?collection=@neocartocnrs/geotoolbox).
 
+![filter](img/filter.svg)
+
 ```js
 newworld = geo.filter(world, (d) => d.CNTR_ID == "BR")
 ```
@@ -372,6 +374,8 @@ newworld = geo.filter(world, (d) => d3.geoArea(d) > area, "geometry")
 ```
 
 **map** allows to create a new geojson with the results of a function call provided on each element of geojson properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/map-geojson?collection=@neocartocnrs/geotoolbox).
+
+![map](img/map.svg)
 
 ```js
 renameproperties = geo.map(world, (d, i) => ({
