@@ -359,7 +359,7 @@ geo.geolines()
 
 #### 3.3 Utils
 
-**filter** allows to create and returns a new geojson containing all the elements of the original geojson that meet a condition determined by the callback function applied on properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/map-filter-geojson?collection=@neocartocnrs/geotoolbox).
+**filter** allows to create and returns a new geojson containing all the elements of the original geojson that meet a condition determined by the callback function applied on properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/filter-geojson?collection=@neocartocnrs/geotoolbox).
 
 ```js
 newworld = geo.filter(world, (d) => d.CNTR_ID == "BR")
@@ -371,7 +371,7 @@ You can also do the same thing on geometries by specifying a third argument as "
 newworld = geo.filter(world, (d) => d3.geoArea(d) > area, "geometry")
 ```
 
-**map** allows to create a new geojson with the results of a function call provided on each element of geojson properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/map-filter-geojson?collection=@neocartocnrs/geotoolbox).
+**map** allows to create a new geojson with the results of a function call provided on each element of geojson properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/map-geojson?collection=@neocartocnrs/geotoolbox).
 
 ```js
 renameproperties = geo.map(world, (d, i) => ({
