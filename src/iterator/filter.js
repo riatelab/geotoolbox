@@ -9,8 +9,6 @@
  *
  * @see the <code>map</code> function
  *
- * @function
- * @name filter
  * @param {object} geojson - The FeatureCollection to iterate over
  * @param {function} func - The callback function to apply on each element
  * @param {string} [key=properties] - The key to apply the callback function on
