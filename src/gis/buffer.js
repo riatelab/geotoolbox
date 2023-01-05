@@ -8,6 +8,18 @@ const jsts = {
 };
 import { union } from "./union.js";
 import { clip } from "./clip.js";
+
+/**
+ * Build a buffer around a FeatureCollection or a set of Features or Geometries.
+ * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
+ * @param {object} options - Optional parameters
+ * @param {number|string} options.dist - The distance of the buffer in km or the name of the field containing the distance values
+ * @param {boolean} [options.clip] - Todo
+ * @param {boolean} [options.merge] - Todo
+ * @param {boolean} [options.step] - Todo
+ * @param {boolean} [options.wgs84] - Todo
+ * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
+ */
 import { km2deg } from "../utils/km2deg.js";
 import { featurecollection } from "../utils/featurecollection.js";
 
