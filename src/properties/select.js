@@ -1,5 +1,20 @@
-// Filter
 import { str2fun } from "./str2fun.js";
+
+/**
+ * Filter a GeoJSON FeatureCollection by its attribute table.
+ * This function returns a new object and does not modify the initial object.
+ *
+ * @param {object} obj - An object with the following properties
+ * @param {object} obj.x - The targeted GeoJSON FeatureCollection
+ * @param {string} obj.expression - The name of the field to be filtered
+ * @returns {object} - The new GeoJSON FeatureCollection
+ *
+ * @example
+ * geo.select({
+ *     x: world,
+ *     expression: "pop2022 >= 100000",
+ * })
+ */
 export function select({ x, expression }) {
   let features = [...x.features];
 

@@ -1,5 +1,5 @@
 /**
- * Create and returns a new GeoJSON FeatureCollection containing all
+ * Create and return a new GeoJSON FeatureCollection containing all
  * the elements of the original GeoJSON FeatureCollection that meet a condition
  * determined by the callback function applied on properties (or geometries).
  *
@@ -12,7 +12,7 @@
  * @param {object} geojson - The FeatureCollection to iterate over
  * @param {function} func - The callback function to apply on each element
  * @param {string} [key=properties] - The key to apply the callback function on
- * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}}
+ * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - The new GeoJSON FeatureCollection
  */
 export function filter(geojson, func = (d) => d, key = "properties") {
   let x = { ...geojson };

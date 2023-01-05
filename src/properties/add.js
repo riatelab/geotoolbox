@@ -1,5 +1,24 @@
 // Add
 import { str2fun } from "./str2fun.js";
+
+/**
+ * Add a new field in the attribute table of the GeoJSON FeatureCollection.
+ * This function returns a new object and does not modify the initial object.
+ *
+ *
+ * @param {object} obj - An object with the following properties
+ * @param {object} obj.x - The targeted GeoJSON FeatureCollection
+ * @param {string} obj.field - The name of the new field
+ * @param {string} obj.expression - The expression, as a string, to compute the new field
+ * @returns {object} - The new GeoJSON FeatureCollection
+ *
+ * @example
+ * geo.add({
+ *     x: world,
+ *     field: "gdppc",
+ *     expression: "gdp/pop*1000",
+ * })
+ */
 export function add({ x, field, expression }) {
   let data = [...x.features.map((d) => ({ ...d.properties }))];
 
