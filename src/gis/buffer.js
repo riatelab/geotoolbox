@@ -15,10 +15,10 @@ import { clip } from "./clip.js";
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
  * @param {object} options - Optional parameters
  * @param {number|string} options.dist - The distance of the buffer in km or the name of the field containing the distance values
- * @param {boolean} [options.clip] - Todo
- * @param {boolean} [options.merge] - Todo
+ * @param {boolean} [options.clip] - Prevent the buffer to have coordinates that exceed [-90, 90] in latitude and [-180, 180]
+ * @param {boolean} [options.merge=false] - Merge all the output buffers into a single Geometry
  * @param {boolean} [options.step] - Todo
- * @param {boolean} [options.wgs84] - Todo
+ * @param {boolean} [options.wgs84=true] - Whether the input data is in WGS84 or not
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
  * Example: {@link https://observablehq.com/@neocartocnrs/buffer?collection=@neocartocnrs/geotoolbox Observable Notebook}
