@@ -14,6 +14,8 @@ import { str2fun } from "./str2fun.js";
  *     x: world,
  *     expression: "pop2022 >= 100000",
  * })
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  */
 export function select({ x, expression }) {
   let features = [...x.features];

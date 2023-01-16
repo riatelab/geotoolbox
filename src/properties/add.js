@@ -18,6 +18,8 @@ import { str2fun } from "./str2fun.js";
  *     field: "gdppc",
  *     expression: "gdp/pop*1000",
  * })
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  */
 export function add({ x, field, expression }) {
   let data = [...x.features.map((d) => ({ ...d.properties }))];

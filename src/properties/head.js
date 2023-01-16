@@ -16,6 +16,8 @@
  *     field: "gdp",
  *     nb: 5,
  * })
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  */
 export function head({ x, field, nb = 10 }) {
   let features = [...x.features];

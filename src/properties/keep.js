@@ -16,6 +16,8 @@ import { remove } from "./remove.js";
  *     x: world,
  *     field: ["ISO3", "pop2020"],
  * })
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  */
 export function keep({ x, fields }) {
   // Get all keys

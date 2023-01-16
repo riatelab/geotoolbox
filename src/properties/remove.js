@@ -13,7 +13,9 @@
  * geo.remove({
  *     x: world,
  *     field: ["tmp", "FID"],
- * })
+ * }):
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  */
 export function remove({ x, field }) {
   let data = [...x.features.map((d) => ({ ...d.properties }))];

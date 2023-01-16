@@ -16,6 +16,8 @@
  *     selection: ["USA", "CAN", "MEX"],
  *     inverse: false,
  * })
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  */
 export function subset({ x, field, selection, inverse = false }) {
   let features = [...x.features];
