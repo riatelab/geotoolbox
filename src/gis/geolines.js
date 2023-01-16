@@ -1,3 +1,11 @@
+/**
+ * Returns a GeoJSON FeatureCollection of natural geographic lines such as
+ * the equator, tropics & polar circles.
+ *
+ * @returns {{features: *[], type: string}}
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/geolines?collection=@neocartocnrs/geotoolbox Observable Notebook}
+ */
 export function geolines() {
   let features = [];
   let arr = [

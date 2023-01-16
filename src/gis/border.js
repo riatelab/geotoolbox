@@ -10,7 +10,7 @@ const d3 = Object.assign({}, d3array);
  * (of polygons).
  * Options enable to get ids and calculate discontinuities.
  *
- * @param {object} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
+ * @param {object|array} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
  * @param {object} options - Optional parameters
  * @param {boolean} [options.id] - Get ids of boundaries
  * @param {boolean} [options.values] - Todo
