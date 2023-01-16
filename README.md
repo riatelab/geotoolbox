@@ -5,7 +5,7 @@
 ![license](https://img.shields.io/badge/license-MIT-success)
 ![code size](https://img.shields.io/github/languages/code-size/neocarto/bertin)
 
-*geotoolbox* is a javascript tool for geographers. It allows one to manage geojson properties (attribute data) and provides several useful GIS operations for thematic cartography.
+*geotoolbox* is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful GIS operations for thematic cartography.
 
 ## 1. <ins>Installation</ins>
 
@@ -54,7 +54,7 @@ _Here we are talking about some basic functions which are useful for handling at
 
 ```js
 geo.add({
-    x: world, // a geojson object
+    x: world, // a GeoJSON object
     field: "gdppc", // new colname (string) 
     expression: "gdp/pop*1000" // a string containing an expression
 })
@@ -64,7 +64,7 @@ geo.add({
 
 ```js
 geo.head({
-    x: world, // a geojson object
+    x: world, // a GeoJSON object
     field: "gdp", // a colname (string)
     nb: 5 // default:10. Number of features to get. Here, the 5 richest countries.
 })
@@ -74,7 +74,7 @@ geo.head({
 
 ```js
 geo.keep({
-    x: world, // a geojson object
+    x: world, // a GeoJSON object
     field: ["ISO3", "pop2020"] // colname(s) (string or array of strings) 
 })
 ```
@@ -83,16 +83,16 @@ geo.keep({
 
 ```js
 geo.remove({
-    x: world, // a geojson object
+    x: world, // a GeoJSON object
     field: ["tmp", "FID"] // colname(s) (string or array of strings) 
 })
 ```
 
-**select** allows filtering a geojson object by its attribute table. This function returns a new object and does not modify the initial object.
+**select** allows filtering a GeoJSON FeatureCollection by its attribute table. This function returns a new object and does not modify the initial object.
 
 ```js
 geo.select({
-    x: world, // a geojson object
+    x: world, // a GeoJSON object
     expression: "pop2022 >= 100000" // an expression (string) 
 })
 ```
@@ -101,24 +101,24 @@ geo.select({
 
 ```js
 geo.subset({
-    x: world, // a geojson object
+    x: world, // a GeoJSON object
     field: "ISO3", // colname (string)
     selection: ["USA", "CAN", "MEX"], // values to be kept. Here, North American countries
     inverse: false // default: false. If true, all countries except USA, CAN and MEX are kept 
 })
 ```
 
-**table** allows getting a geojson attribute table.
+**table** allows getting a GeoJSON FeatureCollection attribute table.
 
 ```js
-geo.table(world // a geojson object
+geo.table(world // a GeoJSON object
 ```
 
 **tail** allows getting the n bottom values from a given field. This function returns a new object and does not modify the initial object.
 
 ```js
 geo.tail({
-    x: world, // a geojson object
+    x: world, // a GeoJSON object
     field: "gdp", // a colname (string)
     nb: 5 // default:10. Number of features to get. Here, the 5 least wealthy countries
 })
@@ -132,40 +132,40 @@ _Here we are talking about some basic functions which are useful for thematic ma
 ![aggregate](img/aggregate.svg)
 
 ```js
-geo.aggregate(world) // a geojson object
+geo.aggregate(world) // a GeoJSON object
 ```
 
 With options, you can compute an aggregate by id.
 
 ```js
 continents = geo.aggregate(
-    world, // a geojson object
+    world, // a GeoJSON object
     { 
         id: "continent" // ids
     })
 ```
 
-**bbox** allows returning a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) as geojson from a geojson or a n array defining a bounding box `[[left, bottom], [right, top]]`. This function is based on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample). [Example](https://observablehq.com/@neocartocnrs/bbox?collection=@neocartocnrs/geotoolbox)
+**bbox** allows returning a [geographic bounding box](https://www.jasondavies.com/maps/bounds/) as GeoJSON from a GeoJSON or an array defining a bounding box `[[left, bottom], [right, top]]`. This function is based on Jacob Rus [code](https://observablehq.com/@jrus/sphere-resample). [Example](https://observablehq.com/@neocartocnrs/bbox?collection=@neocartocnrs/geotoolbox)
 
 ![bbox](img/bbox.svg)
 
 ```js
-geo.bbox(world) // a geojson object
+geo.bbox(world) // a GeoJSON object
 ```
 
-**border** allows extracting boundaries from a geojson object (polygons). With options, you can get ids and calculate discontinuities. [Example](https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox)
+**border** allows extracting boundaries from a GeoJSON object (polygons). With options, you can get ids and calculate discontinuities. [Example](https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox)
 
 ![border](img/border.svg)
 
 ```js
-geo.border(world) // a geojson object
+geo.border(world) // a GeoJSON object
 ```
 
 With options:
 
 ```js
 geo.border(
-    world, // a geojson object
+    world, // a GeoJSON object
     { 
         id: "ISO3", // ids
         values: "pop", // values
@@ -182,7 +182,7 @@ geo.border(
 geo.buffer(geojson, { dist: 1000 }) // 1000 km 
 ```
 
-The ```distance``` value can also be contained in a geojson field (in the properties). In this case, you just have to indicate the name of this field.
+The ```distance``` value can also be contained in a GeoJSON field (in the properties). In this case, you just have to indicate the name of this field.
 
 ```js
 geo.buffer(geojson, { dist: "a field" }) // a field in properties
@@ -206,7 +206,7 @@ The ```step``` option allows defining the precision of the buffer (default:8)
 geo.buffer(geojson, { dist: 1000, step:1 }) 
 ```
 
-You can use ```wgs84=false``` if your geojson is not in wgs84. In this case, the distance will be given in the map coordinates. 
+You can use ```wgs84=false``` if your GeoJSON is not in wgs84. In this case, the distance will be given in the map coordinates. 
 
 ```js
 geo.buffer(geojson, { dist: 1000, wgs84:false }) 
@@ -239,14 +239,14 @@ geo.clip(geojson1, {clip:geojson2, buffer: 100})
 ![centroid](img/centroid.svg)
 
 ```js
-geo.centroid(world) // a geojson (polygons) object
+geo.centroid(world) // a GeoJSON (polygons) object
 ```
 
 By default, the centroid is placed in the largest polygon. But you can avoid it.
 
 ```js
 geo.centroid(
-    world, // a geojson object
+    world, // a GeoJSON object
     {
         largest: false // largest polygon. true/false (default: true)
     })
@@ -256,14 +256,14 @@ It may happen that the coordinates of your base map are not in latitudes and lon
 
 ```js
 geo.centroid(
-    world, // a geojson object
+    world, // a GeoJSON object
     {
         largest: false, // largest polygon. true/false (default: true)
         planar: true // if geometries are already projected
     })
 ```
 
-**coords2geo** allows building a geojson object from a table with lat,lng coordinates. [Example](https://observablehq.com/@neocartocnrs/coords2geo?collection=@neocartocnrs/geotoolbox)
+**coords2geo** allows building a GeoJSON object from a table with lat,lng coordinates. [Example](https://observablehq.com/@neocartocnrs/coords2geo?collection=@neocartocnrs/geotoolbox)
 
 ![coords2geo](img/coords2geo.svg)
 
@@ -271,7 +271,7 @@ geo.centroid(
 geo.coords2geo(
     data, // a json object
     {
-        lat: "lat" // the field containing latitude coordinates (you can use also `latitude`) 
+        lat: "lat", // the field containing latitude coordinates (you can use also `latitude`) 
         lng: "lon" // the field containing longitude coordinates (you can use also `longitude`) 
     })
 ```
@@ -302,12 +302,12 @@ geo.coords2geo(
     })
 ```
 
-**dissolve** allows disolving geometries (multipart to single parts). [Example](https://observablehq.com/@neocartocnrs/dissolve?collection=@neocartocnrs/geotoolbox)
+**dissolve** allows dissolving geometries (multipart to single parts). [Example](https://observablehq.com/@neocartocnrs/dissolve?collection=@neocartocnrs/geotoolbox)
 
 ![dissolve](img/dissolve.svg)
 
 ```js
-geo.dissolve(world) // a geojson object
+geo.dissolve(world) // a GeoJSON object
 ```
 
 **union** allows merging polygon geometries. [Example](https://observablehq.com/@neocartocnrs/union?collection=@neocartocnrs/geotoolbox)
@@ -315,14 +315,14 @@ geo.dissolve(world) // a geojson object
 ![union](img/union.svg)
 
 ```js
-geo.union(world) // a geojson object
+geo.union(world) // a GeoJSON object
 ```
 
-With options, you can compute an union by id.
+With options, you can compute a union by id.
 
 ```js
 continents = geo.union(
-    world, // a geojson object
+    world, // a GeoJSON object
     { 
         id: "continent" // ids
     })
@@ -334,7 +334,7 @@ continents = geo.union(
 
 ```js
 geo.simplify(
-    world, // a geojson object
+    world, // a GeoJSON object
     { 
         k, // factor of simplification (default: 0.5)
         merge: false // true to merge geometries(default: false)
@@ -349,7 +349,7 @@ geo.simplify(
 geo.tissot(20) // step (default; 10)
 ```
 
-**geolines** allows getting the natural geographic lines such as equator, tropics & polar circles. [Example](https://observablehq.com/@neocartocnrs/geolines?collection=@neocartocnrs/geotoolbox)
+**geolines** allows getting the natural geographic lines such as the equator, tropics & polar circles. [Example](https://observablehq.com/@neocartocnrs/geolines?collection=@neocartocnrs/geotoolbox)
 
 ![geolines](img/geolines.svg)
 
@@ -359,7 +359,7 @@ geo.geolines()
 
 #### 3.3 Utils
 
-**filter** allows to create and returns a new geojson containing all the elements of the original geojson that meet a condition determined by the callback function applied on properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/filter-geojson?collection=@neocartocnrs/geotoolbox).
+**filter** allows to create and returns a new GeoJSON containing all the elements of the original GeoJSON that meet a condition determined by the callback function applied on properties (or geometries). the function returns a new GeoJSON and does not modify the initial GeoJSON. Find examples [here](https://observablehq.com/@neocartocnrs/filter-geojson?collection=@neocartocnrs/geotoolbox).
 
 ![filter](img/filter.svg)
 
@@ -373,7 +373,7 @@ You can also do the same thing on geometries by specifying a third argument as "
 newworld = geo.filter(world, (d) => d3.geoArea(d) > area, "geometry")
 ```
 
-**map** allows to create a new geojson with the results of a function call provided on each element of geojson properties (or geometries). the function returns a new geojson and does not modify the initial geojson. Find examples [here](https://observablehq.com/@neocartocnrs/map-geojson?collection=@neocartocnrs/geotoolbox).
+**map** allows to create a new GeoJSON with the results of a function call provided on each element of GeoJSON properties (or geometries). the function returns a new GeoJSON and does not modify the initial GeoJSON. Find examples [here](https://observablehq.com/@neocartocnrs/map-geojson?collection=@neocartocnrs/geotoolbox).
 
 ![map](img/map.svg)
 
@@ -395,7 +395,7 @@ dot = geo.map(
 )
 ```
 
-**featurecollection** allows converting an array of features or an array of geometries to a well formated geosjon. [Example](https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox)
+**featurecollection** allows converting an array of features or an array of geometries to a well formatted GeoJSON. [Example](https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox)
 
 ![featurecollection](img/featurecollection.svg)
 
@@ -403,7 +403,7 @@ dot = geo.map(
 geo.featurecollection(features) 
 ```
 
-**type** allows get the geometry type of a geojson ("point", "line", "polygon")
+**type** allows get the geometry type of a GeoJSON ("point", "line", "polygon")
 
 ```js
 geo.type(geojson) 
