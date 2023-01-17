@@ -1,3 +1,18 @@
+/**
+ * Wrap a GeoJSON object in a FeatureCollection.
+ * It accepts:
+ * - a single Feature
+ * - a single Geometry
+ * - an array of Features
+ * - an array of Geometries
+ *
+ * If the GeoJSON object is already a FeatureCollection, it is returned as-is.
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
+ * @param {object} x - The GeoJSON object(s) to wrap in a FeatureCollection
+ * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}}
+ */
 export function featurecollection(x) {
   x = JSON.parse(JSON.stringify(x));
   if (x.type == "FeatureCollection" && !Array.isArray(x)) {

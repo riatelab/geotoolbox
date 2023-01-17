@@ -5,6 +5,22 @@ import { featurecollection } from "../utils/featurecollection.js";
 import * as d3array from "d3-array";
 const d3 = Object.assign({}, d3array);
 
+/**
+ * Extract boundaries from a GeoJSON FeatureCollection / an array of Features / an array of Geometries
+ * (of polygons).
+ * Options enable to get ids and calculate discontinuities.
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
+ * @param {object|array} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
+ * @param {object} options - Optional parameters
+ * @param {boolean} [options.id] - Get ids of boundaries
+ * @param {boolean} [options.values] - Todo
+ * @param {boolean} [options.type] - Todo
+ * @param {boolean} [options.share] - Todo
+ * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
+ *
+ */
 export function border(geojson, options = {}) {
   let geo = featurecollection(geojson);
 

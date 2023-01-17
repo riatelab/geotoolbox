@@ -1,3 +1,20 @@
+/**
+ * Create a new GeoJSON FeatureCollection with the results
+ * of a function call provided on each element
+ * of GeoJSON properties (or geometries).
+ *
+ * The function returns a new GeoJSON FeatureCollection
+ * and does not modify the initial GeoJSON Object.
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/map-geojson?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
+ * @see the <code>filter</code> function
+ *
+ * @param {object} geojson - The FeatureCollection to iterate over
+ * @param {function} func - The callback function to apply on each element
+ * @param {string} [key=properties] - The key to apply the callback function on
+ * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - The new GeoJSON FeatureCollection
+ */
 export function map(geojson, func = (d) => d, key = "properties") {
   let x = { ...geojson };
   let features = x.features;

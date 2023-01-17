@@ -5,6 +5,20 @@ import { merge } from "topojson-client";
 const topojson = Object.assign({}, { topology, merge });
 import { featurecollection } from "../utils/featurecollection.js";
 
+/**
+ * Takes a FeatureCollection or a set of Features or Geometries and merge them
+ * based on their topology.
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
+ * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
+ * @param {object} [options={}] - Optional parameters
+ * @param {string} [options.id] - The id of the features to aggregate
+ * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - The new GeoJSON FeatureCollection
+ *
+ * @see the <code>union</code> function
+ *
+ */
 export function aggregate(x, options = {}) {
   x = featurecollection(x);
   if (options.id != null && options.id != undefined) {
