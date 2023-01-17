@@ -2,6 +2,8 @@
  * Create a subset from an array of values.
  * This function returns a new object and does not modify the initial object.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {object} obj - An object with the following properties
  * @param {object} obj.x - The targeted GeoJSON FeatureCollection
  * @param {string} obj.field - The name of the field on which the subset is based
@@ -17,7 +19,6 @@
  *     inverse: false,
  * })
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  */
 export function subset({ x, field, selection, inverse = false }) {
   let features = [...x.features];

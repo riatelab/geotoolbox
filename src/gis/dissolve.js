@@ -4,10 +4,11 @@ import { featurecollection } from "../utils/featurecollection.js";
 /**
  * Dissolve multipart geometries to single part geometries.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/dissolve?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param geojson - The target GeoJSON FeatureCollection / array of Features / array of Geometries
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/dissolve?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 export function dissolve(geojson) {
   geojson = featurecollection(geojson);

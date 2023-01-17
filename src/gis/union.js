@@ -17,6 +17,8 @@ const jsts = {
 /**
  * Takes a FeatureCollection or a set of Features or Geometries containing Polygons and merge them.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/union?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
  * @param {object} [options={}] - Optional parameters
  * @param {string} [options.id] - The id of the features to aggregate
@@ -24,7 +26,6 @@ const jsts = {
  *
  * @see the <code>aggregate</code> function
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/union?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 export function union(x, options = {}) {
   x = featurecollection(x);

@@ -10,6 +10,8 @@ const d3 = Object.assign({}, d3array);
  * (of polygons).
  * Options enable to get ids and calculate discontinuities.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {object|array} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
  * @param {object} options - Optional parameters
  * @param {boolean} [options.id] - Get ids of boundaries
@@ -18,7 +20,6 @@ const d3 = Object.assign({}, d3array);
  * @param {boolean} [options.share] - Todo
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 export function border(geojson, options = {}) {
   let geo = featurecollection(geojson);

@@ -8,7 +8,7 @@
  *
  * If the GeoJSON object is already a FeatureCollection, it is returned as-is.
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox Observable Notebook}
+ * Example: {@link https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
  * @param {object} x - The GeoJSON object(s) to wrap in a FeatureCollection
  * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}}

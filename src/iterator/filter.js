@@ -5,7 +5,7 @@
  *
  * The function returns a new GeoJSON FeatureCollection and does not modify the initial GeoJSON Object.
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/filter-geojson?collection=@neocartocnrs/geotoolbox Observable Notebook}
+ * Example: {@link https://observablehq.com/@neocartocnrs/filter-geojson?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
  * @see the <code>map</code> function
  *

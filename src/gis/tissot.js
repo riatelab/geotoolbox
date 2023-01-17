@@ -3,10 +3,11 @@ import { geoCircle } from "d3-geo";
 /**
  * Generate Tissot's indicatrix.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/tissot?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {number} step - The distance between each circle
  * @returns {{features: *[], type: string}} - The resulting GeoJSON FeatureCollection
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/tissot?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 export function tissot(step) {
   const circle = geoCircle()

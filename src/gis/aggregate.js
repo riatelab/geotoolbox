@@ -9,6 +9,8 @@ import { featurecollection } from "../utils/featurecollection.js";
  * Takes a FeatureCollection or a set of Features or Geometries and merge them
  * based on their topology.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
  * @param {object} [options={}] - Optional parameters
  * @param {string} [options.id] - The id of the features to aggregate
@@ -16,7 +18,6 @@ import { featurecollection } from "../utils/featurecollection.js";
  *
  * @see the <code>union</code> function
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 export function aggregate(x, options = {}) {
   x = featurecollection(x);

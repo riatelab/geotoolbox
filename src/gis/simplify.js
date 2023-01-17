@@ -13,13 +13,13 @@ import { union } from "./union.js";
  * Simplify geometries of a GeoJSON FeatureCollection / Array of Features / Array of Geometries
  * using <code>topojson-simplify</code> library.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/simplify?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {array|object} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
  * @param {object} options - Optional parameters
  * @param {number} [options.k=0.5] - The quantile of the simplification
- * @param {boolean} [option.merge=false] - Merge geometries after simplification
+ * @param {boolean} [options.merge=false] - Merge geometries after simplification
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}}
- *
- * Example: {@link https://observablehq.com/@neocartocnrs/simplify?collection=@neocartocnrs/geotoolbox Observable Notebook}
  *
  * @example
  * geo.simplify(

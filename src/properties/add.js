@@ -5,6 +5,7 @@ import { str2fun } from "./str2fun.js";
  * Add a new field in the attribute table of the GeoJSON FeatureCollection.
  * This function returns a new object and does not modify the initial object.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
  * @param {object} obj - An object with the following properties
  * @param {object} obj.x - The targeted GeoJSON FeatureCollection
@@ -19,7 +20,7 @@ import { str2fun } from "./str2fun.js";
  *     expression: "gdp/pop*1000",
  * })
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  */
 export function add({ x, field, expression }) {
   let data = [...x.features.map((d) => ({ ...d.properties }))];

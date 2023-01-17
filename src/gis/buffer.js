@@ -12,6 +12,8 @@ import { clip } from "./clip.js";
 /**
  * Build a buffer around a FeatureCollection or a set of Features or Geometries.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/buffer?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
  * @param {object} options - Optional parameters
  * @param {number|string} options.dist - The distance of the buffer in km or the name of the field containing the distance values
@@ -21,7 +23,6 @@ import { clip } from "./clip.js";
  * @param {boolean} [options.wgs84=true] - Whether the input data is in WGS84 or not
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/buffer?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 import { km2deg } from "../utils/km2deg.js";
 import { featurecollection } from "../utils/featurecollection.js";

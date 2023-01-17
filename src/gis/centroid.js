@@ -13,13 +13,14 @@ const d3 = Object.assign({}, { geoArea, geoCentroid, geoIdentity, geoPath });
  * This can be changed by setting the <code>options.largest</code> parameter
  * to <code>false</code>.
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/centroid?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {object|array} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
  * @param {object} options - Optional parameters
  * @param {boolean} [options.largest=true] - Place the centroid in the largest polygon.
  * @param {boolean} [options.planar=false] - Use planar projection.
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/centroid?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 export function centroid(geojson, options = {}) {
   let largest = options.largest === false ? false : true;

@@ -16,12 +16,13 @@ import { featurecollection } from "../utils/featurecollection.js";
  * Clip a FeatureCollection (or a set of Features or Geometries) with another FeatureCollection
  * (or with another set of Features or Geometries).
  *
+ * Example: {@link https://observablehq.com/@neocartocnrs/clip?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
  * @param {object|array} x - The GeoJSON FeatureCollection / array of Features / array of Geometries
  * @param {object} options - Optional parameters
  * @param {object} options.clip - The clipping GeoJSON FeatureCollection / array of Features / array of Geometries
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
- * Example: {@link https://observablehq.com/@neocartocnrs/clip?collection=@neocartocnrs/geotoolbox Observable Notebook}
  */
 export function clip(x, options = {}) {
   let reader = new jsts.GeoJSONReader();
