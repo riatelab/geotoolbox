@@ -21,7 +21,7 @@ Pinned version
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.2"
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.3"
   charset="utf-8"
 ></script>
 ```
@@ -37,7 +37,7 @@ geo = require("geotoolbox");
 Pinned version
 
 ```js
-geo = require("geotoolbox@1.9.2");
+geo = require("geotoolbox@1.9.3");
 ```
 
 ### 2. <ins>Demo</ins>
@@ -393,6 +393,19 @@ dot = geo.map(
   (d) => ({ type: "Point", coordinates: d3.geoCentroid(d) }),
   "geometry"
 )
+```
+
+**rewind** allows to allows to rewind outer ring counterclockwise and inner rings clockwise. It is adapted from MapBox geojson-rewind [code](https://github.com/mapbox/geojson-rewind)) under ISC license. [Example](https://observablehq.com/@neocartocnrs/rewind?collection=@neocartocnrs/geotoolbox)
+
+![rewind](img/rewind.svg)
+
+```js
+geo.rewind(
+    data, // a featureCollection
+    {
+        outer: true, // Rewind Rings Outer (default: true)
+        mutate: true // to mutate the input geoJSON (default: true)
+    })
 ```
 
 **featurecollection** allows converting an array of features or an array of geometries to a well formatted GeoJSON. [Example](https://observablehq.com/@neocartocnrs/featurecollection?collection=@neocartocnrs/geotoolbox)
