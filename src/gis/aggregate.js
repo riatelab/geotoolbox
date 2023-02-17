@@ -21,6 +21,7 @@ import { featurecollection } from "../utils/featurecollection.js";
  */
 export function aggregate(x, options = {}) {
   x = featurecollection(x);
+  let dim = type(x).dimension;
   if (options.id != null && options.id != undefined) {
     let id = options.id;
     let arr = Array.from(new Set(x.features.map((d) => d.properties[id])));
@@ -33,12 +34,12 @@ export function aggregate(x, options = {}) {
       //return geo;
 
       let geom;
-      if (type(x) == "poly") {
+      if (dim == 3) {
         let topo = topojson.topology({ foo: geo });
         geom = topojson.merge(topo, topo.objects.foo.geometries);
       }
 
-      if (type(x) == "line") {
+      if (dim == 2) {
         geom = {
           type: "MultiLineString",
           coordinates: dissolve(geo).features.map(
@@ -47,7 +48,7 @@ export function aggregate(x, options = {}) {
         };
       }
 
-      if (type(x) == "point") {
+      if (dim == 1) {
         geom = {
           type: "MultiPoint",
           coordinates: dissolve(geo).features.map(
@@ -69,19 +70,19 @@ export function aggregate(x, options = {}) {
     };
   } else {
     let geom;
-    if (type(x) == "poly") {
+    if (dim == 3) {
       let topo = topojson.topology({ foo: x });
       geom = topojson.merge(topo, topo.objects.foo.geometries);
     }
 
-    if (type(x) == "line") {
+    if (dim == 2) {
       geom = {
         type: "MultiLineString",
         coordinates: dissolve(x).features.map((d) => d.geometry.coordinates),
       };
     }
 
-    if (type(x) == "point") {
+    if (dim == 1) {
       geom = {
         type: "MultiPoint",
         coordinates: dissolve(x).features.map((d) => d.geometry.coordinates),

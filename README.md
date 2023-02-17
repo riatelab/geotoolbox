@@ -14,14 +14,14 @@
 Latest version
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/geotoolbox" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/geotoolbox@latest" charset="utf-8"></script>
 ```
 
 Pinned version
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.3"
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9"
   charset="utf-8"
 ></script>
 ```
@@ -31,13 +31,13 @@ Pinned version
 Latest version
 
 ```js
-geo = require("geotoolbox");
+geo = require("geotoolbox@latest");
 ```
 
 Pinned version
 
 ```js
-geo = require("geotoolbox@1.9.3");
+geo = require("geotoolbox@1.9");
 ```
 
 ### 2. <ins>Demo</ins>
@@ -416,7 +416,7 @@ geo.rewind(
 geo.featurecollection(features) 
 ```
 
-**type** allows get the geometry type of a GeoJSON ("point", "line", "polygon")
+**type** allows get the geometry type of a GeoJSON. It return an object containg the number of dimensions of the geometries (1 for punctual, 2 for lineal, 3 for zonal and -1 for composite) and the types of the geometries ("Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon").
 
 ```js
 geo.type(geojson) 

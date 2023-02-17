@@ -29,9 +29,10 @@ const jsts = {
  */
 export function union(x, options = {}) {
   x = featurecollection(x);
-  let geomtype = type(x);
+  let geomtype = type(x).dimension;
+  console.log(geomtype);
 
-  if (geomtype == "line" || geomtype == "point") {
+  if (geomtype == 1 || geomtype == 2) {
     return aggregate(x, options);
   } else {
     let reader = new jsts.GeoJSONReader();
@@ -76,7 +77,7 @@ export function union(x, options = {}) {
             type: "Feature",
             properties: {},
             geometry:
-              geomtype == "poly"
+              geomtype == 3
                 ? writer.write(
                     jsts.UnaryUnionOp.union(
                       reader.read(featurecollection(geom)).features[0].geometry

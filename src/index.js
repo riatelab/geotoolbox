@@ -3,6 +3,7 @@ export { featurecollection } from "./utils/featurecollection.js";
 export { rewind } from "./utils/rewind.js";
 export { type } from "./utils/type.js";
 
+
 // Properties operations
 export { add } from "./properties/add.js";
 export { select } from "./properties/select.js";
