@@ -60,6 +60,7 @@ export function coords2geo(data, options = {}) {
   }
 
   // case2: lat & lng coords in a single column
+
   if (coords) {
     return {
       type: "FeatureCollection",
@@ -69,8 +70,8 @@ export function coords2geo(data, options = {}) {
         geometry: {
           type: "Point",
           coordinates: reverse
-            ? txt2coords(d[coords], sep)
-            : txt2coords(d[coords], sep).reverse(),
+            ? getcoords(d[coords])
+            : getcoords(d[coords]).reverse(),
         },
       })),
     };
@@ -91,4 +92,27 @@ function txt2coords(str, sep = ",") {
     coords = [undefined, undefined];
   }
   return coords;
+}
+
+function wkt2coords(str) {
+  let result = str.match(/\(([^)]+)\)/g);
+  return result === null
+    ? [undefined, undefined]
+    : result[0]
+        .replace(/\s\s+/g, " ")
+        .replace("(", "")
+        .replace(")", "")
+        .trimStart()
+        .trimEnd()
+        .split(" ")
+        .map((d) => d.replace(",", "."))
+        .map((d) => +d);
+}
+
+function getcoords(str) {
+  return str
+    ? str.toLowerCase().includes("point")
+      ? wkt2coords(str)
+      : txt2coords(str)
+    : null;
 }

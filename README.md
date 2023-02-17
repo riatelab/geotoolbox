@@ -282,7 +282,7 @@ This function works also if coordinates are stored in a single field.
 geo.coords2geo(
     data, // a json object
     {
-        coords: "Coordinates" // the field containing coordinates (you can use also `coordinates`) 
+        coords: "Coordinates" // the field containing coordinates separated by a comma or other separator. Coordinates in wkt format are also accepted. 
     })
 ```
 
