@@ -2,7 +2,7 @@
 export { featurecollection } from "./utils/featurecollection.js";
 export { rewind } from "./utils/rewind.js";
 export { type } from "./utils/type.js";
-
+export { topojson } from "./utils/topojson.js";
 
 // Properties operations
 export { add } from "./properties/add.js";
