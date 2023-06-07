@@ -1,4 +1,4 @@
-import jsts from "jsts/dist/jsts";
+import * as jsts from "jsts/dist/jsts";
 import { buffer } from "./buffer.js";
 
 export function union(x, options = {}) {

@@ -1,4 +1,4 @@
-import jsts from "jsts/dist/jsts";
+import * as jsts from "jsts/dist/jsts";
 import { clip } from "./clip.js";
 import { union } from "./union.js";
 import { km2deg } from "../helpers/km2deg.js";
