@@ -32,6 +32,7 @@ export { geolines } from "./gis/geolines.js";
 export { buffer } from "./gis/buffer.js";
 export { clip } from "./gis/clip.js";
 export { nodes } from "./gis/nodes.js";
+export { densify } from "./gis/densify.js";
 
 // Spatial queries (todo)
 // contain, intersect, ...
