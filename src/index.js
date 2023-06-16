@@ -31,6 +31,7 @@ export { tissot } from "./gis/tissot.js";
 export { geolines } from "./gis/geolines.js";
 export { buffer } from "./gis/buffer.js";
 export { clip } from "./gis/clip.js";
+export { nodes } from "./gis/nodes.js";
 
 // Spatial queries (todo)
 // contain, intersect, ...
