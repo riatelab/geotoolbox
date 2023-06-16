@@ -14,14 +14,14 @@
 Latest version
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/geotoolbox@latest" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/geotoolbox" charset="utf-8"></script>
 ```
 
 Pinned version
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9"
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.5"
   charset="utf-8"
 ></script>
 ```
@@ -308,6 +308,14 @@ geo.coords2geo(
 
 ```js
 geo.dissolve(world) // a GeoJSON object
+```
+
+**nodes** allows to retrieve geometry nodes. [Example](https://observablehq.com/@neocartocnrs/nodes?collection=@neocartocnrs/geotoolbox)
+
+![nodes](img/nodes.svg)
+
+```js
+geo.nodes(world) // a GeoJSON object
 ```
 
 **union** allows merging polygon geometries. [Example](https://observablehq.com/@neocartocnrs/union?collection=@neocartocnrs/geotoolbox)
