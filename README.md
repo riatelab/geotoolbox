@@ -1,9 +1,6 @@
-![logo](img/geotoolbox.svg)]
+![logo](img/geotoolbox.svg)\]
 
-![npm](https://img.shields.io/npm/v/geotoolbox)
-![jsdeliver](https://img.shields.io/jsdelivr/npm/hw/geotoolbox)
-![license](https://img.shields.io/badge/license-MIT-success)
-![code size](https://img.shields.io/github/languages/code-size/neocarto/bertin)
+![npm](https://img.shields.io/npm/v/geotoolbox) ![jsdeliver](https://img.shields.io/jsdelivr/npm/hw/geotoolbox) ![license](https://img.shields.io/badge/license-MIT-success) ![code size](https://img.shields.io/github/languages/code-size/neocarto/bertin)
 
 *geotoolbox* is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful GIS operations for thematic cartography.
 
@@ -13,13 +10,13 @@
 
 Latest version
 
-```html
+``` html
 <script src="https://cdn.jsdelivr.net/npm/geotoolbox" charset="utf-8"></script>
 ```
 
 Pinned version
 
-```html
+``` html
 <script
   src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.5"
   charset="utf-8"
@@ -30,13 +27,13 @@ Pinned version
 
 Latest version
 
-```js
+``` js
 geo = require("geotoolbox@latest");
 ```
 
 Pinned version
 
-```js
+``` js
 geo = require("geotoolbox@1.9");
 ```
 
@@ -48,11 +45,11 @@ Find a demo of all functions [here](https://observablehq.com/@neocartocnrs/hello
 
 #### 3.1. Handle properties
 
-_Here we are talking about some basic functions which are useful for handling attribute data. [Example](https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox).
+\_Here we are talking about some basic functions which are useful for handling attribute data. [Example](https://observablehq.com/@neocartocnrs/handle-properties?collection=@neocartocnrs/geotoolbox).
 
 **add** allows adding a new field in the attribute table. This function returns a new object and does not modify the initial object.
 
-```js
+``` js
 geo.add({
     x: world, // a GeoJSON object
     field: "gdppc", // new colname (string) 
@@ -62,7 +59,7 @@ geo.add({
 
 **head** allows getting the n top values from a given field. This function returns a new object and does not modify the initial object.
 
-```js
+``` js
 geo.head({
     x: world, // a GeoJSON object
     field: "gdp", // a colname (string)
@@ -72,7 +69,7 @@ geo.head({
 
 **keep** allows selecting one or several columns to keep in the attribute table. All other columns are deleted. This function returns a new object and does not modify the initial object.
 
-```js
+``` js
 geo.keep({
     x: world, // a GeoJSON object
     field: ["ISO3", "pop2020"] // colname(s) (string or array of strings) 
@@ -81,7 +78,7 @@ geo.keep({
 
 **remove** allows removing one or several columns in the attribute table. This function returns a new object and does not modify the initial object.
 
-```js
+``` js
 geo.remove({
     x: world, // a GeoJSON object
     field: ["tmp", "FID"] // colname(s) (string or array of strings) 
@@ -90,7 +87,7 @@ geo.remove({
 
 **select** allows filtering a GeoJSON FeatureCollection by its attribute table. This function returns a new object and does not modify the initial object.
 
-```js
+``` js
 geo.select({
     x: world, // a GeoJSON object
     expression: "pop2022 >= 100000" // an expression (string) 
@@ -99,7 +96,7 @@ geo.select({
 
 **subset** allows creating a subset from an array of values. This function returns a new object and does not modify the initial object.
 
-```js
+``` js
 geo.subset({
     x: world, // a GeoJSON object
     field: "ISO3", // colname (string)
@@ -110,34 +107,35 @@ geo.subset({
 
 **table** allows getting a GeoJSON FeatureCollection attribute table.
 
-```js
+``` js
 geo.table(world // a GeoJSON object
 ```
 
 **tail** allows getting the n bottom values from a given field. This function returns a new object and does not modify the initial object.
 
-```js
+``` js
 geo.tail({
     x: world, // a GeoJSON object
     field: "gdp", // a colname (string)
     nb: 5 // default:10. Number of features to get. Here, the 5 least wealthy countries
 })
 ```
+
 #### 3.2 Handle geometries
 
-_Here we are talking about some basic functions which are useful for thematic maps, based on [topojson](https://github.com/topojson/topojson), [d3geo](https://github.com/d3/d3-geo) and [jsts](https://github.com/bjornharrtell/jsts)._
+*Here we are talking about some basic functions which are useful for thematic maps, based on [topojson](https://github.com/topojson/topojson), [d3geo](https://github.com/d3/d3-geo) and [jsts](https://github.com/bjornharrtell/jsts).*
 
-**aggregate** allows merging geometries based on their topology. To merge polygon geometries, see ```union```. [Example](https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox)
+**aggregate** allows merging geometries based on their topology. To merge polygon geometries, see `union`. [Example](https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox)
 
 ![aggregate](img/aggregate.svg)
 
-```js
+``` js
 geo.aggregate(world) // a GeoJSON object
 ```
 
 With options, you can compute an aggregate by id.
 
-```js
+``` js
 continents = geo.aggregate(
     world, // a GeoJSON object
     { 
@@ -149,7 +147,7 @@ continents = geo.aggregate(
 
 ![bbox](img/bbox.svg)
 
-```js
+``` js
 geo.bbox(world) // a GeoJSON object
 ```
 
@@ -157,13 +155,13 @@ geo.bbox(world) // a GeoJSON object
 
 ![border](img/border.svg)
 
-```js
+``` js
 geo.border(world) // a GeoJSON object
 ```
 
 With options:
 
-```js
+``` js
 geo.border(
     world, // a GeoJSON object
     { 
@@ -174,41 +172,41 @@ geo.border(
     })
 ```
 
-**buffer**  allows building a buffer from points, lines or polygones. The distance is in kilometers.
+**buffer** allows building a buffer from points, lines or polygones. The distance is in kilometers.
 
 ![buffer](img/buffer.svg)
 
-```js
+``` js
 geo.buffer(geojson, { dist: 1000 }) // 1000 km 
 ```
 
-The ```distance``` value can also be contained in a GeoJSON field (in the properties). In this case, you just have to indicate the name of this field.
+The `distance` value can also be contained in a GeoJSON field (in the properties). In this case, you just have to indicate the name of this field.
 
-```js
+``` js
 geo.buffer(geojson, { dist: "a field" }) // a field in properties
 ```
 
 The merge option allows merging all the output buffers.
 
-```js
+``` js
 geo.buffer(geojson, { dist: 1000, merge:true }) 
 ```
 
-The ```clip``` option prevents the buffers from sticking out of the world outline. Not having coordinates that exceed [-90, 90] in latitude and [-180, 180] in longitude is necessary for the d3.js projection functions to work properly.
+The `clip` option prevents the buffers from sticking out of the world outline. Not having coordinates that exceed \[-90, 90\] in latitude and \[-180, 180\] in longitude is necessary for the d3.js projection functions to work properly.
 
-```js
+``` js
 geo.buffer(geojson, { dist: 1000, clip:true }) 
 ```
 
-The ```step``` option allows defining the precision of the buffer (default:8)
+The `step` option allows defining the precision of the buffer (default:8)
 
-```js
+``` js
 geo.buffer(geojson, { dist: 1000, step:1 }) 
 ```
 
-You can use ```wgs84=false``` if your GeoJSON is not in wgs84. In this case, the distance will be given in the map coordinates. 
+You can use `wgs84=false` if your GeoJSON is not in wgs84. In this case, the distance will be given in the map coordinates.
 
-```js
+``` js
 geo.buffer(geojson, { dist: 1000, wgs84:false }) 
 ```
 
@@ -216,7 +214,7 @@ geo.buffer(geojson, { dist: 1000, wgs84:false })
 
 ![clip](img/clip.svg)
 
-```js
+``` js
 geo.clip(geojson1, {clip:geojson2}) 
 ```
 
@@ -224,13 +222,13 @@ With the option reverse:true, you can do a difference operation.
 
 ![clip](img/clip_reverse.svg)
 
-```js
+``` js
 geo.clip(geojson1, {clip:geojson2, reverse: true}) 
 ```
 
 You can also define a buffer in km around the clip.
 
-```js
+``` js
 geo.clip(geojson1, {clip:geojson2, buffer: 100}) 
 ```
 
@@ -238,13 +236,13 @@ geo.clip(geojson1, {clip:geojson2, buffer: 100})
 
 ![centroid](img/centroid.svg)
 
-```js
+``` js
 geo.centroid(world) // a GeoJSON (polygons) object
 ```
 
 By default, the centroid is placed in the largest polygon. But you can avoid it.
 
-```js
+``` js
 geo.centroid(
     world, // a GeoJSON object
     {
@@ -254,7 +252,7 @@ geo.centroid(
 
 It may happen that the coordinates of your base map are not in latitudes and longitudes, but already projected. In this case you can use the option `planar = true`.
 
-```js
+``` js
 geo.centroid(
     world, // a GeoJSON object
     {
@@ -267,7 +265,7 @@ geo.centroid(
 
 ![coords2geo](img/coords2geo.svg)
 
-```js
+``` js
 geo.coords2geo(
     data, // a json object
     {
@@ -278,7 +276,7 @@ geo.coords2geo(
 
 This function works also if coordinates are stored in a single field.
 
-```js
+``` js
 geo.coords2geo(
     data, // a json object
     {
@@ -288,13 +286,13 @@ geo.coords2geo(
 
 For an even simpler automatic use, you don't have to specify the name of the variables containing the coordinates. If your data table contains the following fields (`lat`, `latitude`, `lon`,`lng`, `longitude`, `coords`, `coordinates`, `coordinate`), they are automatically selected. It is convenient, but for a better control and a faster calculation, it is still better to define where the coordinates are.
 
-```js
+``` js
 geo.coords2geo(data) // a json object
 ```
 
 Sometimes the coordinates can be inverted. In this case you can set the reverse option to true.
 
-```js
+``` js
 geo.coords2geo(
     data, // a json object
     {
@@ -302,11 +300,21 @@ geo.coords2geo(
     })
 ```
 
+**densify** allows to densify a geojson [Example](https://observablehq.com/@neocartocnrs/densify?collection=@neocartocnrs/geotoolbox)
+
+![densify](img/densify.svg)
+
+``` js
+geo.densify(geojson, { dist: 0.4 }) 
+```
+
+The `dist` value determines the minimum distance between nodes.
+
 **dissolve** allows dissolving geometries (multipart to single parts). [Example](https://observablehq.com/@neocartocnrs/dissolve?collection=@neocartocnrs/geotoolbox)
 
 ![dissolve](img/dissolve.svg)
 
-```js
+``` js
 geo.dissolve(world) // a GeoJSON object
 ```
 
@@ -314,7 +322,7 @@ geo.dissolve(world) // a GeoJSON object
 
 ![nodes](img/nodes.svg)
 
-```js
+``` js
 geo.nodes(world) // a GeoJSON object
 ```
 
@@ -322,13 +330,13 @@ geo.nodes(world) // a GeoJSON object
 
 ![union](img/union.svg)
 
-```js
+``` js
 geo.union(world) // a GeoJSON object
 ```
 
 With options, you can compute a union by id.
 
-```js
+``` js
 continents = geo.union(
     world, // a GeoJSON object
     { 
@@ -340,7 +348,7 @@ continents = geo.union(
 
 ![simplify](img/simplify.svg)
 
-```js
+``` js
 geo.simplify(
     world, // a GeoJSON object
     { 
@@ -353,7 +361,7 @@ geo.simplify(
 
 ![tissot](img/tissot.svg)
 
-```js
+``` js
 geo.tissot(20) // step (default; 10)
 ```
 
@@ -361,7 +369,7 @@ geo.tissot(20) // step (default; 10)
 
 ![geolines](img/geolines.svg)
 
-```js
+``` js
 geo.geolines() 
 ```
 
@@ -371,13 +379,13 @@ geo.geolines()
 
 ![filter](img/filter.svg)
 
-```js
+``` js
 newworld = geo.filter(world, (d) => d.CNTR_ID == "BR")
 ```
 
 You can also do the same thing on geometries by specifying a third argument as "geometry". For example:
 
-```js
+``` js
 newworld = geo.filter(world, (d) => d3.geoArea(d) > area, "geometry")
 ```
 
@@ -385,7 +393,7 @@ newworld = geo.filter(world, (d) => d3.geoArea(d) > area, "geometry")
 
 ![map](img/map.svg)
 
-```js
+``` js
 renameproperties = geo.map(world, (d, i) => ({
   index: i,
   id: d.CNTR_ID,
@@ -395,7 +403,7 @@ renameproperties = geo.map(world, (d, i) => ({
 
 You can also do the same thing on geometries by specifying a third argument as "geometry". For example:
 
-```js
+``` js
 dot = geo.map(
   world,
   (d) => ({ type: "Point", coordinates: d3.geoCentroid(d) }),
@@ -407,7 +415,7 @@ dot = geo.map(
 
 ![rewind](img/rewind.svg)
 
-```js
+``` js
 geo.rewind(
     data, // a featureCollection
     {
@@ -420,12 +428,12 @@ geo.rewind(
 
 ![featurecollection](img/featurecollection.svg)
 
-```js
+``` js
 geo.featurecollection(features) 
 ```
 
 **type** allows get the geometry type of a GeoJSON. It return an object containg the number of dimensions of the geometries (1 for punctual, 2 for lineal, 3 for zonal and -1 for composite) and the types of the geometries ("Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon").
 
-```js
+``` js
 geo.type(geojson) 
 ```
