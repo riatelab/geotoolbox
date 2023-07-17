@@ -1,4 +1,13 @@
-import jsts from "jsts/dist/jsts.min.js";
+import Densifier from "jsts/org/locationtech/jts/densify/Densifier";
+import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader";
+import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter";
+const jsts = {
+  Densifier,
+  GeoJSONReader,
+  GeoJSONWriter,
+};
+
+//import jsts from "jsts/dist/jsts.min.js";
 import { featurecollection } from "../utils/featurecollection.js";
 
 /**
@@ -16,13 +25,13 @@ import { featurecollection } from "../utils/featurecollection.js";
 export function densify(x, options = {}) {
   // Parameters
   let dist = options.dist ? options.dist : 1;
-  let reader = new jsts.io.GeoJSONReader();
-  let writer = new jsts.io.GeoJSONWriter();
+  let reader = new jsts.GeoJSONReader();
+  let writer = new jsts.GeoJSONWriter();
   let data = reader.read(featurecollection(x));
 
   let features = [];
   data.features.forEach((d) => {
-    let dens = jsts.densify.Densifier.densify(d.geometry, dist);
+    let dens = jsts.Densifier.densify(d.geometry, dist);
     dens = writer.write(dens);
     if (dens.coordinates[0].length !== 0) {
       features.push({

@@ -27,6 +27,7 @@ const jsts = {
  * @see the <code>aggregate</code> function
  *
  */
+
 export function union(x, options = {}) {
   x = featurecollection(x);
   let geomtype = type(x).dimension;
