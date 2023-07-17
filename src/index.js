@@ -23,7 +23,6 @@ export { aggregate } from "./gis/aggregate.js";
 export { centroid } from "./gis/centroid.js";
 export { border } from "./gis/border.js";
 export { bbox } from "./gis/bbox.js";
-//export { simplify } from "./gis/simplify.js";
 export { dissolve } from "./gis/dissolve.js";
 export { coords2geo } from "./gis/coords2geo.js";
 export { tissot } from "./gis/tissot.js";
@@ -33,6 +32,9 @@ export { clip } from "./gis/clip.js";
 export { nodes } from "./gis/nodes.js";
 export { densify } from "./gis/densify.js";
 export { union } from "./gis/union.js";
+export { simplify } from "./gis/simplify.js";
+
+//export { distance } from "./gis/distance.js";
 
 // Spatial queries (todo)
 // contain, intersect, ...
