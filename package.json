@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "build": "rollup --config",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "node test/test.mjs"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,8 @@
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@types/jsts": "^0.17.14",
+    "json-diff": "^1.0.6",
+    "lodash": "^4.17.21",
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
