@@ -38,3 +38,8 @@ export { simplify } from "./gis/simplify.js";
 
 // Spatial queries (todo)
 // contain, intersect, ...
+
+// GEOS
+
+export { geosunion } from "./gis/geos-union.js";
+export { geojsonToGeosGeom } from "./helpers/geojsonToGeosGeom.js";

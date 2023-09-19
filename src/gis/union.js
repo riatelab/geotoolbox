@@ -31,7 +31,6 @@ const jsts = {
 export function union(x, options = {}) {
   x = featurecollection(x);
   let geomtype = type(x).dimension;
-  console.log(geomtype);
 
   if (geomtype == 1 || geomtype == 2) {
     return aggregate(x, options);
