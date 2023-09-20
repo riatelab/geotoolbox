@@ -34,12 +34,11 @@ export { densify } from "./gis/densify.js";
 export { union } from "./gis/union.js";
 export { simplify } from "./gis/simplify.js";
 
-//export { distance } from "./gis/distance.js";
-
-// Spatial queries (todo)
-// contain, intersect, ...
-
 // GEOS
 
-export { geosunion } from "./gis/geos-union.js";
-export { geojsonToGeosGeom } from "./helpers/geojsonToGeosGeom.js";
+import { union } from "./geos/union.js";
+import { buffer } from "./geos/buffer.js";
+export let geos = {
+  union,
+  buffer,
+};
