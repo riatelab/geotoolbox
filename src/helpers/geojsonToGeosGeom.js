@@ -1,14 +1,23 @@
-import initGeosJs from "../../node_modules/geos-wasm/build/package/geos.esm.js";
-import { geojsonCoordsToGeosCoordSeq } from "./geojsonCoordsToGeosCoordSeq.js";
+export function geojsonToGeosGeom(geojson, geos) {
 
-// Function designed by Christoph Pahmeyer (https://github.com/chrispahm)
-export async function geojsonToGeosGeom(geojson) {
-  const geos = await initGeosJs();
+  function geojsonCoordsToGeosCoordSeq(coords) {
+    if (!coords || coords.length === 0) {
+      return null;
+    }
+    const N = coords.length;
+    const dim = 2; // coords[0].length
+    const coordArr = new Float64Array(coords.flat());
+    const coordPtr = geos.Module._malloc(N * dim * 8);
+    geos.Module.HEAPF64.set(coordArr, coordPtr / 8);
+    const seqPtr = geos.GEOSCoordSeq_copyFromBuffer(coordPtr, N, false, false);
+    geos.Module._free(coordPtr);
+    return seqPtr;
+  }
 
   // assume only 2d (x, y) geometries
   switch (geojson.type) {
     case "Feature":
-      return geojsonToGeosGeom(geojson.geometry);
+      return geojsonToGeosGeom(geojson.geometry, geos);
     case "FeatureCollection":
       if (geojson.features.length === 0) {
         return geos.GEOSGeom_createEmptyCollection(7); // geos.GEOS_GEOMETRYCOLLECTION
@@ -16,7 +25,7 @@ export async function geojsonToGeosGeom(geojson) {
         const geoms = [];
         // iterate over each feature
         geojson.features.forEach((feature) => {
-          geoms.push(geojsonToGeosGeom(feature.geometry));
+          geoms.push(geojsonToGeosGeom(feature.geometry, geos));
         });
         const geomsPtr = geos.Module._malloc(geoms.length * 4);
         const geomsArr = new Uint32Array(geoms);
@@ -36,7 +45,7 @@ export async function geojsonToGeosGeom(geojson) {
         const geoms = [];
         // iterate over each feature
         geojson.geometries.forEach((feature) => {
-          geoms.push(geojsonToGeosGeom(feature));
+          geoms.push(geojsonToGeosGeom(feature, geos));
         });
         const geomsPtr = geos.Module._malloc(geoms.length * 4);
         const geomsArr = new Uint32Array(geoms);
@@ -185,6 +194,6 @@ export async function geojsonToGeosGeom(geojson) {
         return multiPolyPtr;
       }
     default:
-      return null;
+      throw new Error("Unsupported GeoJSON type: " + geojson.type + ". Are you sure this is valid GeoJSON?");
   }
 }

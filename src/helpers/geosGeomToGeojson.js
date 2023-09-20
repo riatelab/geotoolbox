@@ -1,17 +1,36 @@
-import initGeosJs from "../../node_modules/geos-wasm/build/package/geos.esm.js";
-import { geosCoordSeqToGeojsonCoords } from "./geosCoordSeqToGeojsonCoords.js";
-
-// Function designed by Christoph Pahmeyer (https://github.com/chrispahm)
-export async function geosGeomToGeojson(geomPtr) {
-  const geos = await initGeosJs();
+export function geosGeomToGeojson(geomPtr, geos) {
+  function geosCoordSeqToGeojsonCoords(seqPtr) {
+    if (!seqPtr) {
+      return null;
+    }
+    const sizePtr = geos.Module._malloc(4);
+    geos.GEOSCoordSeq_getSize(seqPtr, sizePtr);
+    const size = geos.Module.getValue(sizePtr, "i32");
+    geos.Module._free(sizePtr);
+    if (size === 0) {
+      return [];
+    }
+    const coords = [];
+    const coordsPtr = geos.Module._malloc(size * 2 * 8);
+    geos.GEOSCoordSeq_copyToBuffer(seqPtr, coordsPtr, false, false);
+    const view = new Float64Array(
+      geos.Module.HEAPF64.buffer,
+      coordsPtr,
+      size * 2
+    );
+    for (let i = 0; i < size * 2; i = i + 2) {
+      coords.push([view[i], view[i + 1]]);
+    }
+    geos.Module._free(coordsPtr);
+    return coords;
+  }
 
   if (!geomPtr) {
     return null;
   }
   const geomType = geos.GEOSGeomTypeId(geomPtr);
   switch (geomType) {
-    case 0: {
-      // geos.GEOS_POINT
+    case 0: { // geos.GEOS_POINT
       const seq = geos.GEOSGeom_getCoordSeq(geomPtr);
       const coords = [];
       const sizePtr = geos.Module._malloc(4);
@@ -30,23 +49,21 @@ export async function geosGeomToGeojson(geomPtr) {
       }
       const pointJson = {
         type: "Point",
-        coordinates: coords,
+        coordinates: coords
       };
       return pointJson;
     }
-    case 1: {
-      // geos.GEOS_LINESTRING
+    case 1: { // geos.GEOS_LINESTRING
       const seq = geos.GEOSGeom_getCoordSeq(geomPtr);
       const coords = geosCoordSeqToGeojsonCoords(seq);
       const lineJson = {
         type: "LineString",
-        coordinates: coords,
+        coordinates: coords
       };
       return lineJson;
     }
     // case 2: // geos.GEOS_LINEARRING ... should not happen
-    case 3: {
-      // geos.GEOS_POLYGON
+    case 3: { // geos.GEOS_POLYGON
       const coords = [];
       const shell = geos.GEOSGetExteriorRing(geomPtr);
       if (shell !== 0) {
@@ -67,12 +84,11 @@ export async function geosGeomToGeojson(geomPtr) {
       }
       const polyJson = {
         type: "Polygon",
-        coordinates: coords,
+        coordinates: coords
       };
       return polyJson;
     }
-    case 4: {
-      // geos.GEOS_MULTIPOINT
+    case 4: { // geos.GEOS_MULTIPOINT
       const coords = [];
       const numPoints = geos.GEOSGetNumGeometries(geomPtr);
       for (let i = 0; i < numPoints; i++) {
@@ -89,12 +105,11 @@ export async function geosGeomToGeojson(geomPtr) {
       }
       const multiPointJson = {
         type: "MultiPoint",
-        coordinates: coords,
+        coordinates: coords
       };
       return multiPointJson;
     }
-    case 5: {
-      // geos.GEOS_MULTILINESTRING
+    case 5: { // geos.GEOS_MULTILINESTRING
       const coords = [];
       const numLines = geos.GEOSGetNumGeometries(geomPtr);
       for (let i = 0; i < numLines; i++) {
@@ -104,12 +119,11 @@ export async function geosGeomToGeojson(geomPtr) {
       }
       const multiLineJson = {
         type: "MultiLineString",
-        coordinates: coords,
+        coordinates: coords
       };
       return multiLineJson;
     }
-    case 6: {
-      // geos.GEOS_MULTIPOLYGON
+    case 6: { // geos.GEOS_MULTIPOLYGON
       const coords = [];
       const numPolys = geos.GEOSGetNumGeometries(geomPtr);
       for (let i = 0; i < numPolys; i++) {
@@ -128,21 +142,20 @@ export async function geosGeomToGeojson(geomPtr) {
       }
       const multiPolyJson = {
         type: "MultiPolygon",
-        coordinates: coords,
+        coordinates: coords
       };
       return multiPolyJson;
     }
-    case 7: {
-      // geos.GEOS_GEOMETRYCOLLECTION
+    case 7: { // geos.GEOS_GEOMETRYCOLLECTION
       const geoms = [];
       const numGeoms = geos.GEOSGetNumGeometries(geomPtr);
       for (let i = 0; i < numGeoms; i++) {
         const geom = geos.GEOSGetGeometryN(geomPtr, i);
-        geoms.push(geosGeomToGeojson(geom));
+        geoms.push(geosGeomToGeojson(geom, geos));
       }
       const geomCollJson = {
         type: "GeometryCollection",
-        geometries: geoms,
+        geometries: geoms
       };
       return geomCollJson;
     }
