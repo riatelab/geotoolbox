@@ -6,14 +6,25 @@ export { topojson } from "./utils/topojson.js";
 export { makevalid } from "./utils/makevalid.js";
 
 // Properties operations
-export { add } from "./properties/add.js";
-export { select } from "./properties/select.js";
-export { keep } from "./properties/keep.js";
-export { remove } from "./properties/remove.js";
-export { table } from "./properties/table.js";
-export { subset } from "./properties/subset.js";
-export { head } from "./properties/head.js";
-export { tail } from "./properties/tail.js";
+
+import { add } from "./properties/add.js";
+import { select } from "./properties/select.js";
+import { keep } from "./properties/keep.js";
+import { remove } from "./properties/remove.js";
+import { table } from "./properties/table.js";
+import { subset } from "./properties/subset.js";
+import { head } from "./properties/head.js";
+import { tail } from "./properties/tail.js";
+export let properties = {
+  add,
+  select,
+  keep,
+  remove,
+  table,
+  subset,
+  head,
+  tail,
+};
 
 // Iterators
 export { map } from "./iterator/map.js";
@@ -33,4 +44,6 @@ export { clip } from "./gis/clip.js";
 export { nodes } from "./gis/nodes.js";
 export { densify } from "./gis/densify.js";
 export { union } from "./gis/union.js";
+export { op } from "./gis/operators.js";
+
 //export { simplify } from "./gis/simplify.js";

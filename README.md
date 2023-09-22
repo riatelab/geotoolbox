@@ -2,7 +2,9 @@
 
 ![npm](https://img.shields.io/npm/v/geotoolbox) ![jsdeliver](https://img.shields.io/jsdelivr/npm/hw/geotoolbox) ![license](https://img.shields.io/badge/license-MIT-success) ![code size](https://img.shields.io/github/languages/code-size/neocarto/bertin)
 
-*geotoolbox* is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful GIS operations for thematic cartography.
+**`geotoolbox`** is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful GIS operations for thematic cartography.
+
+From the version 2.0, it is mailny based on [geos-wasm](https://github.com/chrispahm/geos-wasm).
 
 ## 1. <ins>Installation</ins>
 
@@ -18,7 +20,7 @@ Pinned version
 
 ``` html
 <script
-  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9.5"
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@1.9"
   charset="utf-8"
 ></script>
 ```
@@ -28,7 +30,7 @@ Pinned version
 Latest version
 
 ``` js
-geo = require("geotoolbox@latest");
+geo = require("geotoolbox");
 ```
 
 Pinned version
@@ -50,7 +52,7 @@ Find a demo of all functions [here](https://observablehq.com/@neocartocnrs/hello
 **add** allows adding a new field in the attribute table. This function returns a new object and does not modify the initial object.
 
 ``` js
-geo.add({
+geo.properties.add({
     x: world, // a GeoJSON object
     field: "gdppc", // new colname (string) 
     expression: "gdp/pop*1000" // a string containing an expression
@@ -60,7 +62,7 @@ geo.add({
 **head** allows getting the n top values from a given field. This function returns a new object and does not modify the initial object.
 
 ``` js
-geo.head({
+geo.properties.head({
     x: world, // a GeoJSON object
     field: "gdp", // a colname (string)
     nb: 5 // default:10. Number of features to get. Here, the 5 richest countries.
@@ -70,7 +72,7 @@ geo.head({
 **keep** allows selecting one or several columns to keep in the attribute table. All other columns are deleted. This function returns a new object and does not modify the initial object.
 
 ``` js
-geo.keep({
+geo.properties.keep({
     x: world, // a GeoJSON object
     field: ["ISO3", "pop2020"] // colname(s) (string or array of strings) 
 })
@@ -79,7 +81,7 @@ geo.keep({
 **remove** allows removing one or several columns in the attribute table. This function returns a new object and does not modify the initial object.
 
 ``` js
-geo.remove({
+geo.properties.remove({
     x: world, // a GeoJSON object
     field: ["tmp", "FID"] // colname(s) (string or array of strings) 
 })
@@ -88,7 +90,7 @@ geo.remove({
 **select** allows filtering a GeoJSON FeatureCollection by its attribute table. This function returns a new object and does not modify the initial object.
 
 ``` js
-geo.select({
+geo.properties.select({
     x: world, // a GeoJSON object
     expression: "pop2022 >= 100000" // an expression (string) 
 })
@@ -97,7 +99,7 @@ geo.select({
 **subset** allows creating a subset from an array of values. This function returns a new object and does not modify the initial object.
 
 ``` js
-geo.subset({
+geo.properties.subset({
     x: world, // a GeoJSON object
     field: "ISO3", // colname (string)
     selection: ["USA", "CAN", "MEX"], // values to be kept. Here, North American countries
@@ -108,13 +110,13 @@ geo.subset({
 **table** allows getting a GeoJSON FeatureCollection attribute table.
 
 ``` js
-geo.table(world // a GeoJSON object
+geo.properties.table(world // a GeoJSON object
 ```
 
 **tail** allows getting the n bottom values from a given field. This function returns a new object and does not modify the initial object.
 
 ``` js
-geo.tail({
+geo.properties.tail({
     x: world, // a GeoJSON object
     field: "gdp", // a colname (string)
     nb: 5 // default:10. Number of features to get. Here, the 5 least wealthy countries
@@ -432,8 +434,76 @@ geo.rewind(
 geo.featurecollection(features) 
 ```
 
+**makevalid** Returns a geometry which is valid according to the GEOS validity rules, and preserves as much as possible of the input geometry's extent, dimension, and structure. The returned geometry will be valid, or null if an exception occurs.
+
+``` js
+geo.makevalid(geojson) 
+```
+
 **type** allows get the geometry type of a GeoJSON. It return an object containg the number of dimensions of the geometries (1 for punctual, 2 for lineal, 3 for zonal and -1 for composite) and the types of the geometries ("Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon").
 
 ``` js
 geo.type(geojson) 
+```
+
+#### 3.4 GIS operators
+
+**contains** tests if the first geometry contains the second geometry.
+
+``` js
+geo.op.contains(geojson, geojson)
+```
+
+**covers** tests whether the first geometry covers the second geometry.
+
+``` js
+geo.op.covers(geojson, geojson)
+```
+
+**crosses** tests if two geometries cross.
+
+``` js
+geo.op.crosses(geojson, geojson)
+```
+
+**coveredby** tests whether the first geometry is covered by the second geometry.
+
+``` js
+geo.op.coverdby(geojson, geojson)
+```
+
+**disjoint** tests if two geometries are disjoint.
+
+``` js
+geo.op.disjoint(geojson, geojson)
+```
+
+**equals** tests whether two geometries are topologically equal.
+
+``` js
+geo.op.equals(geojson, geojson)
+```
+
+**intersects** tests if two geometries intersect in interior or boundary points.
+
+``` js
+geo.op.intersects(geojson, geojson)
+```
+
+**overlaps** tests if two geometries overlap in their interior points.
+
+``` js
+geo.op.overlaps(geojson, geojson)
+```
+
+**touches** tests if two geometries touch at one or more points.
+
+``` js
+geo.op.touches(geojson, geojson)
+```
+
+**within** tests if the first geometry is within the second geometry.
+
+``` js
+geo.op.within(geojson, geojson)
 ```
