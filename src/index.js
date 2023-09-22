@@ -3,6 +3,7 @@ export { featurecollection } from "./utils/featurecollection.js";
 export { rewind } from "./utils/rewind.js";
 export { type } from "./utils/type.js";
 export { topojson } from "./utils/topojson.js";
+export { makevalid } from "./utils/makevalid.js";
 
 // Properties operations
 export { add } from "./properties/add.js";
@@ -32,19 +33,4 @@ export { clip } from "./gis/clip.js";
 export { nodes } from "./gis/nodes.js";
 export { densify } from "./gis/densify.js";
 export { union } from "./gis/union.js";
-export { simplify } from "./gis/simplify.js";
-
-// GEOS
-
-import { union } from "./geos/union.js";
-import { buffer } from "./geos/buffer.js";
-import { densify } from "./geos/densify.js";
-import { makevalid } from "./geos/makevalid.js";
-import { clip } from "./geos/clip.js";
-export let geos = {
-  union,
-  buffer,
-  densify,
-  makevalid,
-  clip,
-};
+//export { simplify } from "./gis/simplify.js";

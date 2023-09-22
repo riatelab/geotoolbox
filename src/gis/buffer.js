@@ -1,35 +1,33 @@
-import BufferOp from "jsts/org/locationtech/jts/operation/buffer/BufferOp";
-import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader";
-import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter";
-const jsts = {
-  BufferOp,
-  GeoJSONReader,
-  GeoJSONWriter,
-};
-import { union } from "./union.js";
-import { clip } from "./clip.js";
+import initGeosJs from "geos-wasm";
+import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
+import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
+import { km2deg } from "../utils/km2deg.js";
+import { featurecollection } from "../utils/featurecollection.js";
 
 /**
- * Build a buffer around a FeatureCollection or a set of Features or Geometries.
+ * Build a buffer with GEOS-WASM around a FeatureCollection or a set of Features or Geometries.
  *
  * Example: {@link https://observablehq.com/@neocartocnrs/buffer?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
  * @param {object} options - Optional parameters
  * @param {number|string} options.dist - The distance of the buffer in km or the name of the field containing the distance values
- * @param {boolean} [options.clip] - Prevent the buffer to have coordinates that exceed [-90, 90] in latitude and [-180, 180]
  * @param {boolean} [options.merge=false] - Merge all the output buffers into a single Geometry
- * @param {boolean} [options.step] - Todo
+ * @param {boolean} [options.quadsegs] - Quadsegs
  * @param {boolean} [options.wgs84=true] - Whether the input data is in WGS84 or not
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
  */
-import { km2deg } from "../utils/km2deg.js";
-import { featurecollection } from "../utils/featurecollection.js";
+export async function buffer(x, options = {}) {
+  // TODO: This will create a new GEOS instance with every call
+  //       to geosunion. Ideally, we should create a single instance
+  //       when the library is loaded and then just pass it around
+  const geos = await initGeosJs();
+  x = featurecollection(x);
+  // Options
 
-export function buffer(x, options = {}) {
   // Parameters
-  let step = options.step ? options.step : 8;
+  let quadsegs = options.quadsegs ? options.quadsegs : 8;
   let wgs84 = options.wgs84 === false ? false : true;
   let distance = 0;
   switch (typeof options.dist) {
@@ -39,46 +37,47 @@ export function buffer(x, options = {}) {
     case "string":
       distance = options.dist;
       break;
-    default:
-      distance = 0;
   }
 
-  let reader = new jsts.GeoJSONReader();
-  let writer = new jsts.GeoJSONWriter();
+  // keep properties
+  let prop = { ...x };
+  delete prop.features;
 
-  let data = reader.read(featurecollection(x));
-  let buffs = [];
-  data.features.forEach((d) => {
-    let featdist = 0;
-    if (typeof distance == "number") {
-      featdist = distance;
-    } else {
-      featdist = wgs84
-        ? km2deg(d.properties[distance])
-        : d.properties[distance];
-    }
+  // One buffer
+  if (options.merge) {
+    const geosGeom = geojsonToGeosGeom(x, geos);
+    const newGeom = geos.GEOSBuffer(geosGeom, distance, quadsegs);
+    return Object.assign(prop, {
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: geosGeomToGeojson(newGeom, geos),
+        },
+      ],
+    });
+  }
 
-    let buff = jsts.BufferOp.bufferOp(d.geometry, featdist, step);
+  // Several buffers
+  else {
+    let buff = [];
+    x.features.forEach((d) => {
+      let featdist =
+        typeof distance == "number"
+          ? distance
+          : wgs84
+          ? km2deg(d.properties[distance])
+          : d.properties[distance];
+      const geosGeom = geojsonToGeosGeom(d, geos);
+      const newGeom = geos.GEOSBuffer(geosGeom, featdist, quadsegs);
 
-    buff = writer.write(buff);
-
-    if (buff.coordinates[0].length !== 0) {
-      buffs.push({
+      buff.push({
         type: "Feature",
         properties: d.properties,
-        geometry: buff,
+        geometry: geosGeomToGeojson(newGeom, geos),
       });
-    }
-  });
-  buffs = { type: "FeatureCollection", features: buffs };
-
-  if (options.merge) {
-    buffs = union(buffs);
+    });
+    buff = buff.filter((d) => d.geometry.coordinates != 0);
+    return Object.assign(prop, { features: buff });
   }
-
-  if (options.clip) {
-    buffs = clip(buffs);
-  }
-
-  return buffs;
 }

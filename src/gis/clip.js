@@ -1,37 +1,23 @@
-import { union } from "./union.js";
-import { buffer } from "./buffer.js";
-import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader";
-import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter";
-import OverlayOp from "jsts/org/locationtech/jts/operation/overlay/OverlayOp";
-
-const jsts = {
-  OverlayOp,
-  GeoJSONReader,
-  GeoJSONWriter,
-};
-
+import initGeosJs from "geos-wasm";
+import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
+import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
 import { featurecollection } from "../utils/featurecollection.js";
 
-/**
- * Clip a FeatureCollection (or a set of Features or Geometries) with another FeatureCollection
- * (or with another set of Features or Geometries).
- *
- * Example: {@link https://observablehq.com/@neocartocnrs/clip?collection=@neocartocnrs/geotoolbox Observable notebook}
- *
- * @param {object|array} x - The GeoJSON FeatureCollection / array of Features / array of Geometries
- * @param {object} options - Optional parameters
- * @param {object} options.clip - The clipping GeoJSON FeatureCollection / array of Features / array of Geometries
- * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
- *
- */
-export function clip(x, options = {}) {
-  let reader = new jsts.GeoJSONReader();
-  let writer = new jsts.GeoJSONWriter();
+export async function clip(x, options = {}) {
+  // TODO: This will create a new GEOS instance with every call
+  //       to geosunion. Ideally, we should create a single instance
+  //       when the library is loaded and then just pass it around
+  const geos = await initGeosJs();
+  x = featurecollection(x);
 
-  let data = reader.read(featurecollection(x));
-  let bufferdist = options.buffer ? options.buffer : 0.1;
   let reverse = options.reverse ? true : false;
-  let myclip = null;
+
+  // keep properties
+  let prop = { ...x };
+  delete prop.features;
+
+  // Clip
+  let myclip;
   if (options.clip != null && options.clip != undefined) {
     myclip = featurecollection(options.clip);
   } else {
@@ -58,48 +44,27 @@ export function clip(x, options = {}) {
       ],
     };
   }
-  // clip union
 
-  let geomclip = buffer(union(myclip), {
-    dist: reverse ? -bufferdist : bufferdist,
-  });
+  //let clip = featurecollection(options.clip);
+  clip = geos.GEOSUnaryUnion(geojsonToGeosGeom(myclip, geos));
+  //return geosGeomToGeojson(clip, geos);
 
-  // return geomclip;
-  geomclip = reader.read(geomclip).features[0].geometry;
-
-  // Intersection / difference
   let result = [];
+  x.features.forEach((d) => {
+    const geosGeom = geojsonToGeosGeom(d, geos);
 
-  data.features.forEach((d) => {
-    // let geom = d.geometry;
-
-    let geom = reverse
-      ? jsts.OverlayOp.difference(d.geometry, geomclip)
-      : jsts.OverlayOp.intersection(d.geometry, geomclip);
-
-    // fix point intersection
-    if (geom.hasOwnProperty("_coordinates")) {
-      if (geom._coordinates._coordinates.length == 0) {
-        geom = { type: "Point", coordinates: [] };
-      } else {
-        geom = writer.write(geom);
-      }
-    } else {
-      geom = writer.write(geom);
-    }
-
-    // build features
-    if (geom.coordinates.flat().length !== 0) {
-      result.push({
-        type: "Feature",
-        properties: d.properties,
-        geometry: geom,
-      });
-    }
+    const newGeom =
+      reverse == true
+        ? geos.GEOSDifference(geosGeom, clip)
+        : geos.GEOSIntersection(geosGeom, clip);
+    result.push({
+      type: "Feature",
+      properties: d.properties,
+      geometry: geosGeomToGeojson(newGeom, geos),
+    });
   });
 
-  return {
-    type: "FeatureCollection",
+  return Object.assign(prop, {
     features: result,
-  };
+  });
 }

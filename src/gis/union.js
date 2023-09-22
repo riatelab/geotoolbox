@@ -1,21 +1,10 @@
-import { type } from "../utils/type.js";
-import { aggregate } from "./aggregate.js";
-import { topology } from "topojson-server";
-import { merge } from "topojson-client";
-const topojson = Object.assign({}, { topology, merge });
+import initGeosJs from "geos-wasm";
+import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
+import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
 import { featurecollection } from "../utils/featurecollection.js";
-import UnaryUnionOp from "jsts/org/locationtech/jts/operation/union/UnaryUnionOp";
-import GeoJSONReader from "jsts/org/locationtech/jts/io/GeoJSONReader";
-import GeoJSONWriter from "jsts/org/locationtech/jts/io/GeoJSONWriter";
-
-const jsts = {
-  UnaryUnionOp,
-  GeoJSONReader,
-  GeoJSONWriter,
-};
 
 /**
- * Takes a FeatureCollection or a set of Features or Geometries containing Polygons and merge them.
+ * Takes a FeatureCollection or a set of Features or Geometries containing Polygons and merge them with GEOS-WASM.
  *
  * Example: {@link https://observablehq.com/@neocartocnrs/union?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
@@ -24,69 +13,54 @@ const jsts = {
  * @param {string} [options.id] - The id of the features to aggregate
  * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - The new GeoJSON FeatureCollection
  *
- * @see the <code>aggregate</code> function
- *
  */
+export async function union(x, options = {}) {
+  // TODO: This will create a new GEOS instance with every call
+  //       to geosunion. Ideally, we should create a single instance
+  //       when the library is loaded and then just pass it around
+  const geos = await initGeosJs();
 
-export function union(x, options = {}) {
   x = featurecollection(x);
-  let geomtype = type(x).dimension;
 
-  if (geomtype == 1 || geomtype == 2) {
-    return aggregate(x, options);
-  } else {
-    let reader = new jsts.GeoJSONReader();
-    let writer = new jsts.GeoJSONWriter();
-    if (options.id != null && options.id != undefined) {
-      // Union by id
-      let ids = Array.from(
-        new Set(x.features.map((d) => d.properties[options.id]))
-      );
+  // keep properties
+  let prop = { ...x };
+  delete prop.features;
 
-      let result = [];
-      ids.forEach((d) => {
-        let subx = featurecollection(
-          x.features.filter((e) => e.properties[options.id] == d)
-        );
+  // Union by id
+  if (options.id != null && options.id != undefined) {
+    let ids = Array.from(
+      new Set(x.features.map((d) => d.properties[options.id]))
+    );
 
-        let topo = topojson.topology({ foo: subx });
-        let geom = topojson.merge(topo, topo.objects.foo.geometries);
-        result.push({
-          type: "Feature",
-          properties: { id: d },
-          geometry: writer.write(
-            jsts.UnaryUnionOp.union(
-              reader.read(featurecollection(geom)).features[0].geometry
-            )
-          ),
-        });
+    let features = [];
+    ids.forEach((d) => {
+      let selection = {
+        type: "FeatureCollection",
+        features: x.features.filter((e) => e.properties[options.id] == d),
+      };
+
+      const geosGeom = geojsonToGeosGeom(selection, geos);
+      const newGeom = geos.GEOSUnaryUnion(geosGeom);
+      features.push({
+        type: "Feature",
+        properties: { id: d },
+        geometry: geosGeomToGeojson(newGeom, geos),
       });
-
-      return {
-        type: "FeatureCollection",
-        features: result,
-      };
-    } else {
-      // Union all
-      let topo = topojson.topology({ foo: x });
-      let geom = topojson.merge(topo, topo.objects.foo.geometries);
-      return {
-        type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            properties: {},
-            geometry:
-              geomtype == 3
-                ? writer.write(
-                    jsts.UnaryUnionOp.union(
-                      reader.read(featurecollection(geom)).features[0].geometry
-                    )
-                  )
-                : geom,
-          },
-        ],
-      };
-    }
+    });
+    return Object.assign(prop, { features });
+  }
+  // Union All
+  else {
+      const geosGeom = geojsonToGeosGeom(x, geos);
+      const newGeom = geos.GEOSUnaryUnion(geosGeom);
+    return Object.assign(prop, {
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: geosGeomToGeojson(newGeom, geos),
+        },
+      ],
+    });
   }
 }
