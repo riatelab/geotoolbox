@@ -4,7 +4,7 @@
 
 **`geotoolbox`** is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful GIS operations for thematic cartography.
 
-From the version 3.0, it is mailny based on [geos-wasm](https://github.com/chrispahm/geos-wasm).
+From the version 2.0, it is mailny based on [geos-wasm](https://github.com/chrispahm/geos-wasm).
 
 ## 1. <ins>Installation</ins>
 
