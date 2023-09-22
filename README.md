@@ -355,7 +355,6 @@ geo.simplify(
     world, // a GeoJSON object
     { 
         k, // factor of simplification (default: 0.5)
-        merge: false // true to merge geometries(default: false)
     })
 ```
 

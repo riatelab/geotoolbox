@@ -44,6 +44,5 @@ export { clip } from "./gis/clip.js";
 export { nodes } from "./gis/nodes.js";
 export { densify } from "./gis/densify.js";
 export { union } from "./gis/union.js";
+export { simplify } from "./gis/simplify.js";
 export { op } from "./gis/operators.js";
-
-//export { simplify } from "./gis/simplify.js";

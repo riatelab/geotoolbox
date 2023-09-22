@@ -18,7 +18,6 @@ import { union } from "./union.js";
  * @param {array|object} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
  * @param {object} options - Optional parameters
  * @param {number} [options.k=0.5] - The quantile of the simplification
- * @param {boolean} [options.merge=false] - Merge geometries after simplification
  * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}}
  *
  * @example
@@ -26,19 +25,14 @@ import { union } from "./union.js";
  *     world,
  *     {
  *         k, // factor of simplification (default: 0.5)
- *         merge: false // true to merge geometries(default: false)
  *     })
  */
 export function simplify(geojson, options = {}) {
   let k = options.k ? options.k : 0.5;
   // union or not
-  let merge = options.merge === true ? true : false;
   let geo;
-  if (merge) {
-    geo = union(geojson);
-  } else {
-    geo = featurecollection(geojson);
-  }
+  geo = featurecollection(geojson);
+
   // simplification
   let topo = topojson.topology({ foo: geo });
   let simpl = topojson.presimplify(topo);
