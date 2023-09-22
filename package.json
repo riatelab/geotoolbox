@@ -1,6 +1,6 @@
 {
   "name": "geotoolbox",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "description": "geotoolbox is javascript tool for geographers based on d3geo, topojson and jsts. It allows to simply deal with geojson properties and provides several GIS operations useful for thematic cartography.",
   "main": "src/index.js",
   "module": "src/index.js",
