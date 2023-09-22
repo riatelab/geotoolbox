@@ -39,8 +39,12 @@ export { simplify } from "./gis/simplify.js";
 import { union } from "./geos/union.js";
 import { buffer } from "./geos/buffer.js";
 import { densify } from "./geos/densify.js";
+import { makevalid } from "./geos/makevalid.js";
+import { clip } from "./geos/clip.js";
 export let geos = {
   union,
   buffer,
   densify,
+  makevalid,
+  clip,
 };

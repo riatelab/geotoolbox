@@ -1,7 +1,6 @@
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
 import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
-import { km2deg } from "../utils/km2deg.js";
 import { featurecollection } from "../utils/featurecollection.js";
 
 /**
@@ -27,7 +26,7 @@ export async function union(x, options = {}) {
   let prop = { ...x };
   delete prop.features;
 
-  // Union all
+  // Union by id
   if (options.id != null && options.id != undefined) {
     let ids = Array.from(
       new Set(x.features.map((d) => d.properties[options.id]))
@@ -50,10 +49,18 @@ export async function union(x, options = {}) {
     });
     return Object.assign(prop, { features });
   }
-  // Union by id
+  // Union All
   else {
-    const geosGeom = geojsonToGeosGeom(x, geos);
-    const newGeom = geos.GEOSUnaryUnion(geosGeom);
-    return Object.assign(prop, { features: geosGeomToGeojson(newGeom, geos) });
+      const geosGeom = geojsonToGeosGeom(x, geos);
+      const newGeom = geos.GEOSUnaryUnion(geosGeom);
+    return Object.assign(prop, {
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: geosGeomToGeojson(newGeom, geos),
+        },
+      ],
+    });
   }
 }

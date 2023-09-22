@@ -37,8 +37,6 @@ export async function buffer(x, options = {}) {
     case "string":
       distance = options.dist;
       break;
-    default:
-      distance = 0;
   }
 
   // keep properties
@@ -49,15 +47,29 @@ export async function buffer(x, options = {}) {
   if (options.merge) {
     const geosGeom = geojsonToGeosGeom(x, geos);
     const newGeom = geos.GEOSBuffer(geosGeom, distance, quadsegs);
-    return Object.assign(prop, { features: geosGeomToGeojson(newGeom, geos) });
+    return Object.assign(prop, {
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: geosGeomToGeojson(newGeom, geos),
+        },
+      ],
+    });
   }
 
   // Several buffers
   else {
     let buff = [];
     x.features.forEach((d) => {
+      let featdist =
+        typeof distance == "number"
+          ? distance
+          : wgs84
+          ? km2deg(d.properties[distance])
+          : d.properties[distance];
       const geosGeom = geojsonToGeosGeom(d, geos);
-      const newGeom = geos.GEOSBuffer(geosGeom, distance, quadsegs);
+      const newGeom = geos.GEOSBuffer(geosGeom, featdist, quadsegs);
 
       buff.push({
         type: "Feature",
