@@ -15,19 +15,25 @@
  */
 export function featurecollection(x) {
   x = JSON.parse(JSON.stringify(x));
-  if (x.type == "FeatureCollection" && !Array.isArray(x)) {
+  // FeatureCollection
+  if (x?.type == "FeatureCollection" && !Array.isArray(x)) {
     return x;
-  } else if (
+  }
+
+  // Features
+  else if (
     Array.isArray(x) &&
-    x[0]["type"] != undefined &&
-    x[0]["properties"] != undefined &&
-    x[0]["geometry"] != undefined
+    x[0]?.["type"] != undefined &&
+    x[0]?.["properties"] != undefined &&
+    x[0]?.["geometry"] != undefined
   ) {
     return { type: "FeatureCollection", features: x };
-  } else if (
+  }
+  // Array of geometries
+  else if (
     Array.isArray(x) &&
-    x[0]["type"] != undefined &&
-    x[0]["coordinates"] != undefined
+    x[0]?.["type"] != undefined &&
+    x[0]?.["coordinates"] != undefined
   ) {
     return {
       type: "FeatureCollection",
@@ -37,7 +43,9 @@ export function featurecollection(x) {
         geometry: d,
       })),
     };
-  } else if (
+  }
+  // Single geometry
+  else if (
     typeof x == "object" &&
     [
       "Point",
@@ -46,18 +54,20 @@ export function featurecollection(x) {
       "MultiPoint",
       "MultiLineString",
       "MultiPolygon",
-    ].includes(x.type)
+    ].includes(x?.type)
   ) {
     return {
       type: "FeatureCollection",
       features: [{ type: "Feature", properties: {}, geometry: x }],
     };
-  } else if (typeof x == "object" && x.type == "Feature") {
+  }
+  // Single feature
+  else if (typeof x == "object" && x?.type == "Feature") {
     return {
       type: "FeatureCollection",
       features: [x],
     };
   } else {
-    return x;
+    return undefined;
   }
 }
