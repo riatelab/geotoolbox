@@ -1,4 +1,4 @@
-![logo](img/geotoolbox.svg)\]
+![logo](img/geotoolbox.svg)
 
 ![npm](https://img.shields.io/npm/v/geotoolbox) ![jsdeliver](https://img.shields.io/jsdelivr/npm/hw/geotoolbox) ![license](https://img.shields.io/badge/license-MIT-success) ![code size](https://img.shields.io/github/languages/code-size/neocarto/bertin)
 
