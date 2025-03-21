@@ -8,7 +8,7 @@
 
   "opts": {
       "encoding": "utf8",
-      "readme": "./README.md",
+      "readme": "./doc_index.md",
       "destination": "docs/",
       "recurse": true,
       "verbose": false,
