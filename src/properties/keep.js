@@ -1,6 +1,10 @@
 import { remove } from "./remove.js";
 
 /**
+ * @module Properties
+ */
+
+/**
  * Keep only the specified fields in the attribute table of the GeoJSON FeatureCollection.
  * This function returns a new object and does not modify the initial object.
  *

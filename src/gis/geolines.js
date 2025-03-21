@@ -4,7 +4,6 @@
  *
  * Example: {@link https://observablehq.com/@neocartocnrs/geolines?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
- * @returns {{features: *[], type: string}}
  *
  */
 export function geolines() {

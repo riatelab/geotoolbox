@@ -1,7 +1,7 @@
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
 import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
 
 export async function clip(x, options = {}) {
   // TODO: This will create a new GEOS instance with every call

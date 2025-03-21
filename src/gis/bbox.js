@@ -4,7 +4,7 @@
 // import * as d3geo from "d3-geo";
 import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
 
 /**
  * Compute a geographic bounding box for a given FeatureCollection / array of Features / array of Geometries.
@@ -13,7 +13,6 @@ import { featurecollection } from "../utils/featurecollection.js";
  * Example: {@link https://observablehq.com/@neocartocnrs/bbox?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
  * @param {object} _ - The targeted FeatureCollection / Features / Geometries
- * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - A FeatureCollection containing a single Polygon Feature, representing the bounding box
  *
  */
 export function bbox(_) {

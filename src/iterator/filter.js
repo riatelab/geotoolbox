@@ -12,7 +12,6 @@
  * @param {object} geojson - The FeatureCollection to iterate over
  * @param {function} func - The callback function to apply on each element
  * @param {string} [key=properties] - The key to apply the callback function on
- * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - The new GeoJSON FeatureCollection
  */
 export function filter(geojson, func = (d) => d, key = "properties") {
   let x = { ...geojson };

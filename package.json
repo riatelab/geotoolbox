@@ -1,7 +1,7 @@
 {
   "name": "geotoolbox",
   "version": "2.0.3",
-  "description": "geotoolbox is javascript tool for geographers based on d3geo, topojson and jsts. It allows to simply deal with geojson properties and provides several GIS operations useful for thematic cartography.",
+  "description": "geotoolbox is GIS javascript library. It is based on d3geo, topojson and geos-wasm.",
   "main": "src/index.js",
   "module": "src/index.js",
   "jsdelivr": "dist/index.min.js",
@@ -17,6 +17,7 @@
   "scripts": {
     "build": "rollup --config",
     "prepare": "npm run build",
+    "docs": "jsdoc --configure jsdoc.json --verbose",
     "test": "node test/test.mjs"
   },
   "repository": {
@@ -25,6 +26,7 @@
   },
   "keywords": [
     "GIS",
+    "geoJSON",
     "geospatial",
     "geocomputing",
     "geography"
@@ -41,11 +43,15 @@
     "@rollup/plugin-node-resolve": "^13.1.3",
     "json-diff": "^1.0.6",
     "lodash": "^4.17.21",
+    "minami": "^1.2.3",
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
     "d3-geo": "^3.0.1",
+    "docdash": "^2.0.2",
+    "geojson-precision": "^1.0.0",
     "geos-wasm": "^1.1.6",
+    "jsdoc": "^4.0.4",
     "topojson-client": "^3.1.0",
     "topojson-server": "^3.0.1",
     "topojson-simplify": "^3.0.3"

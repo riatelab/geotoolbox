@@ -1,6 +1,10 @@
 import { str2fun } from "./str2fun.js";
 
 /**
+ * @module Properties
+ */
+
+/**
  * Filter a GeoJSON FeatureCollection by its attribute table.
  * This function returns a new object and does not modify the initial object.
  *

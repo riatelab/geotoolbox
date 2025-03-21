@@ -1,4 +1,8 @@
 /**
+ * @module Properties
+ */
+
+/**
  * Remove one or several columns in the attribute table.
  * This function returns a new object and does not modify the initial object.
  *

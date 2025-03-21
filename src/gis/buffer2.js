@@ -3,6 +3,7 @@ import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
 import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
 import { meter2deg } from "../utils/meter2deg.js";
 import { featurecollection } from "../featurecollection.js";
+import { geoAzimuthalEquidistant } from "d3-geo";
 
 /**
  * Build a buffer with GEOS-WASM around a FeatureCollection or a set of Features or Geometries.
@@ -17,26 +18,29 @@ import { featurecollection } from "../featurecollection.js";
  * @param {boolean} [options.wgs84=true] - Whether the input data is in WGS84 or not
  *
  */
-export async function buffer(x, options = {}) {
+export async function buffer2(x, options = {}) {
   // TODO: This will create a new GEOS instance with every call
   //       to geosunion. Ideally, we should create a single instance
   //       when the library is loaded and then just pass it around
   const geos = await initGeosJs();
-  x = featurecollection(x);
-  // Options
 
   // Parameters
+
   let quadsegs = options.quadsegs ? options.quadsegs : 8;
   let wgs84 = options.wgs84 === false ? false : true;
   let distance = 0;
   switch (typeof options.dist) {
     case "number":
-      distance = wgs84 ? meter2deg(options.dist * 1000) : options.dist * 1000;
+      distance = options.dist * 1000;
       break;
     case "string":
       distance = options.dist;
       break;
   }
+
+  x = wgs84
+    ? toAzimuthalEquidistant(featurecollection(x))
+    : featurecollection(x);
 
   // keep properties
   let prop = { ...x };
@@ -77,6 +81,45 @@ export async function buffer(x, options = {}) {
       });
     });
     buff = buff.filter((d) => d.geometry.coordinates != 0);
-    return Object.assign(prop, { features: buff });
+    const result = Object.assign(prop, { features: buff });
+
+    return wgs84 ? toWGS84(result) : result;
   }
+}
+
+function projectCoords(
+  coords,
+  proj = geoAzimuthalEquidistant().scale(6371008.8)
+) {
+  if (typeof coords[0] !== "object") return proj(coords);
+  return coords.map(function (coord) {
+    return projectCoords(coord, proj);
+  });
+}
+
+function unprojectCoords(
+  coords,
+  proj = geoAzimuthalEquidistant().scale(6371008.8)
+) {
+  if (typeof coords[0] !== "object") return proj.invert(coords);
+  return coords.map(function (coord) {
+    return unprojectCoords(coord, proj);
+  });
+}
+
+function toAzimuthalEquidistant(geojson) {
+  let x = JSON.parse(JSON.stringify(geojson));
+  x.features.forEach(
+    (d) => (d.geometry.coordinates = projectCoords(d.geometry.coordinates))
+  );
+  return x;
+}
+
+function toWGS84(geojson) {
+  let x = JSON.parse(JSON.stringify(geojson));
+  x.features.forEach(
+    (d) => (d.geometry.coordinates = unprojectCoords(d.geometry.coordinates))
+  );
+
+  return x;
 }

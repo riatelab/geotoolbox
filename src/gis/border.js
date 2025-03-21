@@ -1,7 +1,7 @@
 import { topology } from "topojson-server";
 import { neighbors, mesh } from "topojson-client";
 const topojson = Object.assign({}, { topology, neighbors, mesh });
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
 import * as d3array from "d3-array";
 const d3 = Object.assign({}, d3array);
 
@@ -18,7 +18,6 @@ const d3 = Object.assign({}, d3array);
  * @param {boolean} [options.values] - Todo
  * @param {boolean} [options.type] - Todo
  * @param {boolean} [options.share] - Todo
- * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
  */
 export function border(geojson, options = {}) {

@@ -1,9 +1,4 @@
-# Node.js folders
 node_modules/
 dist/
-
-# History files
-.Rhistory 
-
-# VS Code folders 
-.vscode/*
+docs/
+.nyc_output

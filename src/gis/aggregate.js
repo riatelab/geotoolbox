@@ -3,7 +3,11 @@ import { dissolve } from "./dissolve.js";
 import { topology } from "topojson-server";
 import { merge } from "topojson-client";
 const topojson = Object.assign({}, { topology, merge });
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
+
+/**
+ * @module GIS
+ */
 
 /**
  * Takes a FeatureCollection or a set of Features or Geometries and merge them
@@ -14,7 +18,6 @@ import { featurecollection } from "../utils/featurecollection.js";
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
  * @param {object} [options={}] - Optional parameters
  * @param {string} [options.id] - The id of the features to aggregate
- * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - The new GeoJSON FeatureCollection
  *
  * @see the <code>union</code> function
  *

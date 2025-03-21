@@ -2,6 +2,10 @@
 import { str2fun } from "./str2fun.js";
 
 /**
+ * @module Properties
+ */
+
+/**
  * Add a new field in the attribute table of the GeoJSON FeatureCollection.
  * This function returns a new object and does not modify the initial object.
  *

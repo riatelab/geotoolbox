@@ -1,27 +1,16 @@
-export function coords2geo(data, options = {}) {
-  let arr = JSON.parse(JSON.stringify(data));
-
-  let lat = options.lat || options.latitude;
-  let lon = options.lon || options.lng || options.longitude;
-  let coords = options.coords || options.coordinates;
-  let sep =
-    options.sep || options.separator ? options.sep || options.separator : ",";
-  let reverse = options.reverse ? true : false;
-
+export function table2geo(arr, lat, lon, coords, reverse) {
   // check fields
-  if (lat == undefined && lon == undefined && coords == undefined) {
-    let checkcoords = [
-      "coords",
-      "Coords",
-      "coord",
-      "Coords",
-      "Coordinates",
-      "coordinates",
-      "Coordinate",
-      "coordinate",
-    ];
-    let checklat = ["lat", "Lat", "LAT", "Latitude", "latitude"];
-    let checklon = [
+  let keys = [];
+  arr.forEach((d) => keys.push(Object.keys(d)));
+  keys = Array.from(new Set(keys.flat()));
+  if (lat == undefined) {
+    lat = ["lat", "Lat", "LAT", "Latitude", "latitude"].filter((d) =>
+      keys.includes(d)
+    )[0];
+  }
+
+  if (lon == undefined) {
+    lon = [
       "lon",
       "Lon",
       "LON",
@@ -30,30 +19,36 @@ export function coords2geo(data, options = {}) {
       "LNG",
       "Longitude",
       "longitude",
-    ];
-
-    let keys = [];
-    arr.forEach((d) => keys.push(Object.keys(d)));
-    keys = Array.from(new Set(keys.flat()));
-
-    lat = checklat.filter((d) => keys.includes(d))[0];
-    lon = checklon.filter((d) => keys.includes(d))[0];
-    coords = checkcoords.filter((d) => keys.includes(d))[0];
+    ].filter((d) => keys.includes(d))[0];
+  }
+  if (coords == undefined) {
+    coords = [
+      "coords",
+      "Coords",
+      "coord",
+      "Coords",
+      "Coordinates",
+      "coordinates",
+      "Coordinate",
+      "coordinate",
+    ].filter((d) => keys.includes(d))[0];
   }
 
   // case1: lat & lng coords in separate columns
   if (lat && lon) {
-    let x = reverse ? lon : lat;
-    let y = reverse ? lat : lon;
+    let x = lat;
+    let y = lon;
 
     return {
       type: "FeatureCollection",
-      features: data.map((d) => ({
+      features: arr.map((d) => ({
         type: "Feature",
         properties: d,
         geometry: {
           type: "Point",
-          coordinates: [+d[y], +d[x]],
+          coordinates: reverse
+            ? [parseFloat(d[x]), parseFloat(d[y])]
+            : [parseFloat(d[y]), parseFloat(d[x])],
         },
       })),
     };
@@ -64,7 +59,7 @@ export function coords2geo(data, options = {}) {
   if (coords) {
     return {
       type: "FeatureCollection",
-      features: data.map((d) => ({
+      features: arr.map((d) => ({
         type: "Feature",
         properties: d,
         geometry: {

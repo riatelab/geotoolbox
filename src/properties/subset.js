@@ -1,4 +1,8 @@
 /**
+ * @module Properties
+ */
+
+/**
  * Create a subset from an array of values.
  * This function returns a new object and does not modify the initial object.
  *

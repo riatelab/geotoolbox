@@ -1,4 +1,8 @@
 /**
+ * @module Properties
+ */
+
+/**
  * Get the first n Features of a GeoJSON FeatureCollection.
  * This function returns a new object and does not modify the initial object.
  *

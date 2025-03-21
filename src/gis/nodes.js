@@ -4,11 +4,10 @@
  * Example: {@link https://observablehq.com/@neocartocnrs/buffer?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
- * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
  */
 
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
 
 export function nodes(x) {
   x = featurecollection(x);

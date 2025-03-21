@@ -1,7 +1,7 @@
 // Imports
 
 import { geoArea, geoCentroid, geoIdentity, geoPath } from "d3-geo";
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
 
 const d3 = Object.assign({}, { geoArea, geoCentroid, geoIdentity, geoPath });
 
@@ -19,7 +19,6 @@ const d3 = Object.assign({}, { geoArea, geoCentroid, geoIdentity, geoPath });
  * @param {object} options - Optional parameters
  * @param {boolean} [options.largest=true] - Place the centroid in the largest polygon.
  * @param {boolean} [options.planar=false] - Use planar projection.
- * @returns {{features: {geometry: {}, type: string, properties: {}}[], type: string}} - The resulting GeoJSON FeatureCollection
  *
  */
 export function centroid(geojson, options = {}) {

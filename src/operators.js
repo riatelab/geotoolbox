@@ -1,6 +1,6 @@
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
 
 export let op = {
   contains,

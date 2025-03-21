@@ -1,4 +1,8 @@
 /**
+ * @module Properties
+ */
+
+/**
  * Return the attribute table of the GeoJSON FeatureCollection
  * (i.e. the properties of each Feature).
  * This function returns a deep copy of the original properties.

@@ -1,7 +1,7 @@
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
 import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
-import { featurecollection } from "../utils/featurecollection.js";
+import { featurecollection } from "../featurecollection.js";
 
 /**
  * Takes a FeatureCollection or a set of Features or Geometries containing Polygons and merge them with GEOS-WASM.
@@ -11,7 +11,7 @@ import { featurecollection } from "../utils/featurecollection.js";
  * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
  * @param {object} [options={}] - Optional parameters
  * @param {string} [options.id] - The id of the features to aggregate
- * @returns {{features: [{geometry:{}, type: string, properties: {}}], type: string}} - The new GeoJSON FeatureCollection
+
  *
  */
 export async function union(x, options = {}) {
@@ -51,8 +51,8 @@ export async function union(x, options = {}) {
   }
   // Union All
   else {
-      const geosGeom = geojsonToGeosGeom(x, geos);
-      const newGeom = geos.GEOSUnaryUnion(geosGeom);
+    const geosGeom = geojsonToGeosGeom(x, geos);
+    const newGeom = geos.GEOSUnaryUnion(geosGeom);
     return Object.assign(prop, {
       features: [
         {
