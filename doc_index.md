@@ -49,6 +49,7 @@ geo = require("geotoolbox@3");
 - [**`densify()`**](global.html#densify) - The function add nodes to a geoJSON.
 - [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
 - [**`featurecollection()`**](global.html#featurecollection) - The function allows to retrieve a FeatureCollection from a topoJSON, an array of features, a single feature, an array of geometries, a single geometry, an array of objects with coordinates (points), an array coordinates (points) or a couple of coordinates (points).
+- [**`geolines()`**](global.html#geolines) - Equator, tropics & polar circles.
 - [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
 - [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
 - [**`makevalid()`**](global.html#makevalid) - The function allows to make a GeoJSON valid using <code>geos-wasm</code> library.
@@ -57,6 +58,7 @@ geo = require("geotoolbox@3");
 - [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
 - [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry using <code>topojson-simplify</code> library. The parameter k difine the  The quantile of the simplification. By default, the generalization level is calculated automatically to ensure smooth map display.simplify a basemap.
 - [**`stitch()`**](global.html#stitch) - The function (aka `d3.geoStitch`) returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
+- [**`tissot()`**](global.html#tissot) - Generate Tissot's indicatrix.
 
 #### ➡️ Geoprocessing
 

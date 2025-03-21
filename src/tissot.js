@@ -1,14 +1,14 @@
 import { geoCircle } from "d3-geo";
 
 /**
- * Generate Tissot's indicatrix.
- *
- * Example: {@link https://observablehq.com/@neocartocnrs/tissot?collection=@neocartocnrs/geotoolbox Observable notebook}
- *
- * @param {number} step - The distance between each circle
- *
+ * @function tissot
+ * @description Generate Tissot's indicatrix.
+ * @param {number} [step = 20] - The distance between each circle
+ * @example
+ * geotoolbox.tissot(*a geojson*)
  */
-export function tissot(step) {
+
+export function tissot(step = 20) {
   const circle = geoCircle()
     .center((d) => d)
     .radius(step / 4)

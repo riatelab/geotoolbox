@@ -12,6 +12,8 @@ export { resolveemptygeom } from "./resolveemptygeom.js";
 export { densify } from "./densify.js";
 export { dissolve } from "./dissolve.js";
 export { nodes } from "./nodes.js";
+export { tissot } from "./tissot.js";
+export { geolines } from "./geolines.js";
 export { op } from "./operators.js";
 export { properties } from "./properties.js";
 
