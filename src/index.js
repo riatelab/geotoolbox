@@ -11,19 +11,9 @@ export { removeemptygeom } from "./removeemptygeom.js";
 export { resolveemptygeom } from "./resolveemptygeom.js";
 export { densify } from "./densify.js";
 export { dissolve } from "./dissolve.js";
+export { nodes } from "./nodes.js";
 export { op } from "./operators.js";
-
-// deprecated
-export { coords2geo } from "./deprecated/coords2geo.js";
-
-// ----------------------------
-
-// Utils
-//
-// export { rewind } from "./utils/rewind.js";
-// export { type } from "./utils/type.js";
-// export { topojson } from "./utils/topojson.js";
-// export { makevalid } from "./utils/makevalid.js";
+export { properties } from "./properties.js";
 
 // Properties operations
 
@@ -45,6 +35,18 @@ export { coords2geo } from "./deprecated/coords2geo.js";
 //   head,
 //   tail,
 // };
+
+// deprecated
+export { coords2geo } from "./deprecated/coords2geo.js";
+
+// ----------------------------
+
+// Utils
+//
+// export { rewind } from "./utils/rewind.js";
+// export { type } from "./utils/type.js";
+// export { topojson } from "./utils/topojson.js";
+// export { makevalid } from "./utils/makevalid.js";
 
 // Iterators
 // export { map } from "./iterator/map.js";

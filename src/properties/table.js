@@ -13,6 +13,6 @@
  * @returns {object[]} - The attribute table
  *
  */
-export function table(geojson) {
+export function table(geojson, { deepcopy = true } = {}) {
   return JSON.parse(JSON.stringify(geojson.features.map((d) => d.properties)));
 }

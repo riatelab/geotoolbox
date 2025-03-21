@@ -47,6 +47,8 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
+    "d3-array": "^3.2.4",
+    "d3-dsv": "^3.0.1",
     "d3-geo": "^3.0.1",
     "docdash": "^2.0.2",
     "geojson-precision": "^1.0.0",

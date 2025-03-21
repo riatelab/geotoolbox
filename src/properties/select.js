@@ -1,4 +1,4 @@
-import { str2fun } from "./str2fun.js";
+import { str2fun } from "../helpers/str2fun.js";
 
 /**
  * @module Properties
