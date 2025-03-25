@@ -1,6 +1,6 @@
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "geos-wasm/helpers";
-import { isemptygeom } from "./helpers/isemptygeom";
+import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function isvalid

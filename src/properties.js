@@ -1,4 +1,4 @@
-import { isFieldNumber } from "./helpers/isnumber";
+import { isFieldNumber, isgeojson, isarrayofobjects } from "./helpers/helpers";
 import { descending, ascending } from "d3-array";
 import { autoType } from "d3-dsv";
 const d3 = Object.assign({}, { descending, ascending, autoType });
@@ -28,36 +28,6 @@ export function table(data, { deepcopy = true } = {}) {
     geojson = data;
   }
   return geojson?.features.map((d) => d?.properties);
-}
-
-/**
- * @function properties/autotype
- * @description Automatic type. The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
- * @param {object} data - a GeoJSON FeatureCollection
- * @param {object} options - Optional parameters
- * @param {boolean} [options.deepcopy = true] - Use true to ensure that the input object is not modified and to create a new object.
- * @example
- * geotoolbox.properties.autotype(*a geojson*)
- */
-export function autotype(data, { deepcopy = true } = {}) {
-  // deep copy ?
-  let geojson;
-  if (deepcopy) {
-    geojson = JSON.parse(JSON.stringify(data));
-  } else {
-    geojson = data;
-  }
-
-  geojson.features = geojson.features.map((d) => ({
-    ...d,
-    properties: d3.autoType(
-      Object.fromEntries(
-        Object.entries(d.properties).map(([key, value]) => [key, String(value)])
-      )
-    ),
-  }));
-
-  return geojson;
 }
 
 /**

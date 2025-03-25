@@ -1,5 +1,5 @@
 import { implantation } from "./helpers/implantation.js";
-import { isemptygeom } from "./helpers/isemptygeom.js";
+import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function resolveemptygeom

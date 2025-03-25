@@ -1,38 +1,39 @@
-import { type } from "../utils/type.js";
+import { type } from "./utils/type.js";
 import { dissolve } from "./dissolve.js";
 import { topology } from "topojson-server";
 import { merge } from "topojson-client";
 const topojson = Object.assign({}, { topology, merge });
-import { featurecollection } from "../featurecollection.js";
 
 /**
- * @module GIS
+ * @function aggregate
+ * @description Aggregate geometries (based on topojson). The `aggregate()` function allows to merge all geometries of a geoJSON based on their topology. The `id` parameter allows to aggregate based on a specific field.
+ * @param {object} options - Optional parameters
+ * @param {string} [id = null] - The id of the features to aggregate
+ * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @example
+ * geotoolbox.aggregate(*a geojson*)
  */
 
-/**
- * Takes a FeatureCollection or a set of Features or Geometries and merge them
- * based on their topology.
- *
- * Example: {@link https://observablehq.com/@neocartocnrs/aggregate?collection=@neocartocnrs/geotoolbox Observable notebook}
- *
- * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
- * @param {object} [options={}] - Optional parameters
- * @param {string} [options.id] - The id of the features to aggregate
- *
- * @see the <code>union</code> function
- *
- */
-export function aggregate(x, options = {}) {
-  x = featurecollection(x);
-  let dim = type(x).dimension;
-  if (options.id != null && options.id != undefined) {
-    let id = options.id;
-    let arr = Array.from(new Set(x.features.map((d) => d.properties[id])));
+export function aggregate(data, { id = null, deepcopy = true } = {}) {
+  // deep copy ?
+
+  let geojson;
+  if (deepcopy) {
+    geojson = JSON.parse(JSON.stringify(data));
+  } else {
+    geojson = data;
+  }
+
+  let dim = type(geojson).dimension;
+  if (id != null && id != undefined) {
+    let arr = Array.from(
+      new Set(geojson.features.map((d) => d.properties[id]))
+    );
     let features = [];
     arr.forEach((myid) => {
       let geo = {
         type: "FeatureCollection",
-        features: x.features.filter((d) => d.properties[id] == myid),
+        features: geojson.features.filter((d) => d.properties[id] == myid),
       };
       //return geo;
 
@@ -74,21 +75,25 @@ export function aggregate(x, options = {}) {
   } else {
     let geom;
     if (dim == 3) {
-      let topo = topojson.topology({ foo: x });
+      let topo = topojson.topology({ foo: geojson });
       geom = topojson.merge(topo, topo.objects.foo.geometries);
     }
 
     if (dim == 2) {
       geom = {
         type: "MultiLineString",
-        coordinates: dissolve(x).features.map((d) => d.geometry.coordinates),
+        coordinates: dissolve(geojson).features.map(
+          (d) => d.geometry.coordinates
+        ),
       };
     }
 
     if (dim == 1) {
       geom = {
         type: "MultiPoint",
-        coordinates: dissolve(x).features.map((d) => d.geometry.coordinates),
+        coordinates: dissolve(geojson).features.map(
+          (d) => d.geometry.coordinates
+        ),
       };
     }
 

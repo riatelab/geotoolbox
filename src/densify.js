@@ -1,6 +1,6 @@
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
-import { isemptygeom } from "./helpers/isemptygeom.js";
+import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function densify

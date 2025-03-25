@@ -1,5 +1,5 @@
 import { implantation } from "./helpers/implantation.js";
-import { geomtypes } from "./helpers/geomtypes.js";
+import { geomtypes } from "./helpers/helpers";
 
 /**
  * @function info

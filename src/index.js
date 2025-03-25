@@ -15,8 +15,11 @@ export { nodes } from "./nodes.js";
 export { tissot } from "./tissot.js";
 export { geolines } from "./geolines.js";
 export { bbox } from "./bbox.js";
+export { aggregate } from "./aggregate.js";
 export { op } from "./operators.js";
-export { properties } from "./properties.js";
+export { autotype } from "./autotype.js";
+
+//export { properties } from "./properties.js";
 
 // Properties operations
 
