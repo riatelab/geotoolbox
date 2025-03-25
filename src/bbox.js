@@ -1,26 +1,20 @@
-// based on Jacob Rus code
-// See https://observablehq.com/@jrus/sphere-resample
-
-// import * as d3geo from "d3-geo";
 import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
-import { featurecollection } from "../featurecollection.js";
+import { featurecollection } from "./featurecollection.js";
 
 /**
- * Compute a geographic bounding box for a given FeatureCollection / array of Features / array of Geometries.
- * The bounding box is returned wrapped in a FeatureCollection containing a single Polygon Feature.
- *
- * Example: {@link https://observablehq.com/@neocartocnrs/bbox?collection=@neocartocnrs/geotoolbox Observable notebook}
- *
- * @param {object} _ - The targeted FeatureCollection / Features / Geometries
- *
+ * @function bbox
+ * @description Compute a geographic bounding box for a given FeatureCollection / array of Features / array of Geometries. The bounding box is returned wrapped in a FeatureCollection containing a single Polygon Feature. based on Jacob Rus code. See https://observablehq.com/@jrus/sphere-resample
+ * @param {object|array} data - a GeoJSON FeatureCollection or an array with coordinates
+ * @example
+ * geotoolbox.bbox(*a geojson*)
  */
-export function bbox(_) {
+export function bbox(data) {
   let bounds;
-  if (!Array.isArray(_)) {
-    bounds = d3.geoBounds(featurecollection(_));
+  if (!Array.isArray(data)) {
+    bounds = d3.geoBounds(featurecollection(data));
   } else {
-    bounds = _;
+    bounds = data;
   }
 
   let λ0 = bounds[0][0];

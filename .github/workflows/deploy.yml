@@ -1,0 +1,29 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main # ou la branche sur laquelle tu fais ton push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout le code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Installer Node.js (si nécessaire pour générer la doc)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # ou la version nécessaire pour ton générateur de documentation
+
+      # Installer les dépendances (si ton projet utilise un générateur de documentation comme MkDocs ou un autre outil)
+      - name: Install dependencies
+        run: npm install # ou une commande d'installation spécifique à ton outil de doc (par exemple `pip install mkdocs`)
+
+      # Générer la documentation
+      - name: Generate Documentation
+        run: npm run docs # ou une commande spécifique à ton générateur de documentation (par exemple `mkdocs build`)
