@@ -39,9 +39,10 @@ geo = require("geotoolbox@3");
 #### ➡️ Data handling
 
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
-<!-- - [**`properties.head()`**](global.html#head) - The function returns a sorted geoJSON with the first nb features.
-- [**`properties.table()`**](global.html#table) - The function returns the attribute table of the GeoJSON FeatureCollection (i.e. the properties of each Feature).
-- [**`properties.tail()`**](global.html#tail) - The function returns a sorted geoJSON with the last nb features. -->
+- [**`handle()`**](global.html#handle) - xxxx
+- [**`head()`**](global.html#head) - The function sort data and returns the nb first elements.
+<!-- - [**`properties.table()`**](global.html#table) - The function returns the attribute table of the GeoJSON FeatureCollection (i.e. the properties of each Feature). -->
+- [**`tail()`**](global.html#tail) - The function sort data and returns the nb last elements.
 - WIP....
 
 #### ➡️ Basemap utilities

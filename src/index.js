@@ -18,6 +18,9 @@ export { bbox } from "./bbox.js";
 export { aggregate } from "./aggregate.js";
 export { op } from "./operators.js";
 export { autotype } from "./autotype.js";
+export { head } from "./head.js";
+export { tail } from "./tail.js";
+export { handle } from "./handle.js";
 
 //export { properties } from "./properties.js";
 

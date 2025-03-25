@@ -15,6 +15,13 @@ export function isFieldNumber(data, field) {
   return nb > test.length / 2 ? true : false;
 }
 
+// Check if a field of a dataframe is a number
+export function isFieldNumber2(data, field) {
+  const test = data.map((d) => isNumber(d[field]));
+  const nb = test.filter((d) => d === true).length;
+  return nb > test.length / 2 ? true : false;
+}
+
 // Che if geometry is empty
 export function isemptygeom(geometry) {
   if (
@@ -36,7 +43,7 @@ export function isemptygeom(geometry) {
   }
 }
 
-// Convert string ti funcytion
+// Convert string to funcytion
 export function str2fun(string) {
   const newfunc = new Function(`return (${string})`);
   return newfunc();
@@ -72,15 +79,6 @@ export function isarrayofobjects(x) {
     return false;
   }
 }
-
-// export function isgeojson(data) {
-//   return (
-//     value !== null &&
-//     value !== "" &&
-//     typeof value !== "boolean" &&
-//     isFinite(value)
-//   );
-// }
 
 // Get geom types
 export function geomtypes(x) {

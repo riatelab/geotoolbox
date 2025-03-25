@@ -9,7 +9,7 @@ const d3 = Object.assign({}, { autoType });
  * @param {object} options - Optional parameters
  * @param {boolean} [options.deepcopy = true] - Use true to ensure that the input object is not modified and to create a new object.
  * @example
- * geotoolbox.autotype(*a geojson*)
+ * geotoolbox.autotype(*a geojson or an array of objects*)
  */
 export function autotype(data, { deepcopy = true } = {}) {
   // deep copy ?
