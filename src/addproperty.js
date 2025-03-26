@@ -1,6 +1,9 @@
-import { str2fun, isarrayofobjects, isgeojson } from "./helpers/helpers.js";
+import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
 
-export function addproperty(data, { key, value, deepcopy = true } = {}) {
+export function addproperty(
+  data,
+  { key = "_newkey", value, deepcopy = true } = {}
+) {
   // deep copy ?
   let x;
   if (deepcopy) {
@@ -8,42 +11,45 @@ export function addproperty(data, { key, value, deepcopy = true } = {}) {
   } else {
     x = data;
   }
-  let properties;
-  if (isgeojson(x)) {
-    properties = x.features.map((d) => d.properties);
-  } else if (isarrayofobjects(x)) {
-    properties = x.map((d) => d);
-  }
-  let keys = [];
-  properties.forEach((d) => {
-    keys.push(Object.keys(d));
-  });
-  keys = Array.from(new Set(keys.flat()));
 
-  let newfield;
-  if (typeof value == "function") {
-    newfield = x.map(value);
-  } else if (typeof value == "string") {
-    keys.forEach((d) => {
-      value = value.replace(d, `d.${d}`);
+  // geojson
+
+  const operators = /[+\-/*]/;
+  const prop = [
+    ...new Set(
+      x.features
+        .map((d) => d.properties)
+        .map((d) => Object.keys(d))
+        .flat()
+    ),
+  ];
+  const n = x.features.length;
+
+  if (
+    typeof value == "number" ||
+    (typeof value == "string" && !operators.test(value))
+  ) {
+    x.features.forEach((d) => {
+      d.properties[key] = value;
     });
-    value = "d=>" + value;
-    newfield = x.map(str2fun(value));
-  } else if (typeof value == "number") {
-    newfield = x.map((d) => value);
+  } else if (typeof value == "function") {
+    const values = x.features.map(value);
+    x.features.forEach((d, i) => {
+      d.properties[key] = values[i];
+    });
+  } else if (typeof value == "string" && operators.test(value)) {
+    const newprop = prop.map((d) => "d.properties['" + d + "']");
+    const functrsing =
+      "d => " +
+      prop.reduce(
+        (acc, mot, i) => acc.replace(new RegExp(mot, "g"), newprop[i]),
+        value
+      );
+    const values = x.features.map(eval(functrsing));
+    x.features.forEach((d, i) => {
+      d.properties[key] = values[i];
+    });
   }
-  return newfield;
 
-  // keys.forEach((d) => {
-  //   expression = expression.replace(d, `d.${d}`);
-  // });
-  // expression = "d=> " + expression;
-  //let newfield = data.map(str2fun(expression));
-  // let newfield = data.map((d) => d.pop / d.gdp);
-  // data.forEach((d, i) => {
-  //   d = Object.assign(d, { [field]: newfield[i] });
-  // });
-  // let output = JSON.parse(JSON.stringify(x));
-  // output.features.map((d, i) => (d.properties = { ...data[i] }));
-  // return output;
+  return x;
 }

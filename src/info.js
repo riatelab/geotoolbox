@@ -16,10 +16,6 @@ export function info(data) {
     }).size / 1024
   ).toFixed(0);
 
-  const properties = [
-    ...new Set(data.features.map((d) => Object.keys(d?.properties)).flat()),
-  ];
-
   const nodes =
     data.features
       .map((d) => d.geometry.coordinates)
