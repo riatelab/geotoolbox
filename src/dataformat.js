@@ -1,5 +1,5 @@
 import { isgeojson, isarrayofobjects } from "./helpers/helpers";
-export function handle(data, { properties, rename, deepcopy = true } = {}) {
+export function dataformat(data, { properties, rename, deepcopy = true } = {}) {
   // deep copy ?
   let x;
   if (deepcopy) {

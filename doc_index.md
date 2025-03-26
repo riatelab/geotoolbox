@@ -38,10 +38,10 @@ geo = require("geotoolbox@3");
 
 #### ➡️ Data handling
 
+- [**`addproperty()`**](global.html#addproperty) - The function add a property to a geoJSON or an array of objects
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
-- [**`handle()`**](global.html#handle) - xxxx
+- [**`dataformat()`**](global.html#dataformat) - xxxx
 - [**`head()`**](global.html#head) - The function sort data and returns the nb first elements.
-<!-- - [**`properties.table()`**](global.html#table) - The function returns the attribute table of the GeoJSON FeatureCollection (i.e. the properties of each Feature). -->
 - [**`tail()`**](global.html#tail) - The function sort data and returns the nb last elements.
 - WIP....
 

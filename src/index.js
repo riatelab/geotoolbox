@@ -20,7 +20,8 @@ export { op } from "./operators.js";
 export { autotype } from "./autotype.js";
 export { head } from "./head.js";
 export { tail } from "./tail.js";
-export { handle } from "./handle.js";
+export { addproperty } from "./addproperty.js";
+export { dataformat } from "./dataformat.js";
 
 //export { properties } from "./properties.js";
 
