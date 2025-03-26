@@ -22,6 +22,8 @@ export { head } from "./head.js";
 export { tail } from "./tail.js";
 export { addproperty } from "./addproperty.js";
 export { dataformat } from "./dataformat.js";
+export { filter } from "./filter.js";
+export { replace } from "./replace.js";
 
 //export { properties } from "./properties.js";
 
