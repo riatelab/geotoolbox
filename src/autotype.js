@@ -5,6 +5,7 @@ const d3 = Object.assign({}, { autoType });
 /**
  * @function autotype
  * @summary The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type. Besed on d3.autoType().
+ * @description Based on `d3.autoType`.
  * @param {object|Array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
  * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.

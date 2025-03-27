@@ -7,6 +7,7 @@ const topojson = Object.assign({}, { topology, merge });
 /**
  * @function aggregate
  * @summary Aggregate geometries (based on topojson). The `aggregate()` function allows to merge all geometries of a geoJSON based on their topology. The `id` parameter allows to aggregate based on a specific field.
+ * @description Based on `topojson.merge`.
  * @param {object} options - Optional parameters
  * @param {string} [id = null] - The id of the features to aggregate
  * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.

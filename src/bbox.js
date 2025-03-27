@@ -4,7 +4,8 @@ import { featurecollection } from "./featurecollection.js";
 
 /**
  * @function bbox
- * @summary Compute a geographic bounding box for a given FeatureCollection / array of Features / array of Geometries. The bounding box is returned wrapped in a FeatureCollection containing a single Polygon Feature. based on Jacob Rus code. See https://observablehq.com/@jrus/sphere-resample
+ * @summary Compute a geographic bounding box for a given FeatureCollection / array of Features / array of Geometries. The bounding box is returned wrapped in a FeatureCollection containing a single Polygon Feature.
+ * @description based on Jacob Rus code. See https://observablehq.com/@jrus/sphere-resample
  * @param {object|array} data - a GeoJSON FeatureCollection or an array with coordinates
  * @example
  * geotoolbox.bbox(*a geojson*)

@@ -5,16 +5,17 @@ import { isemptygeom } from "./helpers/helpers";
 /**
  * @function makevalid
  * @summary The `makevalid()` function repair an invalid geometry. It returns a repaired geometry.
+ * @description Based on `geos.GEOSisValid` (geos-wasm).
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
- * @param {boolean} [options.deepcopy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.makevalid(*a geojson*)
  */
-export async function makevalid(data, { deepcopy = true } = {}) {
+export async function makevalid(data, { mutate = false } = {}) {
   // deep copy ?
   let geojson;
-  if (deepcopy) {
+  if (!mutate) {
     geojson = JSON.parse(JSON.stringify(data));
   } else {
     geojson = data;

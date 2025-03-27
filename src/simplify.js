@@ -11,6 +11,7 @@ const topojson = Object.assign(
  * @function simplify
  * @export
  * @summary Simplify geometries. The `simplify()` function allows to simplify a geometry using <code>topojson-simplify</code> library. The parameter k difine the  The quantile of the simplification. By default, the generalization level is calculated automatically to ensure smooth map display.
+ * @description Based on `topojson.simplify`.
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {number} [options.k = undefined] - quantile of the simplification (from 0 to 1). If not defened, the generalization level is calculated automatically to ensure smooth map display.

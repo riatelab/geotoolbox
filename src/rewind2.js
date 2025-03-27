@@ -1,6 +1,7 @@
 /**
  * @function rewind2
- * @summary Rewind a geoJSON (Adapted from MapBox geojson-rewind code (https://github.com/mapbox/grojson-rewind) under ISC license). Rewind a geoJSON ([fil recipe](https://observablehq.com/@fil/rewind)). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
+ * @summary Rewind a geoJSON (Mapbox). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
+ * @description  Adapted from MapBox geojson-rewind code (https://github.com/mapbox/grojson-rewind) under ISC license.
  * @property {object} data - a GeoJSON FeatureCollection
  * @property {boolean} [options.outer = false] - rewind Rings Outer
  * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.

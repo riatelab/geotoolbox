@@ -4,7 +4,8 @@ import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function densify
- * @summary Densify a geoJSON. The function add nodes to a geoJSON with GEOS-WASM.
+ * @summary Densify a geoJSON. The function add nodes to a geoJSON.
+ * @description Based on `geos.GEOSDensify` (geos-wasm).
  * @param {object} data - A GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {number} [options.dist = 1] - The minimal distance between nodes

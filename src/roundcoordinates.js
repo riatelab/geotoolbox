@@ -3,6 +3,7 @@ import { parse } from "geojson-precision";
 /**
  * @function roundcoordinates
  * @summary Round coordinates. The `round()` function allows to round coordinates. This reduces file size and speeds up display.
+ * @description Based on `geojson-precision`.
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {number} [options.precision = 2] - The minimal distance between nodes

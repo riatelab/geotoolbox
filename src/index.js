@@ -25,6 +25,9 @@ export { dataformat } from "./dataformat.js";
 export { filter } from "./filter.js";
 export { replace } from "./replace.js";
 export { columns } from "./columns.js";
+export { sort } from "./sort.js";
+export { combine } from "./combine.js";
+export { centroid } from "./centroid.js";
 
 // -----------------------------------
 // deprecated

@@ -33,6 +33,8 @@ geo = require("geotoolbox@3");
 
 #### ➡️ Information
 
+*Some functions to describe the content of geoJSONs.*
+
 - [**`info()`**](global.html#info) - The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
 - [**`isvalid()`**](global.html#isvalid) - The function check the validity of a geoJSON. It is based on [`geos-wasm`](https://chrispahm.github.io/geos-wasm/).
 
@@ -43,14 +45,16 @@ geo = require("geotoolbox@3");
 - [**`addproperty()`**](global.html#addproperty) - The function add a field to a dataset.
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
 - [**`columns`**](global.html#columns) - Select, rename and reorder properties.
-- [**`dataformat()`**](global.html#dataformat) - xxxx
-- [**`head()`**](global.html#head) - The function sort data and returns the nb first elements.
+- [**`combine`**](global.html#combine) - Puts several datsets into one.
+- [**`head()`**](global.html#head) - The function returns the n first elements.
 - [**`filter()`**](global.html#filter) - Filter a dataset.
 - [**`replace()`**](global.html#replace) - Replace substrings in a dataset.
-- [**`tail()`**](global.html#tail) - The function sort data and returns the nb last elements.
-- WIP....
+- [**`sort()`**](global.html#sort) - Sort a dataset according to a field.
+- [**`tail()`**](global.html#tail) - The function returns the n last elements.
 
 #### ➡️ Basemap utilities
+
+*Useful functions for cartography.*
 
 - [**`densify()`**](global.html#densify) - The function add nodes to a geoJSON.
 - [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
@@ -68,20 +72,33 @@ geo = require("geotoolbox@3");
 
 #### ➡️ Geoprocessing
 
-- [**`aggregate()`**](global.html#aggregate) - Aggregate geometries
-- [**`bbox()`**](global.html#bbox) - Geographic bounding box
-- [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes
-- WIP....
+*Main GIS functions.*
+
+- [**`aggregate()`**](global.html#aggregate) - Aggregate geometries.
+- [**`bbox()`**](global.html#bbox) - Geographic bounding box.
+- [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons.
+- [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
+
 
 #### ➡️ Operators
 
-- [**`op.contains()`**](global.html#op/contains) - GEOSContains. Tests if geometry g2 is completely within g1, but not wholly contained in the boundary of g1.
-- [**`op.covers()`**](global.html#op/covers) - GEOSCovers. Tests if geometry g1 covers g2, which is the case if every point of g2 lies in g1.
-- [**`op.crosses()`**](global.html#op/crosses) - GEOSCrosses (geos). Tests if two geometries interiors intersect but their boundaries do not. Most useful for finding line crosses cases.
-- [**`op.disjoint()`**](global.html#op/disjoint) - GEOSDisjoint (geos). Tests if two geometries have no point in common.
-- [**`op.coveredby()`**](global.html#op/coveredby) - GEOSCoveredBy (geos). Tests if geometry g1 is covered by g2, which is the case if every point of g1 lies in g2.
-- [**`op.equals()`**](global.html#op/equals) - GEOSEquals (geos). Tests if two geometries contain the same set of points in the plane.
-- [**`op.intersects()`**](global.html#op/intersects) - GEOSIntersects (geos). Tests if two geometries intersect.
-- [**`op.overlaps()`**](global.html#op/overlaps) - GEOSOverlaps (geos). Tests if two geometries share interiors but are neither within nor contained.
-- [**`op.touches()`**](global.html#op/touches) - GEOSTouches (geos). Tests if two geometries share boundaries at one or more points, but do not have interior points in common.
-- [**`op.within()`**](global.html#op/within) - GEOSWithin (geos). Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.
+*GIS operators. All these functions return a true or false boolean.*
+
+- [**`op.contains()`**](global.html#op/contains) - Tests if geometry g2 is completely within g1, but not wholly contained in the boundary of g1.
+- [**`op.covers()`**](global.html#op/covers) - Tests if geometry g1 covers g2, which is the case if every point of g2 lies in g1.
+- [**`op.crosses()`**](global.html#op/crosses) - Tests if two geometries interiors intersect but their boundaries do not. Most useful for finding line crosses cases.
+- [**`op.disjoint()`**](global.html#op/disjoint) - Tests if two geometries have no point in common.
+- [**`op.coveredby()`**](global.html#op/coveredby) - Tests if geometry g1 is covered by g2, which is the case if every point of g1 lies in g2.
+- [**`op.equals()`**](global.html#op/equals) - Tests if two geometries contain the same set of points in the plane.
+- [**`op.intersects()`**](global.html#op/intersects) - Tests if two geometries intersect.
+- [**`op.overlaps()`**](global.html#op/overlaps) - Tests if two geometries share interiors but are neither within nor contained.
+- [**`op.touches()`**](global.html#op/touches) - Tests if two geometries share boundaries at one or more points, but do not have interior points in common.
+- [**`op.within()`**](global.html#op/within) - Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.
+
+<hr/>
+
+### TODO
+
+- dataformat: a main function for data handling
+- join: to join two datasets with an id 
+- map: in data handling

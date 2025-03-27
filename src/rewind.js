@@ -2,7 +2,8 @@ import { geoContains, geoArea, geoStream, geoTransform } from "d3-geo";
 
 /**
  * @function rewind
- * @summary Rewind a geoJSON ([fil recipe](https://observablehq.com/@fil/rewind)). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
+ * @summary Rewind a geoJSON (fil recipe). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
+ * @description Based on https://observablehq.com/@fil/rewind
  * @param {object} options - Optional parameters
  * @param {number} [options.simple = true] - Rewind simple polygons larger than a hemisphere
  * @example
