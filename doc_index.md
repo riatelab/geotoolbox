@@ -76,6 +76,7 @@ geo = require("geotoolbox@3");
 
 - [**`aggregate()`**](global.html#aggregate) - Aggregate geometries.
 - [**`bbox()`**](global.html#bbox) - Geographic bounding box.
+- [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
 - [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons.
 - [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
 

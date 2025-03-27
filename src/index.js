@@ -28,6 +28,7 @@ export { columns } from "./columns.js";
 export { sort } from "./sort.js";
 export { combine } from "./combine.js";
 export { centroid } from "./centroid.js";
+export { border } from "./border.js";
 
 // -----------------------------------
 // deprecated
