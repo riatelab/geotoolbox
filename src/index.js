@@ -29,6 +29,7 @@ export { sort } from "./sort.js";
 export { combine } from "./combine.js";
 export { centroid } from "./centroid.js";
 export { border } from "./border.js";
+export { union } from "./union.js";
 
 // -----------------------------------
 // deprecated

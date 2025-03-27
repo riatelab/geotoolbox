@@ -1,5 +1,5 @@
 /**
- * @function properties/subset
+ * @function <s>properties/subset</s>
  * @deprecated
  * @summary From now on, use {@link filter}
  */

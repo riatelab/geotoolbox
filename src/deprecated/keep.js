@@ -1,7 +1,7 @@
 import { remove } from "./remove.js";
 
 /**
- * @function properties/keep
+ * @function <s>properties/keep</s>
  * @deprecated
  * @summary From now on, use {@link columns}
  */

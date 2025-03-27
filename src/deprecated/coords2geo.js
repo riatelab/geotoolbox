@@ -1,5 +1,5 @@
 /**
- * @function coords2geo
+ * @function <s>coords2geo</s>
  * @deprecated
  * @summary From now on, use {@link featurecollection}
  */

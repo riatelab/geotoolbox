@@ -46,11 +46,14 @@ geo = require("geotoolbox@3");
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
 - [**`columns`**](global.html#columns) - Select, rename and reorder properties.
 - [**`combine`**](global.html#combine) - Puts several datsets into one.
+- groupby : todo.....
 - [**`head()`**](global.html#head) - The function returns the n first elements.
 - [**`filter()`**](global.html#filter) - Filter a dataset.
 - [**`replace()`**](global.html#replace) - Replace substrings in a dataset.
 - [**`sort()`**](global.html#sort) - Sort a dataset according to a field.
 - [**`tail()`**](global.html#tail) - The function returns the n last elements.
+
+
 
 #### ➡️ Basemap utilities
 
@@ -67,7 +70,7 @@ geo = require("geotoolbox@3");
 - [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
 - [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
 - [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry using <code>topojson-simplify</code> library. The parameter k difine the  The quantile of the simplification. By default, the generalization level is calculated automatically to ensure smooth map display.simplify a basemap.
-- [**`stitch()`**](global.html#stitch) - The function (aka `d3.geoStitch`) returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
+- [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
 - [**`tissot()`**](global.html#tissot) - Generate Tissot's indicatrix.
 
 #### ➡️ Geoprocessing
@@ -79,6 +82,7 @@ geo = require("geotoolbox@3");
 - [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
 - [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons.
 - [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
+- [**`union()`**](global.html#union) - Merge geometries.
 
 
 #### ➡️ Operators
@@ -103,3 +107,16 @@ geo = require("geotoolbox@3");
 - dataformat: a main function for data handling
 - join: to join two datasets with an id 
 - map: in data handling
+- clipantimeridien ??
+- clip
+- buffer- le rewind de geos
+
+TODO : groupby
+keys = []
+operaors = [] // des functions. Par defaut; sum, mean, max, ... cf fonction d3
+Si geojson, merger les gémoetries
+
+
+avec des operateurs 
+
+

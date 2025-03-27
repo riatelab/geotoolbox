@@ -1,7 +1,7 @@
 import { str2fun } from "../helpers/helpers.js";
 
 /**
- * @function properties/select
+ * @function <s>properties/select</s>
  * @deprecated
  * @summary From now on, use {@link filter}
  */

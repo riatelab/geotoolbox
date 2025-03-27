@@ -1,5 +1,5 @@
 /**
- * @function properties/head
+ * @function <s>properties/head</s>
  * @deprecated
  * @summary From now on, use {@link head}
  */

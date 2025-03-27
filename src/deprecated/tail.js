@@ -1,5 +1,5 @@
 /**
- * @function properties/tail
+ * @function <s>properties/tail</s>
  * @deprecated
  * @summary From now on, use {@link tail}
  */

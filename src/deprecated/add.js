@@ -2,7 +2,7 @@
 import { str2fun } from "../helpers/helpers.js";
 
 /**
- * @function properties/add
+ * @function <s>properties/add</s>
  * @deprecated
  * @summary From now on, use {@link addproperty}
  */
