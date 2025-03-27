@@ -3,7 +3,7 @@ import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function resolveemptygeom
- * @description Resolve undefined features of a geoJSON. The `resolveemptygeom()` function replace all features with undefined geometries by a valid geometry, but without coordinates
+ * @summary Resolve undefined features of a geoJSON. The `resolveemptygeom()` function replace all features with undefined geometries by a valid geometry, but without coordinates
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object

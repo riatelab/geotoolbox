@@ -6,19 +6,19 @@ const topojson = Object.assign({}, { topology, merge });
 
 /**
  * @function aggregate
- * @description Aggregate geometries (based on topojson). The `aggregate()` function allows to merge all geometries of a geoJSON based on their topology. The `id` parameter allows to aggregate based on a specific field.
+ * @summary Aggregate geometries (based on topojson). The `aggregate()` function allows to merge all geometries of a geoJSON based on their topology. The `id` parameter allows to aggregate based on a specific field.
  * @param {object} options - Optional parameters
  * @param {string} [id = null] - The id of the features to aggregate
- * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.aggregate(*a geojson*)
  */
 
-export function aggregate(data, { id = null, deepcopy = true } = {}) {
+export function aggregate(data, { id = null, mutate = false } = {}) {
   // deep copy ?
 
   let geojson;
-  if (deepcopy) {
+  if (!mutate) {
     geojson = JSON.parse(JSON.stringify(data));
   } else {
     geojson = data;

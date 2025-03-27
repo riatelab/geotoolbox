@@ -4,7 +4,7 @@ import { table2geo } from "./helpers/table2geo";
 
 /**
  * @function featurecollection
- * @description Retrieve a FeatureCollection. The `featurecollection()` function allows to retrieve a FeatureCollection from a
+ * @summary Retrieve a FeatureCollection. The `featurecollection()` function allows to retrieve a FeatureCollection from a
  - a topoJSON ✅ 
 - an array of features ✅ 
 - a single feature ✅ 
@@ -13,7 +13,7 @@ import { table2geo } from "./helpers/table2geo";
 - an array of objects with coordinates (points) ✅
 - an array coordinates (points) ✅ 
 - a couple of coordinates (points) ✅
- * @param {object} data - a GeoJSON FeatureCollection
+ * @param {object} data - A GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {string} [options.lat = undefined] - Field containing latitude coordinates. `lat`, `Lat`, `LAT`, `Latitude`, `latitude` are set by default.
  * @param {string} [options.latitude = undefined] - Field containing latitude coordinates. `lat`, `Lat`, `LAT`, `Latitude`, `latitude` are set by default.
@@ -25,7 +25,7 @@ import { table2geo } from "./helpers/table2geo";
  * @param {Array} [options.properties = undefined] -  With the `properties` option, you can choose which fields you'd like to keep.
  * @param {Array} [options.rename = undefined] -  With the `rename` option, you can even rename them.
  * @param {function} [options.filter = undefined] - with `filter`, you can filter data.
- * @param {boolean} [options.deepcopy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * // Array of coordinates
  * geoclean.featurecollection([
@@ -73,7 +73,7 @@ export function featurecollection(
     properties = undefined,
     rename = undefined,
     filter = undefined,
-    deepcopy = true,
+    mutate = false,
   } = {}
 ) {
   lat = lat || latitude;
@@ -82,7 +82,7 @@ export function featurecollection(
 
   // deep copy ?
   let x;
-  if (deepcopy) {
+  if (!mutate) {
     x = JSON.parse(JSON.stringify(data));
   } else {
     x = data;

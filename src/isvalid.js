@@ -4,7 +4,7 @@ import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function isvalid
- *  @description Check validity of a geoJSON. The `isvalid()` function is a [`geos-wasm`](https://chrispahm.github.io/geos-wasm/) operator. It returns an array of objects with the following keys:
+ * @summary Check validity of a geoJSON. The `isvalid()` function is a [`geos-wasm`](https://chrispahm.github.io/geos-wasm/) operator. It returns an array of objects with the following keys:
 - **`isvalid`** (GEOSisValid): Check the validity of the provided geometry. Returns: number - 1 on true, 0 on false, 2 on exception.
 - **`reason`** (GEOSisValidReason): Return the human readable reason a geometry is invalid, "Valid Geometry" string otherwise, or NULL on exception.
 - **`simple`** (GEOSisSimple): Tests whether the input geometry is "simple". Mostly relevant for linestrings. A "simple" linestring has no self-intersections. Returns: 1 on true, 0 on false, 2 on exception.

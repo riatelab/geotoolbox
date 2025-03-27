@@ -2,31 +2,28 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
 
 /**
  * @function addproperty
- * @description Add a field to a dataset. The function allows to add a new property
- * @param {object|array} data - a GeoJSON FeatureCollection or an array of objects
- * @param {object} options - optional parameters
- * @param {string} [options.key = "_newkey"] - name of the property
- * @param {number|string|function} [options.value] - you can set a simple number or string. You can also specify a function like `d=> d.properties.gdp/d.properties.pop * 1000`. With the *, +, - and / operators, you can also directly write `“gdp/pop*100”`.
- * @param {boolean} [options.deepcopy = true] - use true to ensure that the input object is not modified and to create a new object.
+ * @summary Add a field to a dataset. The function allows to add a new property
+ * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
+ * @param {object} options - Optional parameters
+ * @param {string} [options.key = "_newkey"] - Name of the property
+ * @param {number|string|function} [options.value] - You can set a simple number or string. You can also specify a function like `d=> d.properties.gdp/d.properties.pop * 1000`. With the *, +, - and / operators, you can also directly write `“gdp/pop*100”`.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.add(*a geojson or an array of objects*, {key: "gdppc", value:"gdp/pop"})
  */
 export function addproperty(
   data,
-  { key = "_newkey", value, deepcopy = true } = {}
+  { key = "_newkey", value, mutate = false } = {}
 ) {
   // deep copy ?
-  let x;
-  if (deepcopy) {
-    x = JSON.parse(JSON.stringify(data));
-  } else {
-    x = data;
-  }
-
+  let x = data;
   const operators = /[+\-/*]/;
 
   // geojson
   if (isgeojson(data)) {
+    if (!mutate) {
+      x = JSON.parse(JSON.stringify(data));
+    }
     const n = x.features.length;
 
     if (
@@ -95,6 +92,10 @@ export function addproperty(
       x.forEach((d, i) => {
         d[key] = values[i];
       });
+    }
+
+    if (mutate) {
+      data.splice(0, data.length, ...x);
     }
   }
 

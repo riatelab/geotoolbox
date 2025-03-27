@@ -1,17 +1,17 @@
 /**
  * @function rewind2
- * @description Rewind a geoJSON (Adapted from MapBox geojson-rewind code (https://github.com/mapbox/grojson-rewind) under ISC license). Rewind a geoJSON ([fil recipe](https://observablehq.com/@fil/rewind)). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
+ * @summary Rewind a geoJSON (Adapted from MapBox geojson-rewind code (https://github.com/mapbox/grojson-rewind) under ISC license). Rewind a geoJSON ([fil recipe](https://observablehq.com/@fil/rewind)). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
  * @property {object} data - a GeoJSON FeatureCollection
  * @property {boolean} [options.outer = false] - rewind Rings Outer
- * @property {boolean} [options.deepcopy  = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.rewind2(*a geojson*)
  */
 
-export function rewind2(data, { outer = false, deepcopy = true } = {}) {
+export function rewind2(data, { outer = false, mutate = false } = {}) {
   // deep copy ?
   let geo;
-  if (deepcopy) {
+  if (!mutate) {
     geo = JSON.parse(JSON.stringify(data));
   } else {
     geo = data;

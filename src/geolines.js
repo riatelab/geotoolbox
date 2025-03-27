@@ -1,6 +1,6 @@
 /**
  * @function geolines
- * @description Returns a GeoJSON FeatureCollection with the equator, tropics & polar circles.
+ * @summary Returns a GeoJSON FeatureCollection with the equator, tropics & polar circles.
  * @example
  * geotoolbox.geolines(*a geojson*)
  */

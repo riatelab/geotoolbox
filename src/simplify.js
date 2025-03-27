@@ -10,24 +10,24 @@ const topojson = Object.assign(
 /**
  * @function simplify
  * @export
- * @description Simplify geometries. The `simplify()` function allows to simplify a geometry using <code>topojson-simplify</code> library. The parameter k difine the  The quantile of the simplification. By default, the generalization level is calculated automatically to ensure smooth map display.
+ * @summary Simplify geometries. The `simplify()` function allows to simplify a geometry using <code>topojson-simplify</code> library. The parameter k difine the  The quantile of the simplification. By default, the generalization level is calculated automatically to ensure smooth map display.
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {number} [options.k = undefined] - quantile of the simplification (from 0 to 1). If not defened, the generalization level is calculated automatically to ensure smooth map display.
  * @param {number} [options.quantize = undefined] - A smaller quantizeAmount produces a smaller file. Typical values are between 1e4 and 1e6, although it depends on the resolution you want in the output file.
  * @param {number} [options.arcs = 15000] - Instead of the k parameter, you can determine the level of generalization by targeting a specific number of arcs. The result will be an approximation.
- * @param {boolean} [options.deepcopy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.simplify(*a geojson*, {k: 0.1})
  */
 
 export function simplify(
   data,
-  { k = undefined, quantize = undefined, arcs = 15000, deepcopy = true } = {}
+  { k = undefined, quantize = undefined, arcs = 15000, mutate = false } = {}
 ) {
   // deep copy ?
   let geojson;
-  if (deepcopy) {
+  if (!mutate) {
     geojson = JSON.parse(JSON.stringify(data));
   } else {
     geojson = data;

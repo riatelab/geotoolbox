@@ -2,25 +2,22 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
 
 /**
  * @function filter
- * @description Filter a dataset. The functions allows to subset a geoJSON or an array of objects
+ * @summary Filter a dataset. The functions allows to subset a geoJSON or an array of objects
  * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
  * @param {string|function} [options.filter] - A function to filter the datset. But you can aslo use un string like "ISO3 = FRA" ou "pop > 1000"
- * @param {boolean} [options.deepcopy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.filter(*a geojson or an array of objects*, {filter: "gdp >= 1000000" })
  */
-export function filter(data, { filter, deepcopy = true } = {}) {
-  // deep copy ?
-  let x;
-  if (deepcopy) {
-    x = JSON.parse(JSON.stringify(data));
-  } else {
-    x = data;
-  }
-
+export function filter(data, { filter, mutate = false } = {}) {
+  let x = data;
   // geoJSON
   if (isgeojson(data)) {
+    if (!mutate) {
+      x = JSON.parse(JSON.stringify(data));
+    }
+
     if (typeof filter == "function") {
       x.features = x.features.filter(filter);
     } else if (typeof filter == "string") {
@@ -45,8 +42,6 @@ export function filter(data, { filter, deepcopy = true } = {}) {
           )
         );
 
-      console.log(func);
-
       x.features = x.features.filter(eval(func));
     }
   } else if (isarrayofobjects(data)) {
@@ -67,6 +62,10 @@ export function filter(data, { filter, deepcopy = true } = {}) {
           )
         );
       x = x.filter(eval(func));
+    }
+
+    if (mutate) {
+      data.splice(0, data.length, ...x);
     }
   }
 

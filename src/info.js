@@ -3,8 +3,8 @@ import { geomtypes } from "./helpers/helpers";
 
 /**
  * @function info
- * @description GeoJSON information. The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
- * @param {object} data - a GeoJSON FeatureCollection
+ * @summary GeoJSON information. The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
+ * @param {object} data - A GeoJSON FeatureCollection
  * @example
  * geottolbox.info(*a geojson*)
  */

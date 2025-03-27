@@ -4,23 +4,19 @@ const d3 = Object.assign({}, { autoType });
 
 /**
  * @function autotype
- * @description Automatic type. The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type. Besed on d3.autoType().
- * @param {object|Array} data - a GeoJSON FeatureCollection or an array of objects
+ * @summary The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type. Besed on d3.autoType().
+ * @param {object|Array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
- * @param {boolean} [options.deepcopy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.autotype(*a geojson or an array of objects*)
  */
-export function autotype(data, { deepcopy = true } = {}) {
-  // deep copy ?
-  let x;
-  if (deepcopy) {
-    x = JSON.parse(JSON.stringify(data));
-  } else {
-    x = data;
-  }
-
+export function autotype(data, { mutate = false } = {}) {
+  let x = data;
   if (isgeojson(x)) {
+    if (!mutate) {
+      x = JSON.parse(JSON.stringify(data));
+    }
     x.features = x.features.map((d) => ({
       ...d,
       properties: d3.autoType(
@@ -40,6 +36,9 @@ export function autotype(data, { deepcopy = true } = {}) {
         )
       )
     );
+    if (mutate) {
+      data.splice(0, data.length, ...x);
+    }
   }
   return x;
 }

@@ -2,7 +2,7 @@ import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function removeemptygeom
- * @description Relove undefined features of a geoJSON. The `removeemptygeom()` function remove all features with undefined geometries.
+ * @summary Relove undefined features of a geoJSON. The `removeemptygeom()` function remove all features with undefined geometries.
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object.

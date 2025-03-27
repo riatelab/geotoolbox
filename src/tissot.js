@@ -2,7 +2,7 @@ import { geoCircle } from "d3-geo";
 
 /**
  * @function tissot
- * @description Generate Tissot's indicatrix.
+ * @summary Generate Tissot's indicatrix.
  * @param {number} [step = 20] - The distance between each circle
  * @example
  * geotoolbox.tissot(*a geojson*)

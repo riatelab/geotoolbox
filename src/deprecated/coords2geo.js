@@ -1,5 +1,7 @@
 /**
- * @deprecated See featurecollection()
+ * @function coords2geo
+ * @deprecated
+ * @summary From now on, use {@link featurecollection}
  */
 export function coords2geo(data, options = {}) {
   let arr = JSON.parse(JSON.stringify(data));

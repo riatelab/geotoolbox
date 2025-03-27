@@ -4,21 +4,21 @@ import { isemptygeom } from "./helpers/helpers";
 
 /**
  * @function densify
- * @description Densify a geoJSON. The function add nodes to a geoJSON with GEOS-WASM.
- * @param {object} data - a GeoJSON FeatureCollection
+ * @summary Densify a geoJSON. The function add nodes to a geoJSON with GEOS-WASM.
+ * @param {object} data - A GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {number} [options.dist = 1] - The minimal distance between nodes
- * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.densify(*a geojson*, { dist:0.5 })
  */
 
-export async function densify(data, { dist = 1, deepcopy = true } = {}) {
+export async function densify(data, { dist = 1, mutate = false } = {}) {
   const geos = await initGeosJs();
 
   // deep copy ?
   let geojson;
-  if (deepcopy) {
+  if (!mutate) {
     geojson = JSON.parse(JSON.stringify(data));
   } else {
     geojson = data;

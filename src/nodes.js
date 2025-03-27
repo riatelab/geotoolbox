@@ -1,16 +1,16 @@
 /**
  * @function nodes
- * @description Retrieve geometry nodes
+ * @summary Retrieve geometry nodes
  * @param {object} options - Optional parameters
- * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.nodes(*a geojson*)
  */
 
-export function nodes(data, { deepcopy = true } = {}) {
+export function nodes(data, { mutate = false } = {}) {
   // deep copy ?
   let geojson;
-  if (deepcopy) {
+  if (!mutate) {
     geojson = JSON.parse(JSON.stringify(data));
   } else {
     geojson = data;

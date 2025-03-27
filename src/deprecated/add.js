@@ -1,8 +1,10 @@
 // Add
-import { str2fun } from "../helpers/str2fun.js";
+import { str2fun } from "../helpers/helpers.js";
 
 /**
- * @deprecated See featurecollection()
+ * @function properties/add
+ * @deprecated
+ * @summary From now on, use {@link addproperty}
  */
 export function add({ x, field, expression }) {
   let data = [...x.features.map((d) => ({ ...d.properties }))];

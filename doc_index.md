@@ -42,6 +42,7 @@ geo = require("geotoolbox@3");
 
 - [**`addproperty()`**](global.html#addproperty) - The function add a field to a dataset.
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
+- [**`columns`**](global.html#columns) - Select, rename and reorder properties.
 - [**`dataformat()`**](global.html#dataformat) - xxxx
 - [**`head()`**](global.html#head) - The function sort data and returns the nb first elements.
 - [**`filter()`**](global.html#filter) - Filter a dataset.

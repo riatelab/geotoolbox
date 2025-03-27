@@ -2,18 +2,18 @@ import { geoArea } from "d3-geo";
 
 /**
  * @function dissolve
- * @description Multi part to single part geometries. The `disolve()` function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon". In addition, a `__share` field is calculated, representing the surface share of each part.
- * @param {object} data - a GeoJSON FeatureCollection
+ * @summary Multi part to single part geometries. The `disolve()` function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon". In addition, a `__share` field is calculated, representing the surface share of each part.
+ * @param {object} data - A GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
- * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.dissolve(*a geojson*)
  */
 
-export function dissolve(data, { deepcopy = true } = {}) {
+export function dissolve(data, { mutate = false } = {}) {
   // deep copy ?
   let geojson;
-  if (deepcopy) {
+  if (!mutate) {
     geojson = JSON.parse(JSON.stringify(data));
   } else {
     geojson = data;
