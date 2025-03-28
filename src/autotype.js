@@ -8,7 +8,7 @@ const d3 = Object.assign({}, { autoType });
  * @description Based on `d3.autoType`.
  * @param {object|Array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.autotype(*a geojson or an array of objects*)
  */

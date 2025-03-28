@@ -8,7 +8,7 @@ import { isemptygeom } from "./helpers/helpers";
  * @description Based on `geos.GEOSisValid` (geos-wasm).
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.makevalid(*a geojson*)
  */

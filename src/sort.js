@@ -4,13 +4,13 @@ import { autoType } from "d3-dsv";
 const d3 = Object.assign({}, { descending, ascending, autoType });
 
 /**
- * @function columns
+ * @function sort
  * @summary Sorting data according to a field
  * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
  * @param {array} [options.key ] - Field on which sorting is performed
  * @param {array} [options.ascending = false] - To change the sort order
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.sort(*a geojson or an array of objects*, {key: "ISO3", ascending: true})
  */

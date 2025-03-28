@@ -6,7 +6,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
  * @param {string|function} [options.filter] - A function to filter the datset. But you can aslo use un string like "ISO3 = FRA" ou "pop > 1000"
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.filter(*a geojson or an array of objects*, {filter: "gdp >= 1000000" })
  */

@@ -7,7 +7,7 @@ import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
  * @description Based on `geos.GEOSUnaryUnion`.
  * @param {object} options - Optional parameters
  * @param {string} [id] - The id of the features to merge
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.union(*a geojson*)
  */
@@ -29,12 +29,6 @@ export async function union(data, { id, mutate = false } = {}) {
 
     let features = [];
     ids.forEach((d) => {
-      let selection = {
-        type: "FeatureCollection",
-        features: x.features.filter((e) => e.properties[id] == d),
-      };
-      const geosGeom = geojsonToGeosGeom(selection, geos);
-      const newGeom = geos.GEOSUnaryUnion(geosGeom);
       features.push({
         type: "Feature",
         properties: { id: d },

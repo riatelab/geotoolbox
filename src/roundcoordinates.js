@@ -7,7 +7,7 @@ import { parse } from "geojson-precision";
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {number} [options.precision = 2] - The minimal distance between nodes
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.roundcoordinates(*a geojson*, {precision: 2})
  */

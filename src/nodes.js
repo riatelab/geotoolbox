@@ -2,7 +2,7 @@
  * @function nodes
  * @summary Retrieve geometry nodes
  * @param {object} options - Optional parameters
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.nodes(*a geojson*)
  */

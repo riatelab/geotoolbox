@@ -20,7 +20,7 @@ export { op } from "./operators.js";
 export { autotype } from "./autotype.js";
 export { head } from "./head.js";
 export { tail } from "./tail.js";
-export { addproperty } from "./addproperty.js";
+export { derive } from "./derive.js";
 export { dataformat } from "./dataformat.js";
 export { filter } from "./filter.js";
 export { replace } from "./replace.js";
@@ -30,6 +30,8 @@ export { combine } from "./combine.js";
 export { centroid } from "./centroid.js";
 export { border } from "./border.js";
 export { union } from "./union.js";
+export { copy } from "./copy.js";
+export { groupby } from "./groupby.js";
 
 // -----------------------------------
 // deprecated

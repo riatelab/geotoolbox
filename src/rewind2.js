@@ -4,7 +4,7 @@
  * @description  Adapted from MapBox geojson-rewind code (https://github.com/mapbox/grojson-rewind) under ISC license.
  * @property {object} data - a GeoJSON FeatureCollection
  * @property {boolean} [options.outer = false] - rewind Rings Outer
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.rewind2(*a geojson*)
  */

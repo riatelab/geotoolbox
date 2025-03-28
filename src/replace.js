@@ -8,7 +8,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {string} [options.search] - string to search for
  * @param {string} [options.replacement]  -substitute character string
  * @param {array} [options.keys] - an array of keys to limit replacement to certain fields
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.replace(*a geojson or an array of objects*, {search: ",", replacement: " " })
  */

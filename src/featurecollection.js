@@ -25,7 +25,7 @@ import { table2geo } from "./helpers/table2geo";
  * @param {Array} [options.properties = undefined] -  With the `properties` option, you can choose which fields you'd like to keep.
  * @param {Array} [options.rename = undefined] -  With the `rename` option, you can even rename them.
  * @param {function} [options.filter = undefined] - with `filter`, you can filter data.
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * // Array of coordinates
  * geoclean.featurecollection([

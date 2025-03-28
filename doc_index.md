@@ -42,18 +42,17 @@ geo = require("geotoolbox@3");
 
 *Some functions for handling data. These functions can be applied to a geoJSON (in this case, properties are considered) or a simple data table (array of objects).*
 
-- [**`addproperty()`**](global.html#addproperty) - The function add a field to a dataset.
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
 - [**`columns`**](global.html#columns) - Select, rename and reorder properties.
 - [**`combine`**](global.html#combine) - Puts several datsets into one.
-- groupby : todo.....
+- [**`copy`**](global.html#copy) - Deep copy.
+- [**`derive()`**](global.html#derive) - The function add a field to a dataset.
+- [**`groupby()`**](global.html#groupby) - The functions groups data by category. If the input data is a geoJSON, then the geometries are also merged.
 - [**`head()`**](global.html#head) - The function returns the n first elements.
 - [**`filter()`**](global.html#filter) - Filter a dataset.
 - [**`replace()`**](global.html#replace) - Replace substrings in a dataset.
 - [**`sort()`**](global.html#sort) - Sort a dataset according to a field.
 - [**`tail()`**](global.html#tail) - The function returns the n last elements.
-
-
 
 #### ➡️ Basemap utilities
 
@@ -105,11 +104,13 @@ geo = require("geotoolbox@3");
 ### TODO
 
 - dataformat: a main function for data handling
-- join: to join two datasets with an id 
+- join: to join two datasets or more with an id. Si doublon : message d'erreur. 
+- compare : to test join ?. 
 - map: in data handling
 - clipantimeridien ??
 - clip
 - buffer- le rewind de geos
+- function table to display attribute table in html. If geojson, add a colum geom type or other. Just head or all with sliders ? nb as options ?
 
 TODO : groupby
 keys = []

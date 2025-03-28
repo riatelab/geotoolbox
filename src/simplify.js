@@ -17,7 +17,7 @@ const topojson = Object.assign(
  * @param {number} [options.k = undefined] - quantile of the simplification (from 0 to 1). If not defened, the generalization level is calculated automatically to ensure smooth map display.
  * @param {number} [options.quantize = undefined] - A smaller quantizeAmount produces a smaller file. Typical values are between 1e4 and 1e6, although it depends on the resolution you want in the output file.
  * @param {number} [options.arcs = 15000] - Instead of the k parameter, you can determine the level of generalization by targeting a specific number of arcs. The result will be an approximation.
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.simplify(*a geojson*, {k: 0.1})
  */

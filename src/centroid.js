@@ -9,7 +9,7 @@ const d3 = Object.assign({}, { geoArea, geoCentroid, geoIdentity, geoPath });
  * @param {object} options - Optional parameters.
  * @param {boolean} [options.larget = true] - If true, set the point at the centre of the largest polygon.
  * @param {boolean} [options.geo = true] - Use true to consider the centroid from world coordinates on the globe. If you use false, then you are considering the coordinates within the svg document.
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.centroid(*a geojson*, {largest: true})
  */

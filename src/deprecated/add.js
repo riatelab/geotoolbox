@@ -4,7 +4,7 @@ import { str2fun } from "../helpers/helpers.js";
 /**
  * @function <s>properties/add</s>
  * @deprecated
- * @summary From now on, use {@link addproperty}
+ * @summary From now on, use {@link derive}
  */
 export function add({ x, field, expression }) {
   let data = [...x.features.map((d) => ({ ...d.properties }))];

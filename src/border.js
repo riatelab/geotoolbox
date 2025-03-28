@@ -11,7 +11,7 @@ const d3 = Object.assign({}, d3array);
  * @param {object} data - A GeoJSON FeatureCollection.
  * @param {object} options - Optional parameters.
  * @param {boolean} [options.id = false] - If you don't provide an id field (default), then the function returns a geoJSON with a single geometry. If you choose an id field, the function returns a geoJSON with multiple geometries and associated codes (two ids for each geometry).
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.border(*a geojson*, {id: "ISO3"})
  */

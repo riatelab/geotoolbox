@@ -9,7 +9,7 @@ import { isemptygeom } from "./helpers/helpers";
  * @param {object} data - A GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
  * @param {number} [options.dist = 1] - The minimal distance between nodes
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.densify(*a geojson*, { dist:0.5 })
  */

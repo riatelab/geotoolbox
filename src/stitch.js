@@ -6,7 +6,7 @@ import { geoStitch } from "d3-geo-projection";
  * @description Based on `d3.geoStitch`.
  * @param {object} data - a GeoJSON FeatureCollection
  * @param {object} options - Optional parameters
- * @param {boolean} [options.mutate = false] - Use true to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.stitch(*a geojson*)
  */
