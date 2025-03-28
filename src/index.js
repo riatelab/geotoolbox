@@ -32,6 +32,9 @@ export { border } from "./border.js";
 export { union } from "./union.js";
 export { copy } from "./copy.js";
 export { groupby } from "./groupby.js";
+export { dedupe } from "./dedupe.js";
+export { table } from "./table.js";
+export { join } from "./join.js";
 
 // -----------------------------------
 // deprecated

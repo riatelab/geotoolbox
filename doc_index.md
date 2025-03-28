@@ -40,49 +40,47 @@ geo = require("geotoolbox@3");
 
 #### ➡️ Data handling
 
+*To create a featureCollection from anything.*
+
+- [**`featurecollection()`**](global.html#featurecollection) - The function allows to retrieve a FeatureCollection from a topoJSON, an array of features, a single feature, an array of geometries, a single geometry, an array of objects with coordinates (points), an array coordinates (points) or a couple of coordinates (points).
+
 *Some functions for handling data. These functions can be applied to a geoJSON (in this case, properties are considered) or a simple data table (array of objects).*
 
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
-- [**`columns`**](global.html#columns) - Select, rename and reorder properties.
-- [**`combine`**](global.html#combine) - Puts several datsets into one.
-- [**`copy`**](global.html#copy) - Deep copy.
-- [**`derive()`**](global.html#derive) - The function add a field to a dataset.
+- [**`columns()`**](global.html#columns) - Select, rename and reorder properties.
+- [**`combine()`**](global.html#combine) - Puts several datsets into one.
+- [**`copy()`**](global.html#copy) - Deep copy.
+- [**`dedupe()`**](global.html#dedupe) - Deletes duplicates. Keeps the first element.
+- [**`derive()`**](global.html#derive) - The function add a field to a dataset
 - [**`groupby()`**](global.html#groupby) - The functions groups data by category. If the input data is a geoJSON, then the geometries are also merged.
+- [**`join()`**](global.html#join) - Join datasets using a common identifier.
 - [**`head()`**](global.html#head) - The function returns the n first elements.
 - [**`filter()`**](global.html#filter) - Filter a dataset.
 - [**`replace()`**](global.html#replace) - Replace substrings in a dataset.
 - [**`sort()`**](global.html#sort) - Sort a dataset according to a field.
+- [**`table()`**](global.html#table) - Retrieves the dataset's attribute table (properties)
 - [**`tail()`**](global.html#tail) - The function returns the n last elements.
 
-#### ➡️ Basemap utilities
+#### ➡️ Handling geometries
 
-*Useful functions for cartography.*
-
-- [**`densify()`**](global.html#densify) - The function add nodes to a geoJSON.
-- [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
-- [**`featurecollection()`**](global.html#featurecollection) - The function allows to retrieve a FeatureCollection from a topoJSON, an array of features, a single feature, an array of geometries, a single geometry, an array of objects with coordinates (points), an array coordinates (points) or a couple of coordinates (points).
-- [**`geolines()`**](global.html#geolines) - Equator, tropics & polar circles.
-- [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
-- [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
-- [**`makevalid()`**](global.html#makevalid) - The function allows to make a GeoJSON valid using <code>geos-wasm</code> library.
-- [**`removeemptygeom()`**](global.html#removeemptygeom) - The function remove all features with undefined geometries.
-- [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
-- [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
-- [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry using <code>topojson-simplify</code> library. The parameter k difine the  The quantile of the simplification. By default, the generalization level is calculated automatically to ensure smooth map display.simplify a basemap.
-- [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
-- [**`tissot()`**](global.html#tissot) - Generate Tissot's indicatrix.
-
-#### ➡️ Geoprocessing
-
-*Main GIS functions.*
+*Main GIS functions and geoprocessing*
 
 - [**`aggregate()`**](global.html#aggregate) - Aggregate geometries.
 - [**`bbox()`**](global.html#bbox) - Geographic bounding box.
 - [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
-- [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons.
+- [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons
+- [**`densify()`**](global.html#densify) - The function add nodes to a geoJSON.
+- [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
 - [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
+- [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
+- [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
+- [**`makevalid()`**](global.html#makevalid) - The function allows to make a GeoJSON valid .
+- [**`removeemptygeom()`**](global.html#removeemptygeom) - The function remove all features with undefined geometries.
+- [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
+- [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
+- [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry. By default, the generalization level is calculated automatically to ensure smooth map display.
+- [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
 - [**`union()`**](global.html#union) - Merge geometries.
-
 
 #### ➡️ Operators
 
@@ -99,25 +97,27 @@ geo = require("geotoolbox@3");
 - [**`op.touches()`**](global.html#op/touches) - Tests if two geometries share boundaries at one or more points, but do not have interior points in common.
 - [**`op.within()`**](global.html#op/within) - Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.
 
+#### ➡️ Other things usefull for cartography
+
+*Useful functions for cartography.*
+
+- [**`geolines()`**](global.html#geolines) - Equator, tropics & polar circles.
+- [**`tissot()`**](global.html#tissot) - Generate Tissot's indicatrix.
+
 <hr/>
 
 ### TODO
 
-- dataformat: a main function for data handling
 - join: to join two datasets or more with an id. Si doublon : message d'erreur. 
 - compare : to test join ?. 
 - map: in data handling
 - clipantimeridien ??
 - clip
-- buffer- le rewind de geos
+- buffer
+- le rewind de geos
 - function table to display attribute table in html. If geojson, add a colum geom type or other. Just head or all with sliders ? nb as options ?
+- function filter and remove
+- fonction split ?
 
-TODO : groupby
-keys = []
-operaors = [] // des functions. Par defaut; sum, mean, max, ... cf fonction d3
-Si geojson, merger les gémoetries
-
-
-avec des operateurs 
-
+Other ideas? => [issues](https://github.com/riatelab/geotoolbox/issues)
 
