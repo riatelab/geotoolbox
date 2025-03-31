@@ -66,6 +66,7 @@ export function head(data, { key, nb = 6, mutate = false } = {}) {
     }
 
     x = x.slice(0, nb);
+    
     if (mutate) {
       data.splice(0, data.length, ...x);
     }

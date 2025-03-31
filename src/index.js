@@ -21,7 +21,6 @@ export { autotype } from "./autotype.js";
 export { head } from "./head.js";
 export { tail } from "./tail.js";
 export { derive } from "./derive.js";
-export { dataformat } from "./dataformat.js";
 export { filter } from "./filter.js";
 export { replace } from "./replace.js";
 export { columns } from "./columns.js";
@@ -35,6 +34,7 @@ export { groupby } from "./groupby.js";
 export { dedupe } from "./dedupe.js";
 export { table } from "./table.js";
 export { join } from "./join.js";
+export { htmltable } from "./htmltable.js";
 
 // -----------------------------------
 // deprecated

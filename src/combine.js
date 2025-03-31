@@ -30,7 +30,7 @@ export function combine(data, { fillkeys = true } = {}) {
     return { type: "FeatureCollection", features };
   } else if (data.every((x) => isarrayofobjects(x))) {
     let output = JSON.parse(JSON.stringify(data.flat()));
-    if (filleys) {
+    if (fillkeys) {
       let prop = [...new Set(output.map((d) => Object.keys(d)).flat())];
       output = output.map((obj) =>
         Object.fromEntries(prop.map((key) => [key, obj[key]]))

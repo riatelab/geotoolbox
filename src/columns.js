@@ -12,7 +12,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * geotoolbox.columns(*a geojson or an array of objects*, {keys: ["ISO3","Population"]", rename:["id","pop"]})
  */
 
-export function columns(data, { keys, rename, mutate = true } = {}) {
+export function columns(data, { keys, rename, mutate = false } = {}) {
   let x = data;
   if (isgeojson(x)) {
     if (!mutate) {
