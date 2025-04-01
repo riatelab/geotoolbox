@@ -1,13 +1,14 @@
-//import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
-import { getGeos } from "./helpers/geosmanager.js";
-import { meter2deg } from "./utils/meter2deg.js";
 
-export function buffer(
+export async function buffer(
+  geos,
   data,
-  { quadsegs = 8, isProjected = false, distance = 0 } = {},
-  geos
+  { quadsegs = 8, isProjected = false, distance = 0 } = {}
 ) {
+  if (!geos) {
+    throw new Error("GEOS is not loaded");
+  }
+
   let x = JSON.parse(JSON.stringify(data));
 
   // const geos = getGeos();

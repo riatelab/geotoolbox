@@ -31,6 +31,9 @@ geo = require("geotoolbox@3");
 
 ### <ins>Documentation</ins>
 
+**Here's a description of the functions available in a library.<br/>All functions work in the same way. But those based on `geos-wasm` are asynchronous.<br/>In these cases, please use `await geo.something(...)`**
+
+
 #### ➡️ Information
 
 *Some functions to view and describe the content of geoJSONs.*

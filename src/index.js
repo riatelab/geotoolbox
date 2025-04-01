@@ -1,15 +1,18 @@
-import { getGeos } from "././helpers/geosmanager.js";
+import { getGeos } from "./helpers/geosmanager.js";
 import { buffer as bufferRaw } from "./buffer.js";
 import { clipbyrect as clipbyrectRaw } from "./clipbyrect.js";
 
+// Load geos to avoid multiple load
+const geosReady = getGeos();
+
 export async function buffer(...args) {
-  const geos = await getGeos();
-  return bufferRaw(...args, geos);
+  const geos = await geosReady;
+  return bufferRaw(geos, ...args);
 }
 
 export async function clipbyrect(...args) {
-  const geos = await getGeos();
-  return clipbyrectRaw(...args, geos);
+  const geos = await geosReady;
+  return clipbyrectRaw(geos, ...args);
 }
 
 // // Exportation dynamique après l'initialisation de GEOS
@@ -24,12 +27,12 @@ export async function clipbyrect(...args) {
 //   console.error("Erreur lors de l'initialisation :", err);
 // });
 
-// export { simplify } from "./simplify.js";
+//export { simplify } from "./simplify.js";
 // export { info } from "./info.js";
 // export { togeojson } from "./togeojson.js";
 // export { isvalid } from "./isvalid.js";
 // export { makevalid } from "./makevalid.js";
-// export { stitch } from "./stitch.js";
+export { stitch } from "./stitch.js";
 // export { roundcoordinates } from "./roundcoordinates.js";
 // export { rewind } from "./rewind.js";
 // export { rewind2 } from "./rewind2.js";
