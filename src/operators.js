@@ -1,4 +1,4 @@
-import { featurecollection } from "./featurecollection";
+import { togeojson } from "./togeojson.js";
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "geos-wasm/helpers";
 
@@ -26,8 +26,8 @@ export let op = {
  */
 async function contains(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSContains(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -45,8 +45,8 @@ async function contains(g1, g2) {
  */
 async function covers(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSCovers(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -64,8 +64,8 @@ async function covers(g1, g2) {
  */
 async function crosses(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSCrosses(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -83,8 +83,8 @@ async function crosses(g1, g2) {
  */
 async function disjoint(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSDisjoint(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -102,8 +102,8 @@ async function disjoint(g1, g2) {
  */
 async function coveredby(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSCoveredBy(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -121,8 +121,8 @@ async function coveredby(g1, g2) {
  */
 async function equals(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSEquals(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -140,8 +140,8 @@ async function equals(g1, g2) {
  */
 async function intersects(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSIntersects(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -159,8 +159,8 @@ async function intersects(g1, g2) {
  */
 async function overlaps(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSOverlaps(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -178,8 +178,8 @@ async function overlaps(g1, g2) {
  */
 async function touches(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSTouches(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);
@@ -197,8 +197,8 @@ async function touches(g1, g2) {
  */
 async function within(g1, g2) {
   const geos = await initGeosJs();
-  const geosgeom1 = geojsonToGeosGeom(featurecollection(g1), geos);
-  const geosgeom2 = geojsonToGeosGeom(featurecollection(g2), geos);
+  const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
+  const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSWithin(geosgeom1, geosgeom2);
   geos.GEOSFree(geosgeom1);
   geos.GEOSFree(geosgeom2);

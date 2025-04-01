@@ -34,7 +34,9 @@ export function info(data) {
   return {
     type: accessor.get(type),
     geometries: geomtypes(data),
-    properties,
+    properties: [
+      ...new Set(data?.features.map((d) => Object.keys(d?.properties)).flat()),
+    ],
     weight: "~" + weight + " KO",
     nodes,
   };

@@ -1,6 +1,6 @@
 import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
-import { featurecollection } from "./featurecollection.js";
+import { togeojson } from "./togeojson.js";
 
 /**
  * @function bbox
@@ -13,7 +13,7 @@ import { featurecollection } from "./featurecollection.js";
 export function bbox(data) {
   let bounds;
   if (!Array.isArray(data)) {
-    bounds = d3.geoBounds(featurecollection(data));
+    bounds = d3.geoBounds(togeojson(data));
   } else {
     bounds = data;
   }

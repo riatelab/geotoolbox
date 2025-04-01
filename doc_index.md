@@ -33,8 +33,9 @@ geo = require("geotoolbox@3");
 
 #### ➡️ Information
 
-*Some functions to describe the content of geoJSONs.*
+*Some functions to view and describe the content of geoJSONs.*
 
+- [**`htmltable()`**](global.html#htmltable) - View a data table.
 - [**`info()`**](global.html#info) - The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
 - [**`isvalid()`**](global.html#isvalid) - The function check the validity of a geoJSON. It is based on [`geos-wasm`](https://chrispahm.github.io/geos-wasm/).
 
@@ -42,7 +43,7 @@ geo = require("geotoolbox@3");
 
 *To create a featureCollection from anything.*
 
-- [**`featurecollection()`**](global.html#featurecollection) - The function allows to retrieve a FeatureCollection from a topoJSON, an array of features, a single feature, an array of geometries, a single geometry, an array of objects with coordinates (points), an array coordinates (points) or a couple of coordinates (points).
+- [**`togeojson()`**](global.html#togeojson) - The function allows to retrieve a geoJSON FeatureCollection from a topoJSON, an array of features, a single feature, an array of geometries, a single geometry, an array of objects with coordinates (points), an array coordinates (points) or a couple of coordinates (points).
 
 *Some functions for handling data. These functions can be applied to a geoJSON (in this case, properties are considered) or a simple data table (array of objects).*
 
@@ -69,6 +70,7 @@ geo = require("geotoolbox@3");
 - [**`bbox()`**](global.html#bbox) - Geographic bounding box.
 - [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
 - [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons
+- [**`concavehull()`**](global.html#concavehull) - Returns a "concave hull" of a geoJSON.
 - [**`densify()`**](global.html#densify) - The function add nodes to a geoJSON.
 - [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
 - [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.

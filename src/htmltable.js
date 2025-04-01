@@ -1,6 +1,16 @@
 import { isgeojson } from "./helpers/helpers.js";
 
-export function htmltable(data, maxRows = null) {
+/**
+ * @function htmltable
+ * @summary  View a data table.
+ * @param {object} data - a GeoJSON FeatureCollection
+ * @param {object} options - Optional parameters
+ * @param {number} [options.maxrows] - Number max of lines
+ * @example
+ * geottolbox.htmltable(*a geojson*)
+ */
+
+export function htmltable(data, { maxrows = null } = {}) {
   let x;
   if (isgeojson(data)) {
     x = data.features.map((d) => {
@@ -19,72 +29,88 @@ export function htmltable(data, maxRows = null) {
     x = data;
   }
 
-  // Création du tableau
   let table = document.createElement("table");
-
-  // Création des en-têtes du tableau
   let thead = document.createElement("thead");
   let headerRow = document.createElement("tr");
   const headers = Object.keys(x[0]);
 
-  headers.forEach((header) => {
+  headers.forEach((header, index) => {
     let th = document.createElement("th");
     th.textContent = header;
-    th.style.backgroundColor = "white"; // Couleur d'arrière-plan de l'en-tête
-    th.style.color = "#444"; // Couleur du texte
-    th.style.padding = "10px"; // Espacement dans les cellules de l'en-tête
-    th.style.textAlign = "left"; // Alignement du texte
-    th.style.position = "sticky"; // L'en-tête reste visible lors du scroll
-    th.style.top = "0"; // Reste fixé en haut
-    th.style.zIndex = "1"; // Met l'en-tête au-dessus du reste
-    th.style.borderBottom = "2px solid #444"; // Bordure sous l'en-tête
+    th.style.cursor = "pointer";
+    th.style.backgroundColor = "white";
+    th.style.color = "#444";
+    th.style.padding = "10px";
+    th.style.textAlign = "left";
+    th.style.position = "sticky";
+    th.style.top = "0";
+    th.style.zIndex = "1";
+    th.style.borderBottom = "2px solid #444";
+
+    let asc = true;
+    th.addEventListener("click", () => {
+      asc = !asc;
+      sortTable(index, asc);
+    });
+
     headerRow.appendChild(th);
   });
+
   thead.appendChild(headerRow);
   table.appendChild(thead);
 
-  // Création du corps du tableau
   let tbody = document.createElement("tbody");
-  const displayedData = maxRows ? x.slice(0, maxRows) : x;
+  const displayedData = maxrows ? x.slice(0, maxrows) : x;
 
-  displayedData.forEach((row, index) => {
-    let tr = document.createElement("tr");
-    tr.style.backgroundColor = index % 2 === 0 ? "#f9f9f9" : "#fff"; // Couleurs alternées
-    headers.forEach((header) => {
-      let td = document.createElement("td");
-      td.textContent = row[header];
-      td.style.padding = "10px"; // Espacement dans les cellules
-      td.style.borderBottom = "1px solid #ddd"; // Bordure entre les lignes
-      td.style.textAlign = "left"; // Alignement à gauche du texte
-      tr.appendChild(td);
+  function renderTable(data) {
+    tbody.innerHTML = "";
+    data.forEach((row, index) => {
+      let tr = document.createElement("tr");
+      tr.style.backgroundColor = index % 2 === 0 ? "#f9f9f9" : "#fff";
+      headers.forEach((header) => {
+        let td = document.createElement("td");
+        td.textContent = row[header];
+        td.style.padding = "10px";
+        td.style.borderBottom = "1px solid #ddd";
+        td.style.textAlign = "left";
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
     });
-    tbody.appendChild(tr);
-  });
+  }
 
+  function sortTable(columnIndex, ascending) {
+    displayedData.sort((a, b) => {
+      let valA = a[headers[columnIndex]];
+      let valB = b[headers[columnIndex]];
+      if (!isNaN(parseFloat(valA)) && !isNaN(parseFloat(valB))) {
+        return ascending ? valA - valB : valB - valA;
+      }
+      return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+    });
+    renderTable(displayedData);
+  }
+
+  renderTable(displayedData);
   table.appendChild(tbody);
 
-  // Création du conteneur pour le tableau avec un scroll vertical
   let container = document.createElement("div");
-  container.style.overflowY = "auto"; // Scroll vertical
-  container.style.maxHeight = "300px"; // Hauteur max avec scroll
+  container.style.overflowY = "auto";
+  container.style.maxHeight = "300px";
   container.style.margin = "0";
-  container.style.padding = "0"; // Pas de padding pour éviter un espace en haut
-  container.style.boxSizing = "border-box"; // Pour inclure la bordure dans la largeur
-  container.style.overflowX = "hidden"; // Scroll horizontal désactivé par défaut
+  container.style.padding = "0";
+  container.style.boxSizing = "border-box";
+  container.style.overflowX = "hidden";
 
   container.appendChild(table);
-
-  // Après que le tableau ait été rendu, ajuster la largeur du conteneur
   setTimeout(() => {
     const tableWidth = table.offsetWidth + 20;
     const containerWidth = container.offsetWidth;
-
-    // Si la largeur du tableau est plus grande que celle du conteneur, on affiche un scroll horizontal
     if (tableWidth > containerWidth) {
-      container.style.overflowX = "scroll"; // Afficher le scroll horizontal si nécessaire
+      container.style.overflowX = "scroll";
     } else {
-      container.style.width = `${tableWidth}px`; // Réduire le conteneur à la largeur du tableau
-      container.style.overflowX = "hidden"; // Pas de scroll horizontal
+      container.style.width = `${tableWidth}px`;
+      container.style.overflowX = "hidden";
     }
   }, 0);
 

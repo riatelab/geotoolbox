@@ -3,7 +3,7 @@ const topojson = Object.assign({}, { feature });
 import { table2geo } from "./helpers/table2geo";
 
 /**
- * @function featurecollection
+ * @function togeojson
  * @summary Retrieve a FeatureCollection. The `featurecollection()` function allows to retrieve a FeatureCollection from a
  - a topoJSON ✅ 
 - an array of features ✅ 
@@ -28,13 +28,13 @@ import { table2geo } from "./helpers/table2geo";
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * // Array of coordinates
- * geoclean.featurecollection([
+ * geoclean.togeojson([
   [32.33, 45.66],
   [10, 10]
 ])
   *
  * // A geometry  
-  * geoclean.featurecollection({
+  * geoclean.togeojson({
   type: "Polygon",
   coordinates: [
     [
@@ -48,10 +48,10 @@ import { table2geo } from "./helpers/table2geo";
 })
   *
    * // An array of objects containing coordinates
-   * geoclean.featurecollection(*a JSON*, {lat: "lat", lon: "lon"})
+   * geoclean.togeojson(*a JSON*, {lat: "lat", lon: "lon"})
    * 
    * // Data handling
-   * geoclean.featurecollection(*a geoJSON*, {
+   * geoclean.togeojson(*a geoJSON*, {
       filter: (d) => d.properties.pop2018 >= 200,
       properties: ["id", "capital", "pop2018"],
       rename: ["code", "name", "pop"
@@ -60,7 +60,7 @@ import { table2geo } from "./helpers/table2geo";
    * 
  */
 
-export function featurecollection(
+export function togeojson(
   data,
   {
     lat = undefined,
