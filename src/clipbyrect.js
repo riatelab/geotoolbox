@@ -1,14 +1,8 @@
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
-export async function clipbyrect(
-  geos,
-  data,
-  { bbox = [90, 180, -90, -180] } = {}
-) {
-  if (!geos) {
-    throw new Error("GEOS n'est pas défini !");
-  }
+import { geosloader } from "./helpers/geos.js";
+export async function clipbyrect(data, { bbox = [90, 180, -90, -180] } = {}) {
+  const geos = await geosloader();
   let x = JSON.parse(JSON.stringify(data));
-  //const geos = getGeos();
   const geosgeom = geojsonToGeosGeom(x, geos);
   const newgeom = geos.GEOSClipByRect(
     geosgeom,

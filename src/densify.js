@@ -1,6 +1,7 @@
-import initGeosJs from "geos-wasm";
+import { geosloader } from "./helpers/geos.js";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
 import { isemptygeom } from "./helpers/helpers";
+import { check } from "./helpers/check.js";
 
 /**
  * @function densify
@@ -15,15 +16,9 @@ import { isemptygeom } from "./helpers/helpers";
  */
 
 export async function densify(data, { dist = 1, mutate = false } = {}) {
-  const geos = await initGeosJs();
-
-  // deep copy ?
-  let geojson;
-  if (!mutate) {
-    geojson = JSON.parse(JSON.stringify(data));
-  } else {
-    geojson = data;
-  }
+  const geos = await geosloader();
+  const handle = check(data, mutate);
+  let geojson = handle.import(data);
 
   geojson.features.forEach((d) => {
     if (isemptygeom(d?.geometry)) {
@@ -39,5 +34,5 @@ export async function densify(data, { dist = 1, mutate = false } = {}) {
     }
   });
 
-  return geojson;
+  return handle.export(geojson);
 }

@@ -1,6 +1,16 @@
 import { feature } from "topojson-client";
 const topojson = Object.assign({}, { feature });
 import { table2geo } from "./helpers/table2geo";
+import {
+  isTwoValues,
+  isArrayOfCoords,
+  isArrayOfObjects,
+  isGeometry,
+  isGeometries,
+  isFeature,
+  isFeatures,
+  isFeatureCollection,
+} from "./helpers/helpers";
 
 /**
  * @function togeojson
@@ -173,126 +183,3 @@ export function togeojson(
 }
 
 // Helpers
-
-function isFeatureCollection(x) {
-  if (
-    !Array.isArray(x) &&
-    x?.type == "FeatureCollection" &&
-    Array.isArray(x?.features) &&
-    x?.features[0]?.hasOwnProperty("type") &&
-    x?.features[0]?.hasOwnProperty("properties") &&
-    x?.features[0]?.hasOwnProperty("geometry")
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isTopology(x) {
-  if (x?.type == "Topology" && !Array.isArray(x)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isFeatures(x) {
-  if (
-    Array.isArray(x) &&
-    x.length > 0 &&
-    x[0]?.hasOwnProperty("type") &&
-    x[0]?.hasOwnProperty("properties") &&
-    x[0]?.hasOwnProperty("geometry")
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isFeature(x) {
-  if (
-    typeof x === "object" &&
-    !Array.isArray(x) &&
-    x !== null &&
-    x?.hasOwnProperty("type") &&
-    x?.hasOwnProperty("properties") &&
-    x?.hasOwnProperty("geometry")
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isGeometries(x) {
-  if (
-    Array.isArray(x) &&
-    x.length > 0 &&
-    x[0]?.hasOwnProperty("type") &&
-    x[0]?.hasOwnProperty("coordinates")
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isGeometry(x) {
-  if (
-    typeof x === "object" &&
-    !Array.isArray(x) &&
-    x !== null &&
-    x?.hasOwnProperty("type") &&
-    x?.hasOwnProperty("coordinates")
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isArrayOfObjects(x) {
-  if (
-    Array.isArray(x) &&
-    !Array.isArray(x[0]) &&
-    x.length > 0 &&
-    typeof x[0] === "object"
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isArrayOfCoords(x) {
-  if (
-    Array.isArray(x) &&
-    x[0].length == 2 &&
-    Array.isArray(x[0]) &&
-    typeof x[0][0] !== "object" &&
-    typeof x[0][1] !== "object"
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isTwoValues(x) {
-  if (Array.isArray(x) && x.length == 2 && isNumber(x[0]) && isNumber(x[1])) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isNumber(value) {
-  return (
-    value !== null &&
-    value !== "" &&
-    typeof value !== "boolean" &&
-    isFinite(value)
-  );
-}

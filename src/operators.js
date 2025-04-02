@@ -1,5 +1,5 @@
+import { geosloader } from "./helpers/geos.js";
 import { togeojson } from "./togeojson.js";
-import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "geos-wasm/helpers";
 
 export let op = {
@@ -25,7 +25,7 @@ export let op = {
  * geottolbox.op.contains(*a geojson*, *another geojson*)
  */
 async function contains(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSContains(geosgeom1, geosgeom2);
@@ -44,7 +44,7 @@ async function contains(g1, g2) {
  * geottolbox.op.covers(*a geojson*, *another geojson*)
  */
 async function covers(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSCovers(geosgeom1, geosgeom2);
@@ -63,7 +63,7 @@ async function covers(g1, g2) {
  * geottolbox.op.crosses(*a geojson*, *another geojson*)
  */
 async function crosses(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSCrosses(geosgeom1, geosgeom2);
@@ -82,7 +82,7 @@ async function crosses(g1, g2) {
  * geottolbox.op.disjoint(*a geojson*, *another geojson*)
  */
 async function disjoint(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSDisjoint(geosgeom1, geosgeom2);
@@ -101,7 +101,7 @@ async function disjoint(g1, g2) {
  * geottolbox.op.coveredby(*a geojson*, *another geojson*)
  */
 async function coveredby(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSCoveredBy(geosgeom1, geosgeom2);
@@ -120,7 +120,7 @@ async function coveredby(g1, g2) {
  * geottolbox.op.equals(*a geojson*, *another geojson*)
  */
 async function equals(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSEquals(geosgeom1, geosgeom2);
@@ -139,7 +139,7 @@ async function equals(g1, g2) {
  * geottolbox.op.intersects(*a geojson*, *another geojson*)
  */
 async function intersects(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSIntersects(geosgeom1, geosgeom2);
@@ -158,7 +158,7 @@ async function intersects(g1, g2) {
  * geottolbox.op.overlaps(*a geojson*, *another geojson*)
  */
 async function overlaps(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSOverlaps(geosgeom1, geosgeom2);
@@ -177,7 +177,7 @@ async function overlaps(g1, g2) {
  * geottolbox.op.touches(*a geojson*, *another geojson*)
  */
 async function touches(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSTouches(geosgeom1, geosgeom2);
@@ -196,7 +196,7 @@ async function touches(g1, g2) {
  * geottolbox.op.within(*a geojson*, *another geojson*)
  */
 async function within(g1, g2) {
-  const geos = await initGeosJs();
+  const geos = await geosloader();
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
   const test = geos.GEOSWithin(geosgeom1, geosgeom2);

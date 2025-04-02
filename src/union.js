@@ -1,5 +1,6 @@
-import initGeosJs from "geos-wasm";
+import { geosloader } from "./helpers/geos.js";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
+import { check } from "./helpers/check.js";
 
 /**
  * @function union
@@ -7,37 +8,31 @@ import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
  * @description Based on `geos.GEOSUnaryUnion`.
  * @param {object} options - Optional parameters
  * @param {string} [id] - The id of the features to merge
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.union(*a geojson*)
  */
 
-export async function union(data, { id, mutate = false } = {}) {
-  // deep copy ?
-  let x;
-  if (!mutate) {
-    x = JSON.parse(JSON.stringify(data));
-  } else {
-    x = data;
-  }
-
-  const geos = await initGeosJs();
+export async function union(data, { id } = {}) {
+  const geos = await geosloader();
+  const handle = check(data);
+  let x = handle.import(data);
 
   // Union by id
   if (id !== undefined) {
-    const ids = [...new Set(x.features.map((d) => d?.properties[id]))];
-
-    let features = [];
-    ids.forEach((d) => {
-      features.push({
-        type: "Feature",
-        properties: { id: d },
-        geometry: geosGeomToGeojson(newGeom, geos),
-      });
-      geos.GEOSFree(geosGeom);
-      geos.GEOSFree(newGeom);
-    });
-    x.features = features;
+    //   const ids = [...new Set(x.features.map((d) => d?.properties[id]))];
+    //   let features = [];
+    //   ids.forEach((d) => {
+    //     const geosGeom = geojsonToGeosGeom(d, geos);
+    //     const newGeom = geos.GEOSUnaryUnion(geosGeom);
+    //     features.push({
+    //       type: "Feature",
+    //       properties: { id: d },
+    //       geometry: geosGeomToGeojson(newGeom, geos),
+    //     });
+    //     geos.GEOSFree(geosGeom);
+    //     geos.GEOSFree(newGeom);
+    //   });
+    //   x.features = features;
   }
   // Union All
   else {
@@ -54,5 +49,5 @@ export async function union(data, { id, mutate = false } = {}) {
     geos.GEOSFree(newGeom);
   }
 
-  return x;
+  return handle.export(x);
 }

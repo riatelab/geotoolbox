@@ -1,5 +1,6 @@
-import initGeosJs from "geos-wasm";
+import { geosloader } from "./helpers/geos.js";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
+import { check } from "./helpers/check.js";
 
 /**
  * @function concavehull
@@ -9,29 +10,21 @@ import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
  * @param {object} options - Optional parameters.
  * @param {boolean} [options.ratio = 0] - The edge length ratio value, between 0 and 1.
  * @param {boolean} [options.holes = true] - When non-zero, the polygonal output may contain holes.
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.concavehull(*a geojson*, {ratio: 0.5})
  */
 
-export async function concavehull(
-  data,
-  { ratio = 0, holes = true, mutate = false } = {}
-) {
-  let x;
-  if (!mutate) {
-    x = JSON.parse(JSON.stringify(data));
-  } else {
-    x = data;
-  }
-
-  const geos = await initGeosJs();
+export async function concavehull(data, { ratio = 0, holes = true } = {}) {
+  const geos = await geosloader();
+  const handle = check(data);
+  let x = handle.import(data);
   const geosgeom = geojsonToGeosGeom(x, geos);
   const output = geos.GEOSConcaveHull(geosgeom, ratio, holes ? 1 : 0);
   let result = geosGeomToGeojson(output, geos);
   geos.GEOSFree(geosgeom);
   geos.GEOSFree(output);
-
-  x.features = [{ type: "Feature", properties: {}, geometry: result }];
-  return x;
+  return handle.export({
+    type: "FeatureCollection",
+    features: [{ type: "Feature", properties: {}, geometry: result }],
+  });
 }

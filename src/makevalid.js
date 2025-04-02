@@ -1,4 +1,4 @@
-import initGeosJs from "geos-wasm";
+import { geosloader } from "./helpers/geos.js";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
 import { isemptygeom } from "./helpers/helpers";
 
@@ -21,7 +21,7 @@ export async function makevalid(data, { mutate = false } = {}) {
     geojson = data;
   }
 
-  const geos = await initGeosJs();
+  const geos = await geosloader();
 
   geojson.features.forEach((d) => {
     if (isemptygeom(d?.geometry)) {

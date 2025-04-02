@@ -1,24 +1,19 @@
+import { check } from "./helpers/check.js";
+import { aggregate } from "./aggregate.js";
 /**
  * @function nodes
  * @summary Retrieve geometry nodes
- * @param {object} options - Optional parameters
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.nodes(*a geojson*)
  */
 
-export function nodes(data, { mutate = false } = {}) {
-  // deep copy ?
-  let geojson;
-  if (!mutate) {
-    geojson = JSON.parse(JSON.stringify(data));
-  } else {
-    geojson = data;
-  }
+export function nodes(data) {
+  const handle = check(data);
+  let x = handle.import(data);
 
   let features = [];
 
-  geojson.features.forEach((d) => {
+  x.features.forEach((d) => {
     let n = d.geometry.coordinates.flat(Infinity);
     let f = [];
     for (let i = 0; i < n.length; i = i + 2) {
@@ -31,7 +26,13 @@ export function nodes(data, { mutate = false } = {}) {
     features.push(f);
   });
 
-  // return features;
-  geojson.features = features.flat();
-  return geojson;
+  let result = {
+    type: "FeatureCollection",
+    features: features.flat(),
+  };
+
+  if (["Feature", "Geometry"].includes(handle.type)) {
+    result = aggregate(result);
+  }
+  return handle.export(result);
 }

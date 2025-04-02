@@ -11,6 +11,7 @@ export default {
     file: "dist/index.min.js",
     name: "geotoolbox",
   },
+
   plugins: [
     commonjs(), // prise en charge de require
     noderesolve(), // prise en charge des modules depuis node_modules

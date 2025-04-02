@@ -1,22 +1,21 @@
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
+import { geosloader } from "./helpers/geos.js";
+import { check } from "./helpers/check.js";
 
 export async function buffer(
-  geos,
   data,
   { quadsegs = 8, isProjected = false, distance = 0 } = {}
 ) {
-  if (!geos) {
-    throw new Error("GEOS is not loaded");
-  }
-
-  let x = JSON.parse(JSON.stringify(data));
-
-  // const geos = getGeos();
+  const geos = await geosloader();
+  const handle = check(data);
+  let x = handle.import(data);
   const geosgeom = geojsonToGeosGeom(x, geos);
   const buffer = geos.GEOSBuffer(geosgeom, distance, quadsegs);
-  let output = geosGeomToGeojson(buffer, geos);
+  let result = geosGeomToGeojson(buffer, geos);
   geos.GEOSFree(geosgeom);
   geos.GEOSFree(buffer);
-  x.features = [{ type: "Feature", properties: {}, geometry: output }];
-  return x;
+  return handle.export({
+    type: "FeatureCollection",
+    features: [{ type: "Feature", properties: {}, geometry: result }],
+  });
 }

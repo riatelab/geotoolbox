@@ -65,27 +65,39 @@ geo = require("geotoolbox@3");
 - [**`table()`**](global.html#table) - Retrieves the dataset's attribute table (properties)
 - [**`tail()`**](global.html#tail) - The function returns the n last elements.
 
+Here ? todo
+
+- [**`removeemptygeom()`**](global.html#removeemptygeom) - The function remove all features with undefined geometries.
+- [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
+- [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
+
 #### ➡️ Handling geometries
 
-*Main GIS functions and geoprocessing*
+*Main GIS functions and geoprocessing. These functions take as input a geoJSON, an array of features, a single feature, an array of geometries or a single geometry. They return an object of the same type.*
+
+- [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons
+- [**`concavehull()`**](global.html#concavehull) - Returns a "concave hull" of a geoJSON.
+- [**`convexhull()`**](global.html#convexhull) - Returns a "convex hull" of a geometry. 
+- [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
+- [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry. By default, the generalization level is calculated automatically to ensure smooth map display.
+
+todo 
 
 - [**`aggregate()`**](global.html#aggregate) - Aggregate geometries.
 - [**`bbox()`**](global.html#bbox) - Geographic bounding box.
 - [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
-- [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons
-- [**`concavehull()`**](global.html#concavehull) - Returns a "concave hull" of a geoJSON.
 - [**`densify()`**](global.html#densify) - The function add nodes to a geoJSON.
 - [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
-- [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
+- [**`envelope()`**](global.html#envelope) - Returns minimum rectangular polygon or point that contains the geometry, or an empty point for empty inputs.
 - [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
 - [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
 - [**`makevalid()`**](global.html#makevalid) - The function allows to make a GeoJSON valid .
-- [**`removeemptygeom()`**](global.html#removeemptygeom) - The function remove all features with undefined geometries.
-- [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
-- [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
-- [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry. By default, the generalization level is calculated automatically to ensure smooth map display.
 - [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
-- [**`union()`**](global.html#union) - Merge geometries.
+- todo [**`union()`**](global.html#union) - Merge geometries.
+
+wip
+
+buffer (wip)
 
 #### ➡️ Operators
 
