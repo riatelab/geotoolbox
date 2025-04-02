@@ -18,9 +18,9 @@ import { check } from "./helpers/check.js";
 export async function densify(data, { dist = 1, mutate = false } = {}) {
   const geos = await geosloader();
   const handle = check(data, mutate);
-  let geojson = handle.import(data);
+  let x = handle.import(data);
 
-  geojson.features.forEach((d) => {
+  x.features.forEach((d) => {
     if (isemptygeom(d?.geometry)) {
       d.geometry = undefined;
     } else {
@@ -34,5 +34,5 @@ export async function densify(data, { dist = 1, mutate = false } = {}) {
     }
   });
 
-  return handle.export(geojson);
+  return handle.export(x);
 }

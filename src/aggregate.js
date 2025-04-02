@@ -1,3 +1,4 @@
+import { check } from "./helpers/check.js";
 import { type } from "./utils/type.js";
 import { dissolve } from "./dissolve.js";
 import { topology } from "topojson-server";
@@ -10,31 +11,23 @@ const topojson = Object.assign({}, { topology, merge });
  * @description Based on `topojson.merge`.
  * @param {object} options - Optional parameters
  * @param {string} [options.id = null] - The id of the features to aggregate
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @example
  * geotoolbox.aggregate(*a geojson*)
  */
 
 export function aggregate(data, { id = null, mutate = false } = {}) {
-  // deep copy ?
+  const handle = check(data);
+  let x = handle.import(data);
+  let result;
 
-  let geojson;
-  if (!mutate) {
-    geojson = JSON.parse(JSON.stringify(data));
-  } else {
-    geojson = data;
-  }
-
-  let dim = type(geojson).dimension;
+  let dim = type(x).dimension;
   if (id != null && id != undefined) {
-    let arr = Array.from(
-      new Set(geojson.features.map((d) => d.properties[id]))
-    );
+    let arr = Array.from(new Set(x.features.map((d) => d.properties[id])));
     let features = [];
     arr.forEach((myid) => {
       let geo = {
         type: "FeatureCollection",
-        features: geojson.features.filter((d) => d.properties[id] == myid),
+        features: x.features.filter((d) => d.properties[id] == myid),
       };
       //return geo;
 
@@ -69,36 +62,32 @@ export function aggregate(data, { id = null, mutate = false } = {}) {
       });
     });
 
-    return {
+    result = {
       type: "FeatureCollection",
       features: features,
     };
   } else {
     let geom;
     if (dim == 3) {
-      let topo = topojson.topology({ foo: geojson });
+      let topo = topojson.topology({ foo: x });
       geom = topojson.merge(topo, topo.objects.foo.geometries);
     }
 
     if (dim == 2) {
       geom = {
         type: "MultiLineString",
-        coordinates: dissolve(geojson).features.map(
-          (d) => d.geometry.coordinates
-        ),
+        coordinates: dissolve(x).features.map((d) => d.geometry.coordinates),
       };
     }
 
     if (dim == 1) {
       geom = {
         type: "MultiPoint",
-        coordinates: dissolve(geojson).features.map(
-          (d) => d.geometry.coordinates
-        ),
+        coordinates: dissolve(x).features.map((d) => d.geometry.coordinates),
       };
     }
 
-    return {
+    result = {
       type: "FeatureCollection",
       features: [
         {
@@ -109,4 +98,5 @@ export function aggregate(data, { id = null, mutate = false } = {}) {
       ],
     };
   }
+  return handle.export(result);
 }
