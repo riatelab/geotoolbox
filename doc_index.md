@@ -67,16 +67,21 @@ geo = require("geotoolbox@3");
 
 Here ? todo
 
+
+
 - [**`removeemptygeom()`**](global.html#removeemptygeom) - The function remove all features with undefined geometries.
 - [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
 - [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
+- map
+- foreach
 
 #### ➡️ Handling geometries
 
 *Main GIS functions and geoprocessing. These functions take as input a geoJSON, an array of features, a single feature, an array of geometries or a single geometry. They return an object of the same type.*
 
 - [**`aggregate()`**](global.html#aggregate) - Aggregate geometries.
-- [**`buffer()`**](global.html#buffer) - Crate a buffer.
+- [**`bbox()`**](global.html#bbox) - Geographic bounding box.
+- [**`buffer()`**](global.html#buffer) - Create buffer areas.
 - [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons.
 - [**`clipbyrect()`**](global.html#clipbyrect) - Intersection optimized for a rectangular clipping.
 - [**`concavehull()`**](global.html#concavehull) - Returns a "concave hull" of a geoJSON.
@@ -90,34 +95,27 @@ Here ? todo
 - [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
 - [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry. By default, the generalization level is calculated automatically to ensure smooth map display.
 - [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
+- [**`union()`**](global.html#union) - Merge geometries.
 
+xxx
 
-todo 
-
-- [**`bbox()`**](global.html#bbox) - Geographic bounding box.
 - [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
+- clip
 
-- todo [**`union()`**](global.html#union) - Merge geometries.
-
-wip
-
-buffer (wip)
-
-
-#### ➡️ Operators
+#### ➡️ GIS tests
 
 *GIS operators. All these functions return a true or false boolean.*
 
-- [**`op.contains()`**](global.html#op/contains) - Tests if geometry g2 is completely within g1, but not wholly contained in the boundary of g1.
-- [**`op.covers()`**](global.html#op/covers) - Tests if geometry g1 covers g2, which is the case if every point of g2 lies in g1.
-- [**`op.crosses()`**](global.html#op/crosses) - Tests if two geometries interiors intersect but their boundaries do not. Most useful for finding line crosses cases.
-- [**`op.disjoint()`**](global.html#op/disjoint) - Tests if two geometries have no point in common.
-- [**`op.coveredby()`**](global.html#op/coveredby) - Tests if geometry g1 is covered by g2, which is the case if every point of g1 lies in g2.
-- [**`op.equals()`**](global.html#op/equals) - Tests if two geometries contain the same set of points in the plane.
-- [**`op.intersects()`**](global.html#op/intersects) - Tests if two geometries intersect.
-- [**`op.overlaps()`**](global.html#op/overlaps) - Tests if two geometries share interiors but are neither within nor contained.
-- [**`op.touches()`**](global.html#op/touches) - Tests if two geometries share boundaries at one or more points, but do not have interior points in common.
-- [**`op.within()`**](global.html#op/within) - Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.
+- [**`contains()`**](global.html#contains) - Tests if geometry g2 is completely within g1, but not wholly contained in the boundary of g1.
+- [**`covers()`**](global.html#covers) - Tests if geometry g1 covers g2, which is the case if every point of g2 lies in g1.
+- [**`crosses()`**](global.html#crosses) - Tests if two geometries interiors intersect but their boundaries do not. Most useful for finding line crosses cases.
+- [**`disjoint()`**](global.html#disjoint) - Tests if two geometries have no point in common.
+- [**`coveredby()`**](global.html#coveredby) - Tests if geometry g1 is covered by g2, which is the case if every point of g1 lies in g2.
+- [**`equals()`**](global.html#equals) - Tests if two geometries contain the same set of points in the plane.
+- [**`intersects()`**](global.html#intersects) - Tests if two geometries intersect.
+- [**`overlaps()`**](global.html#overlaps) - Tests if two geometries share interiors but are neither within nor contained.
+- [**`touches()`**](global.html#touches) - Tests if two geometries share boundaries at one or more points, but do not have interior points in common.
+- [**`within()`**](global.html#within) - Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.
 
 #### ➡️ Other things usefull for cartography
 
@@ -128,7 +126,9 @@ buffer (wip)
 
 <hr/>
 
-### TODO
+## 🚧🚧🚧
+
+#### TODO
 
 -harmonization of parameter names: id/key - isProjected/planar/geo etc.
 - harmoniser coordonnées des bbox []

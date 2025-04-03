@@ -34,6 +34,5 @@ export async function densify(data, { dist = 1, mutate = false } = {}) {
       geos.GEOSFree(densiygeom);
     }
   });
-
   return handle.export(x);
 }

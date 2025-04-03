@@ -38,17 +38,30 @@ export { rewind } from "./rewind.js";
 export { rewind2 } from "./rewind2.js";
 export { dissolve } from "./dissolve.js";
 
+export { map, foreach } from "./iterate.js";
+
 // GEOS (async)
 
 export { buffer } from "./buffer.js";
 export { clipbyrect } from "./clipbyrect.js";
 export { makevalid } from "./makevalid.js";
-export { densify } from "./densify.js"; // ok
+export { densify } from "./densify.js";
 export { union } from "./union.js";
 export { concavehull } from "./concavehull.js";
 export { convexhull } from "./convexhull.js";
 export { envelope } from "./envelope.js";
-export { op } from "./operators.js";
+export {
+  contains,
+  covers,
+  crosses,
+  disjoint,
+  coveredby,
+  equals,
+  intersects,
+  overlaps,
+  touches,
+  within,
+} from "./operators.js";
 
 export { check } from "./helpers/check.js";
 

@@ -1,6 +1,7 @@
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
 import { geosloader } from "./helpers/geos.js";
 import { check } from "./helpers/check.js";
+import { expressiontovaluesinageojson } from "./helpers/expressiontovaluesinageojson.js";
 import { geoAzimuthalEquidistant, geoCentroid } from "d3-geo";
 import { geoProject } from "d3-geo-projection";
 const d3 = Object.assign(
@@ -15,9 +16,10 @@ const d3 = Object.assign(
  * @async
  * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters
- * @param {number} [options.dist = 0] - The distance to expand the geometry (or contract) if the value is negative. If the geometry is unprojected, the the unit is in kilometers. If the geometry is projected, it's in map units.
+ * @param {number|string|function} [options.dist = 0] - The distance to expand the geometry (or contract if the value is negative). If the geometry is unprojected, then the unit is in kilometers. If the geometry is projected, it's in map units. You can use a numer, or a function like `d => d.properties.pop/100000` or a string like `"pop/100000"`
+ * @param {booleann} [options.each = false] - Compute a buffur for each features
  * @param {boolean} [options.isProjected = false] - Use false (default) if you are using geometries that are not projected in latitude-longitude. Use true if your base map is already projected.
- * @param {number} [options.quadsegs = null] - The number of segments per quadrant to generate. More segments provides a more "precise" buffer at the expense of size.
+ * @param {number} [options.quadsegs = 8] - The number of segments per quadrant to generate. More segments provides a more "precise" buffer at the expense of size.
  * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * // A global buffer
@@ -29,6 +31,32 @@ const d3 = Object.assign(
  */
 
 export async function buffer(
+  data,
+  { isProjected = false, quadsegs = 8, dist = 0, each = false } = {}
+) {
+  if (typeof dist == "number" && each == false) {
+    return singlebuffer(data, { quadsegs, isProjected, dist });
+  } else {
+    return multiplebuffer(data, { quadsegs, isProjected, dist });
+  }
+}
+
+async function multiplebuffer(data, { dist }) {
+  const handle = check(data);
+  let x = handle.import(data);
+  let dists = expressiontovaluesinageojson(x, dist);
+
+  let result = await Promise.all(
+    x.features.map(async (d, i) => {
+      console.log(d);
+      return await buffer(d, { dist: dists[i] });
+    })
+  );
+
+  return handle.export({ type: "FeatureCollection", features: result });
+}
+
+async function singlebuffer(
   data,
   { quadsegs = 8, isProjected = false, dist = 0 } = {}
 ) {

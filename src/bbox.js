@@ -7,6 +7,7 @@ import { check } from "./helpers/check.js";
  * @summary Compute a geographic bounding box.
  * @description based on Jacob Rus code. See https://observablehq.com/@jrus/sphere-resample
  * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * geotoolbox.bbox(*a geojson*)
  */
@@ -54,7 +55,9 @@ export function bbox(data) {
       },
     ],
   };
-  return inverseResampleJSON(d3.geoEquirectangularRaw, 0.02)(x);
+  let output = inverseResampleJSON(d3.geoEquirectangularRaw, 0.02)(x);
+
+  return handle.export(output);
 }
 
 const inverseResampleJSON = (projection, delta) => {
