@@ -10,6 +10,7 @@ import {
   isFeature,
   isFeatures,
   isFeatureCollection,
+  isTopology,
 } from "./helpers/helpers";
 
 /**

@@ -11,9 +11,10 @@ import { isemptygeom } from "./helpers/helpers";
 - **`ring`** (`geos.GEOSisRing`): Tests whether the input geometry is a ring. Rings are linestrings, without self-intersections, with start and end point being identical. Returns: 1 on true, 0 on false, 2 on exception.
 - **`closed`** (`geos.GEOSisClosed`): Tests whether the input geometry is closed. A closed geometry is a linestring or multilinestring with the start and end points being the same. Returns:  1 on true, 0 on false, 2 on exception
 - If a feature's geometry is empty or do not contain geometries, then `undefined` is returned.
+ * @async
 * @param {object} data - a GeoJSON FeatureCollection
  * @example
- * geotoolbox.isvalid(*a geojson*)
+ * await geotoolbox.isvalid(*a geojson*)
  */
 export async function isvalid(data) {
   const geos = await geosloader();

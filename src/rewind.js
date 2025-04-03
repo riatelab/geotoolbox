@@ -1,22 +1,30 @@
 import { geoContains, geoArea, geoStream, geoTransform } from "d3-geo";
+import { check } from "./helpers/check.js";
 
 /**
  * @function rewind
  * @summary Rewind a geoJSON (fil recipe). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
  * @description Based on https://observablehq.com/@fil/rewind
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters
  * @param {number} [options.simple = true] - Rewind simple polygons larger than a hemisphere
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`)
  * @example
  * geotoolbox.rewind(*a geojson*)
  */
 export function rewind(data, { simple = true } = {}) {
-  return data?.stream
-    ? geoRewindProjection(data, simple)
-    : data?.type
-    ? geoRewindFeature(data, simple)
-    : Array.isArray(data)
-    ? Array.from(data, (d) => rewind(d, simple))
-    : data;
+  const handle = check(data);
+  let x = handle.import(data);
+
+  let result = x?.stream
+    ? geoRewindProjection(x, simple)
+    : x?.type
+    ? geoRewindFeature(x, simple)
+    : Array.isArray(x)
+    ? Array.from(x, (d) => rewind(d, simple))
+    : x;
+
+  return handle.export(result);
 }
 
 const geoRewindFeature = (feature, simple) =>
@@ -139,5 +147,5 @@ function projectPolygons(o, stream) {
     })
   );
   if (o.type === "Polygon") coordinates = coordinates[0];
-  return { ...o, coordinates, rewind: true };
+  return { ...o, coordinates };
 }

@@ -5,14 +5,15 @@ import { check } from "./helpers/check.js";
 
 /**
  * @function densify
- * @summary Densify a geoJSON. The function add nodes to a geoJSON.
- * @description Based on `geos.GEOSDensify` (geos-wasm).
- * @param {object} data - A GeoJSON FeatureCollection
+ * @summary Densifies a geometry using a given distance tolerance
+ * @description Based on `geos.GEOSDensify()`
+ * @async
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters
  * @param {number} [options.dist = 1] - The minimal distance between nodes
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
- * geotoolbox.densify(*a geojson*, { dist:0.5 })
+ * await geotoolbox.densify(*a geojson*, { dist:0.5 })
  */
 
 export async function densify(data, { dist = 1, mutate = false } = {}) {

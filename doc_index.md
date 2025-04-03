@@ -40,7 +40,7 @@ geo = require("geotoolbox@3");
 
 - [**`htmltable()`**](global.html#htmltable) - View a data table.
 - [**`info()`**](global.html#info) - The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
-- [**`isvalid()`**](global.html#isvalid) - The function check the validity of a geoJSON. It is based on [`geos-wasm`](https://chrispahm.github.io/geos-wasm/).
+- [**`isvalid()`**](global.html#isvalid) - The function check the validity of a geoJSON. // improve
 
 #### ➡️ Data handling
 
@@ -76,25 +76,27 @@ Here ? todo
 *Main GIS functions and geoprocessing. These functions take as input a geoJSON, an array of features, a single feature, an array of geometries or a single geometry. They return an object of the same type.*
 
 - [**`aggregate()`**](global.html#aggregate) - Aggregate geometries.
+- [**`buffer()`**](global.html#buffer) - Crate a buffer.
 - [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons.
 - [**`clipbyrect()`**](global.html#clipbyrect) - Intersection optimized for a rectangular clipping.
 - [**`concavehull()`**](global.html#concavehull) - Returns a "concave hull" of a geoJSON.
 - [**`convexhull()`**](global.html#convexhull) - Returns a "convex hull" of a geometry. 
-- [**`densify()`**](global.html#densify) - The function add nodes to a geoJSON.
+- [**`densify()`**](global.html#densify) - Densifies a geometry using a given distance tolerance.
+- [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
 - [**`envelope()`**](global.html#envelope) - Returns minimum rectangular polygon or point that contains the geometry, or an empty point for empty inputs.
+- [**`makevalid()`**](global.html#makevalid) - The function allows to make geometries valid .
 - [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
+- [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
+- [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
 - [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry. By default, the generalization level is calculated automatically to ensure smooth map display.
+- [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
+
 
 todo 
 
-
 - [**`bbox()`**](global.html#bbox) - Geographic bounding box.
 - [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
-- [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
-- [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
-- [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
-- [**`makevalid()`**](global.html#makevalid) - The function allows to make a GeoJSON valid .
-- [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
+
 - todo [**`union()`**](global.html#union) - Merge geometries.
 
 wip
@@ -127,6 +129,10 @@ buffer (wip)
 <hr/>
 
 ### TODO
+
+-harmonization of parameter names: id/key - isProjected/planar/geo etc.
+- harmoniser coordonnées des bbox []
+
 
 - join: to join two datasets or more with an id. Si doublon : message d'erreur. 
 - compare : to test join ?. 

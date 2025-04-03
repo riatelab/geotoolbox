@@ -1,5 +1,5 @@
 import { check } from "./helpers/check.js";
-import { type } from "./utils/type.js";
+import { type } from "./helpers/type.js";
 import { dissolve } from "./dissolve.js";
 import { topology } from "topojson-server";
 import { merge } from "topojson-client";
@@ -9,8 +9,10 @@ const topojson = Object.assign({}, { topology, merge });
  * @function aggregate
  * @summary Aggregate geometries (based on topojson). The `aggregate()` function allows to merge all geometries of a geoJSON based on their topology. The `id` parameter allows to aggregate based on a specific field.
  * @description Based on `topojson.merge`.
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters
  * @param {string} [options.id = null] - The id of the features to aggregate
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * geotoolbox.aggregate(*a geojson*)
  */

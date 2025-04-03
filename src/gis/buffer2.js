@@ -1,16 +1,16 @@
 import initGeosJs from "geos-wasm";
 import { geojsonToGeosGeom } from "../helpers/geojsonToGeosGeom";
 import { geosGeomToGeojson } from "../helpers/geosGeomToGeojson";
-import { meter2deg } from "../utils/meter2deg.js";
+import { meter2deg } from "../helpers/meter2deg.js";
 import { featurecollection } from "../featurecollection.js";
 import { geoAzimuthalEquidistant } from "d3-geo";
 
 /**
- * Build a buffer with GEOS-WASM around a FeatureCollection or a set of Features or Geometries.
+ * Build a buffer
  *
  * Example: {@link https://observablehq.com/@neocartocnrs/buffer?collection=@neocartocnrs/geotoolbox Observable notebook}
  *
- * @param {object|array} x - The targeted FeatureCollection / Features / Geometries
+ * @param {object|array} data - The targeted FeatureCollection / Features / Geometries
  * @param {object} options - Optional parameters
  * @param {number|string} options.dist - The distance of the buffer in km or the name of the field containing the distance values
  * @param {boolean} [options.merge=false] - Merge all the output buffers into a single Geometry
@@ -87,38 +87,30 @@ export async function buffer2(x, options = {}) {
   }
 }
 
-function projectCoords(
-  coords,
-  proj = geoAzimuthalEquidistant().scale(6371008.8)
-) {
+function projectCoords(coords, proj) {
   if (typeof coords[0] !== "object") return proj(coords);
   return coords.map(function (coord) {
     return projectCoords(coord, proj);
   });
 }
 
-function unprojectCoords(
-  coords,
-  proj = geoAzimuthalEquidistant().scale(6371008.8)
-) {
+function unprojectCoords(coords, proj) {
   if (typeof coords[0] !== "object") return proj.invert(coords);
   return coords.map(function (coord) {
     return unprojectCoords(coord, proj);
   });
 }
 
-function toAzimuthalEquidistant(geojson) {
-  let x = JSON.parse(JSON.stringify(geojson));
+function toAzimuthalEquidistant(x, proj) {
   x.features.forEach(
     (d) => (d.geometry.coordinates = projectCoords(d.geometry.coordinates))
   );
   return x;
 }
 
-function toWGS84(geojson) {
-  let x = JSON.parse(JSON.stringify(geojson));
+function toWGS84(x, proj) {
   x.features.forEach(
-    (d) => (d.geometry.coordinates = unprojectCoords(d.geometry.coordinates))
+    (d) => (d.geometry.coordinates = unprojectCoords(d.geometry.coordinates,))
   );
 
   return x;

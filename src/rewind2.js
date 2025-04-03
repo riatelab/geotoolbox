@@ -1,24 +1,19 @@
+import { check } from "./helpers/check.js";
+
 /**
  * @function rewind2
  * @summary Rewind a geoJSON (Mapbox). The function allows to rewind the winding order of a GeoJSON object. The winding order of a polygon is the order in which the vertices are visited by the path that defines the polygon. The winding order of a polygon is significant because it determines the interior of the polygon. The winding order of a polygon is typically either clockwise or counterclockwise.
  * @description  Adapted from MapBox geojson-rewind code (https://github.com/mapbox/grojson-rewind) under ISC license.
- * @property {object} data - a GeoJSON FeatureCollection
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @property {boolean} [options.outer = false] - rewind Rings Outer
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`)
  * @example
  * geotoolbox.rewind2(*a geojson*)
  */
 
-export function rewind2(data, { outer = false, mutate = false } = {}) {
-  // deep copy ?
-  let geo;
-  if (!mutate) {
-    geo = JSON.parse(JSON.stringify(data));
-  } else {
-    geo = data;
-  }
-
-  data = JSON.parse(JSON.stringify(data));
+export function rewind2(data, { outer = false } = {}) {
+  const handle = check(data);
+  let geo = handle.import(data);
 
   for (let i = 0; i < geo.features.length; i++) {
     if (geo.features[i].geometry.type === "Polygon") {
@@ -29,7 +24,7 @@ export function rewind2(data, { outer = false, mutate = false } = {}) {
       }
     }
   }
-  return geo;
+  return handle.export(geo);
 }
 
 function rewindRings(rings, outer) {

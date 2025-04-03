@@ -6,10 +6,11 @@ const d3 = Object.assign({}, { geoArea, geoCentroid, geoIdentity, geoPath });
  * @function centroid
  * @summary Calculates the centroids of geometries.
  * @description Based on `d3.geoArea()` and `d3.geoCentroid()`
- * @param {object} data - A GeoJSON FeatureCollection.
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters.
  * @param {boolean} [options.larget = true] - If true, set the point at the centre of the largest polygon.
  * @param {boolean} [options.geo = true] - Use true to consider the centroid from world coordinates on the globe. If you use false, then you are considering the coordinates within the svg document.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`)
  * @example
  * geotoolbox.centroid(*a geojson*, {largest: true})
  */

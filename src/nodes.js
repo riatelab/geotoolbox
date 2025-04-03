@@ -1,8 +1,9 @@
 import { check } from "./helpers/check.js";
-import { aggregate } from "./aggregate.js";
 /**
  * @function nodes
  * @summary Retrieve geometry nodes
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * geotoolbox.nodes(*a geojson*)
  */
@@ -31,8 +32,5 @@ export function nodes(data) {
     features: features.flat(),
   };
 
-  if (["Feature", "Geometry"].includes(handle.type)) {
-    result = aggregate(result);
-  }
   return handle.export(result);
 }

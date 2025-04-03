@@ -1,29 +1,24 @@
 import { geosloader } from "./helpers/geos.js";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
 import { isemptygeom } from "./helpers/helpers";
+import { check } from "./helpers/check.js";
 
 /**
  * @function makevalid
  * @summary The `makevalid()` function repair an invalid geometry. It returns a repaired geometry.
- * @description Based on `geos.GEOSisValid` (geos-wasm).
- * @param {object} data - a GeoJSON FeatureCollection
- * @param {object} options - Optional parameters
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @description Based on `geos.GEOSisValid()`.
+ * @async
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`)
  * @example
- * geotoolbox.makevalid(*a geojson*)
+ * await geotoolbox.makevalid(*a geojson*)
  */
-export async function makevalid(data, { mutate = false } = {}) {
-  // deep copy ?
-  let geojson;
-  if (!mutate) {
-    geojson = JSON.parse(JSON.stringify(data));
-  } else {
-    geojson = data;
-  }
-
+export async function makevalid(data) {
   const geos = await geosloader();
+  const handle = check(data);
+  let x = handle.import(data);
 
-  geojson.features.forEach((d) => {
+  x.features.forEach((d) => {
     if (isemptygeom(d?.geometry)) {
       d.geometry = undefined;
     } else {
@@ -39,5 +34,5 @@ export async function makevalid(data, { mutate = false } = {}) {
     }
   });
 
-  return geojson;
+  return handle.export(x);
 }

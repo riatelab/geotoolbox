@@ -1,37 +1,31 @@
 import { geoArea } from "d3-geo";
-
+import { check } from "./helpers/check.js";
 /**
  * @function dissolve
  * @summary Multi part to single part geometries. The `disolve()` function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon". In addition, a `__share` field is calculated, representing the surface share of each part.
- * @param {object} data - A GeoJSON FeatureCollection
- * @param {object} options - Optional parameters
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geome
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`)
  * @example
  * geotoolbox.dissolve(*a geojson*)
  */
 
-export function dissolve(data, { mutate = false } = {}) {
-  // deep copy ?
-  let geojson;
-  if (!mutate) {
-    geojson = JSON.parse(JSON.stringify(data));
-  } else {
-    geojson = data;
-  }
+export function dissolve(data) {
+  const handle = check(data);
+  let x = handle.import(data);
 
   let result = [];
-  geojson.features.forEach((d) => {
+  x.features.forEach((d) => {
     result.push(sp(d));
   });
 
-  const keys = Object.keys(geojson).filter((e) => e != "features");
+  const keys = Object.keys(x).filter((e) => e != "features");
   const obj = {};
   keys.forEach((d) => {
-    obj[d] = geojson[d];
+    obj[d] = x[d];
   });
   obj.features = result.flat();
 
-  return obj;
+  return handle.export(obj);
 }
 
 function sp(feature) {

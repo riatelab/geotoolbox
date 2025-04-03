@@ -1,22 +1,24 @@
 import { geoEquirectangularRaw, geoBounds } from "d3-geo";
 const d3 = Object.assign({}, { geoEquirectangularRaw, geoBounds });
-import { togeojson } from "./togeojson.js";
+import { check } from "./helpers/check.js";
 
 /**
  * @function bbox
- * @summary Compute a geographic bounding box for a given FeatureCollection / array of Features / array of Geometries. The bounding box is returned wrapped in a FeatureCollection containing a single Polygon Feature.
+ * @summary Compute a geographic bounding box.
  * @description based on Jacob Rus code. See https://observablehq.com/@jrus/sphere-resample
- * @param {object|array} data - a GeoJSON FeatureCollection or an array with coordinates
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @example
  * geotoolbox.bbox(*a geojson*)
  */
 export function bbox(data) {
-  let bounds;
-  if (!Array.isArray(data)) {
-    bounds = d3.geoBounds(togeojson(data));
-  } else {
-    bounds = data;
-  }
+  const handle = check(data);
+
+  let bounds = isArrayOfFourNumbers(data)
+    ? [
+        [data[3], data[2]],
+        [data[0], data[1]],
+      ]
+    : d3.geoBounds(handle.import(data));
 
   let λ0 = bounds[0][0];
   let φ0 = bounds[0][1];
@@ -155,3 +157,11 @@ const stereo_length2 = ([x0, y0, z0], [x1, y1, z1]) => {
     q = x0 * (x1 + x0) + y0 * (y1 + y0) + z0 * (z1 + z0);
   return (pxy * pxy + pyz * pyz + pzx * pzx + !(q * q)) / (q * q); // adding !(q*q) means q==0 => return Infinity
 };
+
+function isArrayOfFourNumbers(value) {
+  return (
+    Array.isArray(value) && // Vérifie que c'est un tableau
+    value.length === 4 && // Vérifie qu'il y a exactement 4 éléments
+    value.every((num) => typeof num === "number" && !isNaN(num)) // Vérifie que tous sont des nombres valides
+  );
+}

@@ -6,12 +6,14 @@ import { check } from "./helpers/check.js";
  * @function concavehull
  * @summary Returns a "concave hull" of a geometry. A concave hull is a polygon which contains all the points of the input, but is a better approximation than the convex hull to the area occupied by the input. Frequently used to convert a multi-point into a polygonal area. that contains all the points in the input Geometry.
  * @description Based on `geos.GEOSConcaveHull()`.
- * @param {object} data - A GeoJSON FeatureCollection.
+ * @async
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters.
  * @param {boolean} [options.ratio = 0] - The edge length ratio value, between 0 and 1.
  * @param {boolean} [options.holes = true] - When non-zero, the polygonal output may contain holes.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
- * geotoolbox.concavehull(*a geojson*, {ratio: 0.5})
+ * await geotoolbox.concavehull(*a geojson*, {ratio: 0.5})
  */
 
 export async function concavehull(data, { ratio = 0, holes = true } = {}) {

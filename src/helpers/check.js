@@ -27,7 +27,7 @@ export function check(data) {
   else if (isFeature(data)) {
     type = "Feature";
     funcimport = (d) => copy({ type: "FeatureCollection", features: [d] }); // Return a copy of the feature
-    funcexport = (d) => d.features[0];
+    funcexport = (d) => (d.features.length == 1 ? d.features[0] : d.features);
   }
   // Case where the input is an array of geometries
   else if (isGeometries(data)) {
@@ -52,6 +52,14 @@ export function check(data) {
         features: [{ type: "Feature", properties: {}, geometry: d }],
       });
     funcexport = (d) => d.features[0].geometry;
+    funcexport = (d) =>
+      d.features.length == 1
+        ? d.features[0].geometry
+        : d.features.map((d) => d.geometry);
+  } else {
+    type = undefined;
+    funcexport = (d) => copy(d);
+    funcexport = (d) => copy(d);
   }
 
   // Return the import/export functions

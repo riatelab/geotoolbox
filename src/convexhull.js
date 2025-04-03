@@ -5,9 +5,12 @@ import { check } from "./helpers/check.js";
 /**
  * @function convexhull
  * @summary Returns a "convex hull" of a geometry. The smallest convex Geometry that contains all the points in the input Geometry
- * @param {object} data - A GeoJSON FeatureCollection.
+ * @description Based on `geos.GEOSConvexHull()`.
+ * @async
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`)
  * @example
- * geotoolbox.convexehull(*a geojson*)
+ * await geotoolbox.convexehull(*a geojson*)
  */
 
 export async function convexhull(data) {

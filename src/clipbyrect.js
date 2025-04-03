@@ -5,11 +5,14 @@ import { geosloader } from "./helpers/geos.js";
 /**
  * @function clipbyrect
  * @summary Intersection optimized for a rectangular clipping polygon. By default, the function cuts off anything that exceeds the Earth's bbox.
- * @description Based on `topojson.merge`.
+ * @description Based on `geos.GEOSClipByRect()`.
+ * @async
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters
  * @param {array} [options.bbox = [90, 180, -90, -180]] - Coordinates of the bbox [top, right, bottom, left].
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
- * geotoolbox.aggregate(*a geojson*)
+ * await geotoolbox.clipbyrect(*a geojson*, {bbox:[50, 50, -50, -50]})
  */
 export async function clipbyrect(data, { bbox = [90, 180, -90, -180] } = {}) {
   const geos = await geosloader();
