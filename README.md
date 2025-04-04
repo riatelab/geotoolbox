@@ -2,7 +2,7 @@
 
 # `geotoolbox@3`
 
-#### **`geotoolbox`** is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful **GIS operations** for thematic cartography. The aim of geotoolbox is to offer functions designed to handle geoJSON directly, not just single features or geometries. As a result, the library is particularly **user-friendly** for users with little experience of javascript development. From a technical point of view, geotoolbox is largely based on **geos-wasm** GIS operators (a big thanks to Christoph Pahmeyer 🙏), but also on d3.geo and topojson. Geotoolbox also works well with other cartographic libraries such as `geoviz` and `bertin.js`. Note that there are other GIS libraries like `turf.js`, which is really great. 
+**`geotoolbox`** is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful **GIS operations** for thematic cartography. The aim of geotoolbox is to offer functions designed to handle geoJSON directly, not just single features or geometries. As a result, the library is particularly **user-friendly** for users with little experience of javascript development. From a technical point of view, geotoolbox is largely based on **geos-wasm** GIS operators (a big thanks to Christoph Pahmeyer 🙏), but also on d3.geo and topojson. Geotoolbox also works well with other cartographic libraries such as `geoviz` and `bertin.js`. Note that there are other GIS libraries like `turf.js`, which is really great. 
 
 ![logo](img/geotoolbox.svg)
 
