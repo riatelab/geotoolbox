@@ -1,7 +1,6 @@
 export { iterate } from "./iterate.js";
 export { htmltable } from "./htmltable.js";
 export { info } from "./info.js";
-export { isvalid } from "./isvalid.js";
 export { copy } from "./copy.js";
 export { groupby } from "./groupby.js";
 export { dedupe } from "./dedupe.js";
@@ -53,6 +52,8 @@ export {
   overlaps,
   touches,
   within,
+  isvalid,
+  isvalidreason,
 } from "./operators.js";
 
 // -----------------------------------

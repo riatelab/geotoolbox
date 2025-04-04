@@ -86,8 +86,6 @@ geotoolbox.intersects(data1, data2);
 
 - [**`htmltable()`**](global.html#htmltable) - View a data table.
 - [**`info()`**](global.html#info) - The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
-- [**`isvalid()`**](global.html#isvalid) - The function check the validity of a geoJSON. // improve
-
 
 ### ➡️ Geometry handling
 
@@ -135,6 +133,8 @@ geotoolbox.intersects(data1, data2);
 - [**`coveredby()`**](global.html#coveredby) - Tests if geometry g1 is covered by g2, which is the case if every point of g1 lies in g2.
 - [**`equals()`**](global.html#equals) - Tests if two geometries contain the same set of points in the plane.
 - [**`intersects()`**](global.html#intersects) - Tests if two geometries intersect.
+- [**`isvalid()`**](global.html#isvalid) - Tests the validity of the geometries.
+- [**`isvalidreason()`**](global.html#isvalidreason) - Tests the validity of the geometries and give teh reason.
 - [**`overlaps()`**](global.html#overlaps) - Tests if two geometries share interiors but are neither within nor contained.
 - [**`touches()`**](global.html#touches) - Tests if two geometries share boundaries at one or more points, but do not have interior points in common.
 - [**`within()`**](global.html#within) - Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.

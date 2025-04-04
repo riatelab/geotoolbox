@@ -8,21 +8,27 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {string} [options.key = "_newkey"] - Name of the property
  * @param {number|string|function} [options.value] - You can set a simple number or string. You can also specify a function like `d=> d.properties.gdp/d.properties.pop * 1000`. With the *, +, - and / operators, you can also directly write `“gdp/pop*100”`.
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @async
  * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
+ * // A simple example
  * geotoolbox.derive(*a geojson or an array of objects*, {key: "gdppc", value:"gdp/pop"})
+ * // Another exemple with a, async function on geometries
+ * geotoolbox.derive(world, {key: "isvalid", value: async (d) => (await geo.isvalidreason(d))})
  */
-export function derive(data, { key = "_newkey", value, mutate = false } = {}) {
-  // deep copy ?
+
+export async function derive(
+  data,
+  { key = "_newkey", value, mutate = false } = {}
+) {
   let x = data;
   const operators = /[+\-/*]/;
 
-  // geojson
+  // GeoJSON FeatureCollection
   if (isgeojson(data)) {
     if (!mutate) {
       x = JSON.parse(JSON.stringify(data));
     }
-    const n = x.features.length;
 
     if (
       typeof value == "number" ||
@@ -32,7 +38,7 @@ export function derive(data, { key = "_newkey", value, mutate = false } = {}) {
         d.properties[key] = value;
       });
     } else if (typeof value == "function") {
-      const values = x.features.map(value);
+      const values = await Promise.all(x.features.map(value)); // Gère les promesses
       x.features.forEach((d, i) => {
         d.properties[key] = values[i];
       });
@@ -45,14 +51,14 @@ export function derive(data, { key = "_newkey", value, mutate = false } = {}) {
             .flat()
         ),
       ];
-      const newprop = prop.map((d) => "d.properties['" + d + "']");
+      const newprop = prop.map((d) => `d.properties['${d}']`);
       const functrsing =
         "d => " +
         prop.reduce(
           (acc, mot, i) => acc.replace(new RegExp(mot, "g"), newprop[i]),
           value
         );
-      const values = x.features.map(eval(functrsing));
+      const values = await Promise.all(x.features.map(eval(functrsing))); // Gère les promesses
       x.features.forEach((d, i) => {
         d.properties[key] = values[i];
       });
@@ -61,8 +67,6 @@ export function derive(data, { key = "_newkey", value, mutate = false } = {}) {
 
   // Array of objects
   else if (isarrayofobjects(data)) {
-    const n = x.length;
-
     if (
       typeof value == "number" ||
       (typeof value == "string" && !operators.test(value))
@@ -71,22 +75,20 @@ export function derive(data, { key = "_newkey", value, mutate = false } = {}) {
         d[key] = value;
       });
     } else if (typeof value == "function") {
-      const values = x.map(value);
+      const values = await Promise.all(x.map(value)); // Gère les promesses
       x.forEach((d, i) => {
         d[key] = values[i];
       });
     } else if (typeof value == "string" && operators.test(value)) {
       const prop = [...new Set(x.map((d) => Object.keys(d)).flat())];
-      const newprop = prop.map((d) => "d['" + d + "']");
-
+      const newprop = prop.map((d) => `d['${d}']`);
       const functrsing =
         "d => " +
         prop.reduce(
           (acc, mot, i) => acc.replace(new RegExp(mot, "g"), newprop[i]),
           value
         );
-      const values = x.map(eval(functrsing));
-
+      const values = await Promise.all(x.map(eval(functrsing))); // Gère les promesses
       x.forEach((d, i) => {
         d[key] = values[i];
       });
