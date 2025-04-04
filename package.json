@@ -1,6 +1,6 @@
 {
   "name": "geotoolbox",
-  "version": "3.1.0",
+  "version": "3.0.0",
   "description": "geotoolbox is GIS javascript library. It is based on d3geo, topojson and geos-wasm.",
   "main": "src/index.js",
   "module": "src/index.js",
