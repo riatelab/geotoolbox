@@ -55,5 +55,5 @@ geotoolbox.intersects(data1, data2);
 
 ### ➡️ How it works?
 
-See documentation api(https://riatelab.github.io/geotoolbox)
+See documentation api: https://riatelab.github.io/geotoolbox
 
