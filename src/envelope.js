@@ -23,6 +23,8 @@ export async function envelope(data) {
   geos.GEOSFree(output);
   return handle.export({
     type: "FeatureCollection",
-    features: [{ type: "Feature", properties: {}, geometry: result }],
+    features: [
+      { type: "Feature", name: "envelope", properties: {}, geometry: result },
+    ],
   });
 }

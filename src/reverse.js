@@ -1,22 +1,21 @@
 import { geosloader } from "./helpers/geos.js";
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
-import { isemptygeom } from "./helpers/helpers";
+import { isemptygeom } from "./helpers/helpers.js";
 import { check } from "./helpers/check.js";
 
 /**
- * @function densify
- * @summary Densifies a geometry using a given distance tolerance
- * @description Based on `geos.GEOSDensify()`
+ * @function reverse
+ * @summary For geometries with coordinate sequences, reverses the order of the sequences. Converts CCW rings to CW. Reverses direction of LineStrings.
+ * @description Based on `geos.GEOSReverse()`
  * @async
  * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters
- * @param {number} [options.dist = 1] - The minimal distance between nodes
  * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
- * await geotoolbox.densify(*a geojson*, { dist:0.5 })
+ * await geotoolbox.geosreverse(*a geojson*)
  */
 
-export async function densify(data, { dist = 1, mutate = false } = {}) {
+export async function reverse(data, { dist = 1, mutate = false } = {}) {
   const geos = await geosloader();
   const handle = check(data, mutate);
   let x = handle.import(data);
@@ -26,14 +25,13 @@ export async function densify(data, { dist = 1, mutate = false } = {}) {
       d.geometry = undefined;
     } else {
       const geosGeom = geojsonToGeosGeom(d, geos);
-      const newGeom = geos.GEOSDensify(geosGeom, dist);
-      const densiygeom = geosGeomToGeojson(newGeom, geos);
-      d.geometry = densiygeom;
+      const newGeom = geos.GEOSReverse(geosGeom, dist);
+      const result = geosGeomToGeojson(newGeom, geos);
+      d.geometry = result;
       geos.GEOSFree(geosGeom);
       geos.GEOSFree(newGeom);
-      geos.GEOSFree(densiygeom);
+      geos.GEOSFree(result);
     }
   });
-  x.name = "densify";
   return handle.export(x);
 }

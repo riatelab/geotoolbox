@@ -8,6 +8,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {string} [options.key = "_newkey"] - Name of the property
  * @param {number|string|function} [options.value] - You can set a simple number or string. You can also specify a function like `d=> d.properties.gdp/d.properties.pop * 1000`. With the *, +, - and / operators, you can also directly write `“gdp/pop*100”`.
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.derive(*a geojson or an array of objects*, {key: "gdppc", value:"gdp/pop"})
  */

@@ -5,12 +5,13 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @summary Filter a dataset. The functions allows to subset a geoJSON or an array of objects
  * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
- * @param {string|function} [options.filter] - A function to filter the datset. But you can aslo use un string like "ISO3 = FRA" ou "pop > 1000"
+ * @param {string|function} [options.func] - A function to filter the datset. But you can aslo use un string like "ISO3 = FRA" ou "pop > 1000"
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.filter(*a geojson or an array of objects*, {filter: "gdp >= 1000000" })
  */
-export function filter(data, { filter, mutate = false } = {}) {
+export function filter(data, { func, mutate = false } = {}) {
   let x = data;
   // geoJSON
   if (isgeojson(data)) {
@@ -18,9 +19,9 @@ export function filter(data, { filter, mutate = false } = {}) {
       x = JSON.parse(JSON.stringify(data));
     }
 
-    if (typeof filter == "function") {
-      x.features = x.features.filter(filter);
-    } else if (typeof filter == "string") {
+    if (typeof func == "function") {
+      x.features = x.features.filter(func);
+    } else if (typeof func == "string") {
       const prop = [
         ...new Set(
           x.features
@@ -31,13 +32,13 @@ export function filter(data, { filter, mutate = false } = {}) {
       ];
       const newprop = prop.map((d) => "d.properties['" + d + "']");
 
-      const func =
+      func =
         "d => " +
         replaceEquals(
           addQuotesIfString(
             prop.reduce(
               (acc, mot, i) => acc.replace(new RegExp(mot, "g"), newprop[i]),
-              filter
+              func
             )
           )
         );
@@ -45,9 +46,9 @@ export function filter(data, { filter, mutate = false } = {}) {
       x.features = x.features.filter(eval(func));
     }
   } else if (isarrayofobjects(data)) {
-    if (typeof filter == "function") {
-      x = x.filter(filter);
-    } else if (typeof filter == "string") {
+    if (typeof func == "function") {
+      x = x.filter(func);
+    } else if (typeof func == "string") {
       const prop = [...new Set(x.map((d) => Object.keys(d)).flat())];
       const newprop = prop.map((d) => "d['" + d + "']");
 
@@ -57,7 +58,7 @@ export function filter(data, { filter, mutate = false } = {}) {
           addQuotesIfString(
             prop.reduce(
               (acc, mot, i) => acc.replace(new RegExp(mot, "g"), newprop[i]),
-              filter
+              func
             )
           )
         );

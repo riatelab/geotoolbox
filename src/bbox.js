@@ -57,6 +57,7 @@ export function bbox(data) {
   };
   let output = inverseResampleJSON(d3.geoEquirectangularRaw, 0.02)(x);
 
+  output.name = "bbox";
   return handle.export(output);
 }
 

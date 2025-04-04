@@ -7,6 +7,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {object} options - Optional parameters
  * @param {number} [options.key] - id to consider
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.dedupe(*a geojson or an array of objects*, {key: "ISO3"})
  */

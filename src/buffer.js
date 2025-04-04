@@ -3,11 +3,7 @@ import { geosloader } from "./helpers/geos.js";
 import { check } from "./helpers/check.js";
 import { expressiontovaluesinageojson } from "./helpers/expressiontovaluesinageojson.js";
 import { geoAzimuthalEquidistant, geoCentroid } from "d3-geo";
-import { geoProject } from "d3-geo-projection";
-const d3 = Object.assign(
-  {},
-  { geoProject, geoAzimuthalEquidistant, geoCentroid }
-);
+const d3 = Object.assign({}, { geoAzimuthalEquidistant, geoCentroid });
 
 /**
  * @function buffer
@@ -53,7 +49,11 @@ async function multiplebuffer(data, { dist }) {
     })
   );
 
-  return handle.export({ type: "FeatureCollection", features: result });
+  return handle.export({
+    type: "FeatureCollection",
+    name: "buffer",
+    features: result,
+  });
 }
 
 async function singlebuffer(
@@ -92,6 +92,7 @@ async function singlebuffer(
   if (!isProjected) {
     result = toWGS84(result, proj);
   }
+  result.name = "buffer";
   return handle.export(result);
 }
 

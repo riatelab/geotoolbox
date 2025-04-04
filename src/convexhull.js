@@ -24,6 +24,7 @@ export async function convexhull(data) {
   geos.GEOSFree(output);
   return handle.export({
     type: "FeatureCollection",
+    name: "convexhull",
     features: [{ type: "Feature", properties: {}, geometry: result }],
   });
 }

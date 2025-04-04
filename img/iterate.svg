@@ -4,8 +4,8 @@
    viewBox="0 0 400.67863 305.10593"
    version="1.1"
    id="svg36"
-   sodipodi:docname="map.svg"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01, custom)"
+   sodipodi:docname="iterate.svg"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
    xml:space="preserve"
    height="305.10593"
    inkscape:export-filename="union.png"
@@ -25,12 +25,12 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="1.18"
-     inkscape:cx="401.69492"
-     inkscape:cy="335.16949"
-     inkscape:window-width="1860"
-     inkscape:window-height="1016"
-     inkscape:window-x="895"
-     inkscape:window-y="1107"
+     inkscape:cx="311.86441"
+     inkscape:cy="223.30508"
+     inkscape:window-width="1866"
+     inkscape:window-height="1011"
+     inkscape:window-x="54"
+     inkscape:window-y="1112"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg36" /><defs
      id="defs5"><pattern
@@ -179,17 +179,17 @@
        id="tspan1622"
        x="11.523982"
        y="41.034603"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;font-family:roboto;-inkscape-font-specification:'roboto Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.999998">map</tspan></text><text
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;font-family:roboto;-inkscape-font-specification:'roboto Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.999998">iterate</tspan></text><text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:20px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none"
-     x="11.08638"
+     x="22.268021"
      y="293.3364"
      id="text6596"><tspan
        sodipodi:role="line"
        id="tspan6594"
-       x="11.08638"
+       x="22.268021"
        y="293.3364"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;font-family:'Courier New';-inkscape-font-specification:'Courier New'">map(geojson, d =&gt; ({id: d.ISO}))</tspan></text><g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;font-family:'Courier New';-inkscape-font-specification:'Courier New'">iterate(data, {func: d =&gt;...})</tspan></text><g
      id="info"
      class="info"
      transform="translate(-719.32295,-148.19936)" /><text

@@ -15,5 +15,6 @@ export function stitch(data) {
   const handle = check(data);
   let x = handle.import(data);
   x = geoStitch(x);
+  x.name = "stitch";
   return handle.export(x);
 }

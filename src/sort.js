@@ -11,6 +11,7 @@ const d3 = Object.assign({}, { descending, ascending, autoType });
  * @param {array} [options.key ] - Field on which sorting is performed
  * @param {array} [options.ascending = false] - To change the sort order
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.sort(*a geojson or an array of objects*, {key: "ISO3", ascending: true})
  */

@@ -59,5 +59,6 @@ export function centroid(data, { largest = true, geo = true } = {}) {
   });
 
   x.features = centers;
+  x.name = "centroid";
   return handle.export(x);
 }

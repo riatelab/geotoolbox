@@ -25,8 +25,10 @@ export async function concavehull(data, { ratio = 0, holes = true } = {}) {
   let result = geosGeomToGeojson(output, geos);
   geos.GEOSFree(geosgeom);
   geos.GEOSFree(output);
+
   return handle.export({
     type: "FeatureCollection",
+    name: "concavehull",
     features: [{ type: "Feature", properties: {}, geometry: result }],
   });
 }

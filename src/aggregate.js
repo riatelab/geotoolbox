@@ -17,7 +17,7 @@ const topojson = Object.assign({}, { topology, merge });
  * geotoolbox.aggregate(*a geojson*)
  */
 
-export function aggregate(data, { id = null, mutate = false } = {}) {
+export function aggregate(data, { id = null } = {}) {
   const handle = check(data);
   let x = handle.import(data);
   let result;
@@ -100,5 +100,6 @@ export function aggregate(data, { id = null, mutate = false } = {}) {
       ],
     };
   }
+  result.name = "aggregate";
   return handle.export(result);
 }

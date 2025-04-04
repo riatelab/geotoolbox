@@ -43,5 +43,6 @@ export function simplify(
   }
 
   x.features = topojson.feature(simpl, Object.keys(simpl.objects)[0]).features;
+  x.name = "simplify";
   return handle.export(x);
 }

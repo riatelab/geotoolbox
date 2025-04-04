@@ -11,6 +11,7 @@ import { combine } from "./combine.js";
  * @param {boolean} [options.all = true] - Use `true` to keep all elements.
  * @param {boolean} [options.emptygeom = true] - Use `false` to keep only data with geometries (if one ore more of your input data is a geoJSON).
  * @param {boolean} [options.fillkeys = true] - Use `true` to ensure that all features have all properties.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.join([*a geojson*, *a dataset*], {ids:["ISO3", "id"], all: false)
  */

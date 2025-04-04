@@ -16,6 +16,7 @@ const d3 = Object.assign({}, { descending, ascending, autoType });
  * @param {number} [options.nb = 6] - Number of features to return
  * @param {boolean} [options.key = true] - Field to sort
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.tail(*a geojson or an array of objects*)
  */

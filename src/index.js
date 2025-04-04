@@ -1,9 +1,7 @@
-// information
+export { iterate } from "./iterate.js";
 export { htmltable } from "./htmltable.js";
 export { info } from "./info.js";
 export { isvalid } from "./isvalid.js";
-
-// Data handling
 export { copy } from "./copy.js";
 export { groupby } from "./groupby.js";
 export { dedupe } from "./dedupe.js";
@@ -18,9 +16,6 @@ export { replace } from "./replace.js";
 export { columns } from "./columns.js";
 export { sort } from "./sort.js";
 export { combine } from "./combine.js";
-
-// GIS
-
 export { simplify } from "./simplify.js";
 export { togeojson } from "./togeojson.js";
 export { stitch } from "./stitch.js";
@@ -36,12 +31,9 @@ export { centroid } from "./centroid.js";
 export { aggregate } from "./aggregate.js";
 export { rewind } from "./rewind.js";
 export { rewind2 } from "./rewind2.js";
+export { reverse } from "./reverse.js";
 export { dissolve } from "./dissolve.js";
-
-export { map, foreach } from "./iterate.js";
-
-// GEOS (async)
-
+export { clip } from "./clip.js";
 export { buffer } from "./buffer.js";
 export { clipbyrect } from "./clipbyrect.js";
 export { makevalid } from "./makevalid.js";
@@ -62,12 +54,6 @@ export {
   touches,
   within,
 } from "./operators.js";
-
-export { check } from "./helpers/check.js";
-
-//export { largestemptycircle } from "./largestemptycircle.js";
-
-//export { area } from "./geomfunctions.js";
 
 // -----------------------------------
 // deprecated

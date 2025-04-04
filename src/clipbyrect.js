@@ -30,5 +30,6 @@ export async function clipbyrect(data, { bbox = [90, 180, -90, -180] } = {}) {
   geos.GEOSFree(geosgeom);
   geos.GEOSFree(newgeom);
   x.features = [{ type: "Feature", properties: {}, geometry: result }];
+  x.name = "clipbyrect";
   return handle.export(x);
 }

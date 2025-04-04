@@ -1,31 +1,26 @@
 import { isemptygeom } from "./helpers/helpers";
+import { check } from "./helpers/check.js";
 
 /**
  * @function removeemptygeom
- * @summary Relove undefined features of a geoJSON. The `removeemptygeom()` function remove all features with undefined geometries.
- * @param {object} data - a GeoJSON FeatureCollection
- * @param {object} options - Optional parameters
- * @param {boolean} [options.copy = true] - Use true to ensure that the input object is not modified and to create a new object.
+ * @summary The function remove all features with undefined geometries.
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * geotoolbox.removeemptygeom(*a geojson*)
  */
-export function removeemptygeom(data, { deepcopy = true } = {}) {
-  // deep copy ?
-  let geojson;
-  if (deepcopy) {
-    geojson = JSON.parse(JSON.stringify(data));
-  } else {
-    geojson = data;
-  }
+export function removeemptygeom(data) {
+  const handle = check(data);
+  let x = handle.import(data);
 
   let features = [];
-  geojson.features.forEach((d) => {
+  x.features.forEach((d) => {
     if (!isemptygeom(d.geometry)) {
       features.push(d);
     }
   });
 
-  geojson.features = features;
+  x.features = features;
 
-  return geojson;
+  return handle.export(x);
 }

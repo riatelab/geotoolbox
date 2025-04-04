@@ -4,6 +4,7 @@ import {
   isFeature,
   isGeometries,
   isGeometry,
+  isarrayofobjects,
 } from "./helpers.js";
 
 export function check(data) {
@@ -51,14 +52,28 @@ export function check(data) {
         type: "FeatureCollection",
         features: [{ type: "Feature", properties: {}, geometry: d }],
       });
-    funcexport = (d) => d.features[0].geometry;
     funcexport = (d) =>
       d.features.length == 1
         ? d.features[0].geometry
         : d.features.map((d) => d.geometry);
-  } else {
+  }
+  // else if (isarrayofobjects(data)) {
+  //   type = "Array of objects";
+  //   funcimport = (d) =>
+  //     copy({
+  //       type: "FeatureCollection",
+  //       features: d.map((e) => ({
+  //         type: null,
+  //         properties: e,
+  //         geometry: null,
+  //       })),
+  //     });
+
+  //   funcexport = (d) => d.features.map((f) => f.properties);
+  // }
+  else {
     type = undefined;
-    funcexport = (d) => copy(d);
+    funcimport = (d) => copy(d);
     funcexport = (d) => copy(d);
   }
 

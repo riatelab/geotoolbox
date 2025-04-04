@@ -8,6 +8,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {array} [options.keys ] - Properties to keep
  * @param {array} [options.rename] - Properties to rename
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.columns(*a geojson or an array of objects*, {keys: ["ISO3","Population"]", rename:["id","pop"]})
  */

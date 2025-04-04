@@ -6,6 +6,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {object|array} data - An array containig several of GeoJSONs or arrays of objects
  * @param {object} options - Optional parameters
  * @param {boolean} [options.fillkeys = true] - Use true to ensure that all features have all properties.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
  * geotoolbox.head(*a geojson or an array of objects*)
  */

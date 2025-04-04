@@ -6,6 +6,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {array} -  An array of objects.
  * @example
  * geotoolbox.table(*a geojson or an array of objects*)
  */

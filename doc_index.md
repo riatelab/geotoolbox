@@ -1,15 +1,14 @@
-## `geotoolbox@3` (not published yet)
-
-# WORK IN PROGRESS....
-
 ![npm](https://img.shields.io/npm/v/geotoolbox) ![jsdeliver](https://img.shields.io/jsdelivr/npm/hw/geotoolbox) ![license](https://img.shields.io/badge/license-MIT-success) ![code size](https://img.shields.io/github/languages/code-size/riatelab/geotoolbox)
 
-**`geotoolbox`** is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful GIS operations for thematic cartography. The aim of geotoolbox is to offer functions designed to handle geoJSON directly, not just single features or geometries. As a result, the library is particularly user-friendly for users with little experience of javascript development. From a technical point of view, geotoolbox is largely based on geos-wasm GIS operators, but also on d3.geo and topojson. Geotoolbox also works well with other cartographic libraries such as geoviz and bertin.js. Note that there are other GIS libraries like turf.js, which is really great. 
+# `geotoolbox@3`
+
+#### **`geotoolbox`** is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful **GIS operations** for thematic cartography. The aim of geotoolbox is to offer functions designed to handle geoJSON directly, not just single features or geometries. As a result, the library is particularly **user-friendly** for users with little experience of javascript development. From a technical point of view, geotoolbox is largely based on **geos-wasm** GIS operators (a big thanks to Christoph Pahmeyer 🙏), but also on d3.geo and topojson. Geotoolbox also works well with other cartographic libraries such as `geoviz` and `bertin.js`. Note that there are other GIS libraries like `turf.js`, which is really great. 
 
 ![logo](img/geotoolbox.svg)
 
 
-### <ins>Installation</ins>
+
+### ➡️ Installation
 
 - CDN
 
@@ -29,26 +28,41 @@ npm install geotoolbox@3
 geo = require("geotoolbox@3");
 ```
 
-### <ins>Documentation</ins>
+### ➡️ Usage
 
-**Here's a description of the functions available in a library.<br/>All functions work in the same way. But those based on `geos-wasm` are asynchronous.<br/>In these cases, please use `await geo.something(...)`**
+Most functions take the same type of argument as input - a dataset and options - like `geotoolbox.myfunction(data, {options})`. Please note that functions based on geos-wasm are asynchronous.
 
+- A buffer example
 
-#### ➡️ Information
+``` js
+const mybyffer = await geotoolbox.buffer(data, {dist: 1000});
+```
 
-*Some functions to view and describe the content of geoJSONs.*
+- Data handling example (add a field in a geoJSON)
 
-- [**`htmltable()`**](global.html#htmltable) - View a data table.
-- [**`info()`**](global.html#info) - The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
-- [**`isvalid()`**](global.html#isvalid) - The function check the validity of a geoJSON. // improve
+``` js
+geotoolbox.derive(data, {
+  field: "gdppc", // the name of the new field
+  value: "gdp/pop*1000", // a function to calculate the value
+  mutate: true // to update the dataset
+});
+```
 
-#### ➡️ Data handling
+- Tests if two geometries intersect
 
-*To create a featureCollection from anything.*
+``` js
+geotoolbox.intersects(data1, data2);
+```
+
+### ➡️ Data handling
+
+**1 - To create a featureCollection from anything**
 
 - [**`togeojson()`**](global.html#togeojson) - The function allows to retrieve a geoJSON FeatureCollection from a topoJSON, an array of features, a single feature, an array of geometries, a single geometry, an array of objects with coordinates (points), an array coordinates (points) or a couple of coordinates (points).
 
-*Some functions for handling data. These functions can be applied to a geoJSON (in this case, properties are considered) or a simple data table (array of objects).*
+**2 - Data formatting**
+
+*These functions can be applied to a geoJSON (in this case, properties are considered) or a simple data table (array of objects).*
 
 - [**`autotype()`**](global.html#autotype) - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.
 - [**`columns()`**](global.html#columns) - Select, rename and reorder properties.
@@ -57,6 +71,7 @@ geo = require("geotoolbox@3");
 - [**`dedupe()`**](global.html#dedupe) - Deletes duplicates. Keeps the first element.
 - [**`derive()`**](global.html#derive) - The function add a field to a dataset
 - [**`groupby()`**](global.html#groupby) - The functions groups data by category. If the input data is a geoJSON, then the geometries are also merged.
+- [**`iterate()`**](global.html#iterate) - Iterate and apply a function.
 - [**`join()`**](global.html#join) - Join datasets using a common identifier.
 - [**`head()`**](global.html#head) - The function returns the n first elements.
 - [**`filter()`**](global.html#filter) - Filter a dataset.
@@ -65,44 +80,51 @@ geo = require("geotoolbox@3");
 - [**`table()`**](global.html#table) - Retrieves the dataset's attribute table (properties)
 - [**`tail()`**](global.html#tail) - The function returns the n last elements.
 
-Here ? todo
+**3 - Describe**
+
+*Some functions to view and describe the content of geoJSONs.*
+
+- [**`htmltable()`**](global.html#htmltable) - View a data table.
+- [**`info()`**](global.html#info) - The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)
+- [**`isvalid()`**](global.html#isvalid) - The function check the validity of a geoJSON. // improve
 
 
+### ➡️ Geometry handling
 
-- [**`removeemptygeom()`**](global.html#removeemptygeom) - The function remove all features with undefined geometries.
-- [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
-- [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of a GeoJSON. This reduces file size and speeds up display.
-- map
-- foreach
-
-#### ➡️ Handling geometries
+**1 - geoprocessing**
 
 *Main GIS functions and geoprocessing. These functions take as input a geoJSON, an array of features, a single feature, an array of geometries or a single geometry. They return an object of the same type.*
 
 - [**`aggregate()`**](global.html#aggregate) - Aggregate geometries.
 - [**`bbox()`**](global.html#bbox) - Geographic bounding box.
+- [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
 - [**`buffer()`**](global.html#buffer) - Create buffer areas.
 - [**`centroid()`**](global.html#centroid) - Centroids of polygons or multipolygons.
+- [**`clip()`**](global.html#clip) - Clip a geometry with another.
 - [**`clipbyrect()`**](global.html#clipbyrect) - Intersection optimized for a rectangular clipping.
 - [**`concavehull()`**](global.html#concavehull) - Returns a "concave hull" of a geoJSON.
 - [**`convexhull()`**](global.html#convexhull) - Returns a "convex hull" of a geometry. 
 - [**`densify()`**](global.html#densify) - Densifies a geometry using a given distance tolerance.
 - [**`dissolve()`**](global.html#dissolve) - The function allows to convert "MultiPoint", "MultiLineString" or "MultiPolygon" to single "Point", "LineString" or "Polygon".
 - [**`envelope()`**](global.html#envelope) - Returns minimum rectangular polygon or point that contains the geometry, or an empty point for empty inputs.
-- [**`makevalid()`**](global.html#makevalid) - The function allows to make geometries valid .
 - [**`nodes()`**](global.html#nodes) - Retrieve geometry nodes.
-- [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
-- [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
 - [**`simplify()`**](global.html#simplify) - The function allows to simplify a geometry. By default, the generalization level is calculated automatically to ensure smooth map display.
-- [**`stitch()`**](global.html#stitch) - The function returns a GeoJSON object removing antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
+- [**`stitch()`**](global.html#stitch) - The function remove antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.
 - [**`union()`**](global.html#union) - Merge geometries.
 
-xxx
+**2 - Improve and clean**
 
-- [**`border()`**](global.html#border) - Extract boundaries from polygons or  multipolygons.
-- clip
+*Some functions for improving and correcting gemetries errors.*
 
-#### ➡️ GIS tests
+- [**`makevalid()`**](global.html#makevalid) - The function allows to make geometries valid .
+- [**`removeemptygeom()`**](global.html#removeemptygeom) - The function remove all features with undefined geometries.
+- [**`resolveemptygeom()`**](global.html#resolveemptygeom) - The function replace all features with undefined geometries by a valid geometry, but without coordinates
+- [**`reverse()`**](global.html#reverse) - Converts CCW rings to CW. Reverses direction of LineStrings.
+- [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
+- [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
+- [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of geometries.
+
+**3 - Tests**
 
 *GIS operators. All these functions return a true or false boolean.*
 
@@ -117,7 +139,7 @@ xxx
 - [**`touches()`**](global.html#touches) - Tests if two geometries share boundaries at one or more points, but do not have interior points in common.
 - [**`within()`**](global.html#within) - Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.
 
-#### ➡️ Other things usefull for cartography
+**4 - Other**
 
 *Useful functions for cartography.*
 
@@ -126,22 +148,15 @@ xxx
 
 <hr/>
 
-## 🚧🚧🚧
 
-#### TODO
 
--harmonization of parameter names: id/key - isProjected/planar/geo etc.
+### 🚧 Work in progress 🚧
+
+- stuff about projection. proj4. proj4d3 
+- harminisation of parameter names: id/key - isProjected/planar/geo etc.
 - harmoniser coordonnées des bbox []
-
-
-- join: to join two datasets or more with an id. Si doublon : message d'erreur. 
 - compare : to test join ?. 
-- map: in data handling
-- clipantimeridien ??
-- clip
-- buffer
 - le rewind de geos
-- function table to display attribute table in html. If geojson, add a colum geom type or other. Just head or all with sliders ? nb as options ?
 - function filter and remove
 - fonction split ?
 

@@ -1,3 +1,4 @@
+import { check } from "./helpers/check.js";
 import { topology } from "topojson-server";
 import { neighbors, mesh } from "topojson-client";
 const topojson = Object.assign({}, { topology, neighbors, mesh });
@@ -7,21 +8,17 @@ const d3 = Object.assign({}, d3array);
 /**
  * @function border
  * @summary Extract boundaries from a GeoJSON FeatureCollection
- * @description Based on `topojson.mesh` and `topojson.neighbors`
- * @param {object} data - A GeoJSON FeatureCollection.
+ * @description Based on `topojson.mesh()` and `topojson.neighbors()`
+ * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters.
  * @param {boolean} [options.id = false] - If you don't provide an id field (default), then the function returns a geoJSON with a single geometry. If you choose an id field, the function returns a geoJSON with multiple geometries and associated codes (two ids for each geometry).
- * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
+ * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * geotoolbox.border(*a geojson*, {id: "ISO3"})
  */
-export function border(data, { id, mutate = false } = {}) {
-  let x;
-  if (!mutate) {
-    x = JSON.parse(JSON.stringify(data));
-  } else {
-    x = data;
-  }
+export function border(data, { id } = {}) {
+  const handle = check(data);
+  let x = handle.import(data);
   const topo = topojson.topology({ d: x });
 
   // With ids
@@ -62,5 +59,6 @@ export function border(data, { id, mutate = false } = {}) {
       },
     ];
   }
-  return x;
+  x.name = "border";
+  return handle.export(x);
 }

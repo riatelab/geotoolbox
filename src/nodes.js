@@ -29,6 +29,7 @@ export function nodes(data) {
 
   let result = {
     type: "FeatureCollection",
+    name: "nodes",
     features: features.flat(),
   };
 

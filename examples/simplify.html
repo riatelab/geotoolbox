@@ -1,0 +1,50 @@
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/geoviz" charset="utf-8"></script>
+<script src="http://127.0.0.1:5500/dist/index.min.js" charset="utf-8"></script>
+
+<div>
+  <h2><code>geotoolbox.simplify(geojson, {k})</code></h2>
+  <input type="range" id="size" min="0.01" max="0.5" step="0.01" value="0.1" />
+  <label for="size" id="labelsize">k (0.10)</label>
+</div>
+
+<svg width="800" height="500"></svg>
+<!-- Ajout du SVG -->
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+  const slider = document.getElementById("size");
+  const label = document.getElementById("labelsize");
+  let geojson = "./world.json";
+
+  // SVG
+  const svg = d3.select("svg");
+  const projection = d3
+    .geoEquirectangular()
+    .fitSize([800, 500], { type: "Sphere" });
+  const path = d3.geoPath().projection(projection);
+
+  d3.json(geojson).then((data) => {
+    const update = () => {
+      const kValue = Number(slider.value);
+      label.innerHTML = `k (${kValue.toFixed(2)})`;
+
+      // Simplification
+      const simplifiedData = geotoolbox.simplify(data, { k: kValue });
+
+      //Update
+      svg.selectAll("path").remove();
+      svg
+        .selectAll("path")
+        .data(simplifiedData.features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .attr("fill", "none")
+        .attr("stroke", "black");
+    };
+
+    update(); // Display
+    slider.addEventListener("input", update);
+  });
+</script>
