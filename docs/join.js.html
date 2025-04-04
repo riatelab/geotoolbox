@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: join.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: join.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isgeojson } from "./helpers/helpers.js";
+import { combine } from "./combine.js";
+
+/**
+ * @function join
+ * @summary Join datasets using a common identifier.
+ * @param {array} data - An array of datsats and/or geoJSONs. The join operation is basend on the first item.
+ * @param {object} options - Options
+ * @param {array|string} [options.ids] - An array of code of the same size. You can use a single string if all the ids have the same code. If the ids are not filled in, then the datasets are combined without a join.
+ * @param {boolean} [options.merge = false] - Use `true` to merge fields with the same name
+ * @param {boolean} [options.all = true] - Use `true` to keep all elements.
+ * @param {boolean} [options.emptygeom = true] - Use `false` to keep only data with geometries (if one ore more of your input data is a geoJSON).
+ * @param {boolean} [options.fillkeys = true] - Use `true` to ensure that all features have all properties.
+ * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
+ * @example
+ * geotoolbox.join([*a geojson*, *a dataset*], {ids:["ISO3", "id"], all: false)
+ */
+export function join(
+  data,
+  { ids, merge = false, emptygeom = true, all = true, fillkeys = true } = {}
+) {
+  // --------------
+  // Data Handling
+  // --------------
+
+  // If !ids => conbine()
+  if (ids == undefined) {
+    return combine(data);
+  } else {
+    // Else process join
+
+    // Deepcopy &amp; geojson to flat array
+    data = data.map((d) =>
+      isgeojson(d)
+        ? structuredClone(
+            d.features.map((d) => ({
+              ...d?.properties,
+              ["#geometry#"]: d.geometry,
+            }))
+          )
+        : structuredClone(d)
+    );
+
+    // ids
+
+    if (typeof ids == "string") {
+      ids = Array(data.length).fill(ids);
+    }
+
+    // Unique Fields
+
+    if (!merge) {
+      let keys = [];
+      data.forEach((d) => {
+        keys.push([...new Set(d.map((d) => Object.keys(d)).flat())]);
+      });
+
+      let uniquekeys = uniqueIdentifiersNested(keys);
+
+      let newoldids = ids.map((d, i) => [
+        d,
+        uniquekeys[i][keys[i].indexOf(ids[i])],
+      ]);
+
+      ids = newoldids.map((d) => d[1]);
+      data = renameKeysInArrays(data, uniquekeys);
+    }
+    // --------
+    // Join All
+    // --------
+
+    // Join
+    let output = data[0];
+    for (let i = 1; i &lt; data.length; i++) {
+      output = mergeArrays(output, data[i], ids[0], ids[i], all);
+    }
+
+    // Fill
+    if (fillkeys) {
+      let prop = [...new Set(output.map((d) => Object.keys(d)).flat())];
+      output = output.map((obj) =>
+        Object.fromEntries(prop.map((key) => [key, obj[key]]))
+      );
+    }
+
+    // ----------------------------------------
+    // Rebuild a dataset (if #geometry# field)
+    // ----------------------------------------
+
+    if (
+      [...new Set(output.map((d) => Object.keys(d)).flat())].includes(
+        "#geometry#"
+      )
+    ) {
+      if (!emptygeom) {
+        output = output.filter((d) => d["#geometry#"] !== undefined);
+      }
+
+      const newprop = removeKeys(output, "#geometry#");
+      let features = output.map((d, i) => ({
+        type: "Feature",
+        properties: newprop[i],
+        geometry: d["#geometry#"],
+      }));
+      output = { type: "FeatureCollection", features };
+    }
+
+    return output;
+  }
+}
+
+// --------------------------
+// HELPERS
+// ---------------------------
+
+function uniqueIdentifiersNested(arr) {
+  const count = new Map();
+  return arr.map((subArr) =>
+    subArr.map((item) => {
+      if (item === "#geometry#") return item;
+      const prefix = "_".repeat(count.get(item) || 0);
+      count.set(item, (count.get(item) || 0) + 1);
+      return prefix + item;
+    })
+  );
+}
+
+function renameKeysInArrays(arraysOfObjects, keysToReplace) {
+  return arraysOfObjects.map((array, index) => {
+    return array.map((obj) => {
+      let newObj = {};
+      let keyMap = keysToReplace[index];
+
+      Object.keys(obj).forEach((key, i) => {
+        let newKey = keyMap[i] || key; // Remplace la clé si une correspondance existe
+        newObj[newKey] = obj[key];
+      });
+
+      return newObj;
+    });
+  });
+}
+
+function mergeArrays(arr1, arr2, key1, key2, all) {
+  // Marge arr1 et arr2 (left join)
+  const result = arr1.map((obj1) => {
+    const matchedObj = arr2.find((obj2) => {
+      const val1 = obj1[key1];
+      const val2 = obj2[key2];
+      return !isEmpty(val1) &amp;&amp; !isEmpty(val2) &amp;&amp; val1 === val2;
+    });
+    return matchedObj ? { ...obj1, ...matchedObj } : { ...obj1 };
+  });
+
+  // Add arr2 objects if they are not in arr1
+  if (all) {
+    arr2.forEach((obj2) => {
+      const val2 = obj2[key2];
+      if (
+        !arr1.some((obj1) => {
+          const val1 = obj1[key1];
+          return !isEmpty(val1) &amp;&amp; !isEmpty(val2) &amp;&amp; val1 === val2;
+        })
+      ) {
+        result.push({ ...obj2 });
+      }
+    });
+  }
+
+  return result;
+}
+
+function removeKeys(objects, keysToRemove) {
+  return objects.map((obj) =>
+    Object.fromEntries(
+      Object.entries(obj).filter(([key]) => !keysToRemove.includes(key))
+    )
+  );
+}
+
+function isEmpty(value) {
+  return value === undefined || value === null || value === "";
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#%253Cs%253Ecoords2geo%253C/s%253E"><s>coords2geo</s></a></li><li><a href="global.html#%253Cs%253Eproperties/add%253C/s%253E"><s>properties/add</s></a></li><li><a href="global.html#%253Cs%253Eproperties/head%253C/s%253E"><s>properties/head</s></a></li><li><a href="global.html#%253Cs%253Eproperties/keep%253C/s%253E"><s>properties/keep</s></a></li><li><a href="global.html#%253Cs%253Eproperties/remove%253C/s%253E"><s>properties/remove</s></a></li><li><a href="global.html#%253Cs%253Eproperties/select%253C/s%253E"><s>properties/select</s></a></li><li><a href="global.html#%253Cs%253Eproperties/subset%253C/s%253E"><s>properties/subset</s></a></li><li><a href="global.html#%253Cs%253Eproperties/tail%253C/s%253E"><s>properties/tail</s></a></li><li><a href="global.html#aggregate">aggregate</a></li><li><a href="global.html#autotype">autotype</a></li><li><a href="global.html#bbox">bbox</a></li><li><a href="global.html#border">border</a></li><li><a href="global.html#buffer">buffer</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#clip">clip</a></li><li><a href="global.html#clipbyrect">clipbyrect</a></li><li><a href="global.html#columns">columns</a></li><li><a href="global.html#combine">combine</a></li><li><a href="global.html#concavehull">concavehull</a></li><li><a href="global.html#contains">contains</a></li><li><a href="global.html#convexhull">convexhull</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#coveredby">coveredby</a></li><li><a href="global.html#covers">covers</a></li><li><a href="global.html#crosses">crosses</a></li><li><a href="global.html#dedupe">dedupe</a></li><li><a href="global.html#densify">densify</a></li><li><a href="global.html#derive">derive</a></li><li><a href="global.html#disjoint">disjoint</a></li><li><a href="global.html#dissolve">dissolve</a></li><li><a href="global.html#envelope">envelope</a></li><li><a href="global.html#equals">equals</a></li><li><a href="global.html#filter">filter</a></li><li><a href="global.html#geolines">geolines</a></li><li><a href="global.html#groupby">groupby</a></li><li><a href="global.html#head">head</a></li><li><a href="global.html#htmltable">htmltable</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#intersects">intersects</a></li><li><a href="global.html#isvalid">isvalid</a></li><li><a href="global.html#iterate">iterate</a></li><li><a href="global.html#join">join</a></li><li><a href="global.html#largestemptycircle">largestemptycircle</a></li><li><a href="global.html#makevalid">makevalid</a></li><li><a href="global.html#nodes">nodes</a></li><li><a href="global.html#overlaps">overlaps</a></li><li><a href="global.html#removeemptygeom">removeemptygeom</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#resolveemptygeom">resolveemptygeom</a></li><li><a href="global.html#reverse">reverse</a></li><li><a href="global.html#rewind">rewind</a></li><li><a href="global.html#rewind2">rewind2</a></li><li><a href="global.html#roundcoordinates">roundcoordinates</a></li><li><a href="global.html#simplify">simplify</a></li><li><a href="global.html#sort">sort</a></li><li><a href="global.html#stitch">stitch</a></li><li><a href="global.html#table">table</a></li><li><a href="global.html#tail">tail</a></li><li><a href="global.html#tissot">tissot</a></li><li><a href="global.html#togeojson">togeojson</a></li><li><a href="global.html#touches">touches</a></li><li><a href="global.html#type">type</a></li><li><a href="global.html#union">union</a></li><li><a href="global.html#within">within</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Apr 04 2025 16:17:25 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: htmltable.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: htmltable.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isgeojson } from "./helpers/helpers.js";
+
+/**
+ * @function htmltable
+ * @summary  View a data table.
+ * @param {object|array} data - a GeoJSON FeatureCollection or an array of features
+ * @param {object} options - Optional parameters
+ * @param {number} [options.maxrows] - Number max of lines
+ * @returns {HTMLElement} - A html sortable table.
+ * @example
+ * geottolbox.htmltable(*a geojson*)
+ */
+
+export function htmltable(data, { maxrows = null } = {}) {
+  let x;
+  let test = isgeojson(data);
+  if (test) {
+    x = data.features.map((d) => {
+      return Object.assign(
+        {
+          ["GEOMETRY"]: d?.geometry?.type,
+          // +
+          // " (" +
+          // d.geometry.coordinates.flat(10).length / 2 +
+          // " pts)"
+        },
+        d.properties
+      );
+    });
+  } else {
+    x = data;
+  }
+
+  let table = document.createElement("table");
+  let thead = document.createElement("thead");
+  let headerRow = document.createElement("tr");
+  const headers = Object.keys(x[0]);
+
+  headers.forEach((header, index) => {
+    const values = x.map((d) => d[header]);
+    const count = values.length;
+    console.log(values);
+    const nb = values.filter(
+      (d) =>
+        !["", " ", "  ", undefined, NaN, null, Infinity, -Infinity].includes(d)
+    ).length;
+
+    let th = document.createElement("th");
+    th.innerHTML =
+      header +
+      `&lt;span style='font-size: 0.7em; font-style: italic ; font-weight: normal; color: #808080'>&lt;br/>${nb}/${count}&lt;/span>`;
+    th.style.cursor = "pointer";
+    th.style.backgroundColor = "white";
+    th.style.color = "#444";
+    th.style.padding = "10px";
+    th.style.textAlign = "left";
+    th.style.position = "sticky";
+    th.style.top = "0";
+    th.style.zIndex = "1";
+    th.style.borderBottom = "2px solid #444";
+    th.style.fontSize = "1em";
+
+    let asc = true;
+    th.addEventListener("click", () => {
+      asc = !asc;
+      sortTable(index, asc);
+    });
+
+    headerRow.appendChild(th);
+  });
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  let tbody = document.createElement("tbody");
+  const displayedData = maxrows ? x.slice(0, maxrows) : x;
+
+  function renderTable(data) {
+    tbody.innerHTML = "";
+    data.forEach((row, index) => {
+      let tr = document.createElement("tr");
+      tr.style.backgroundColor = index % 2 === 0 ? "#f9f9f9" : "#fff";
+      tr.style.fontSize = "0.9em";
+      headers.forEach((header, i) => {
+        let td = document.createElement("td");
+        td.textContent = row[header];
+        td.style.padding = "5px";
+        td.style.borderBottom = "1px solid #ddd";
+        td.style.textAlign = "left";
+        if (test) {
+          td.style.backgroundColor = i === 0 ? "#444" : undefined;
+          td.style.color = i === 0 ? "white" : undefined;
+        }
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  }
+
+  function sortTable(columnIndex, ascending) {
+    displayedData.sort((a, b) => {
+      let valA = a[headers[columnIndex]];
+      let valB = b[headers[columnIndex]];
+      if (!isNaN(parseFloat(valA)) &amp;&amp; !isNaN(parseFloat(valB))) {
+        return ascending ? valA - valB : valB - valA;
+      }
+      return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+    });
+    renderTable(displayedData);
+  }
+
+  renderTable(displayedData);
+  table.appendChild(tbody);
+
+  let container = document.createElement("div");
+  container.style.overflowY = "auto";
+  container.style.maxHeight = "400px";
+  container.style.margin = "0";
+  container.style.padding = "0";
+  container.style.boxSizing = "border-box";
+  container.style.overflowX = "hidden";
+
+  container.appendChild(table);
+  setTimeout(() => {
+    const tableWidth = table.offsetWidth + 20;
+    const containerWidth = container.offsetWidth;
+    if (tableWidth > containerWidth) {
+      container.style.overflowX = "scroll";
+    } else {
+      container.style.width = `${tableWidth}px`;
+      container.style.overflowX = "hidden";
+    }
+  }, 0);
+
+  return container;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#%253Cs%253Ecoords2geo%253C/s%253E"><s>coords2geo</s></a></li><li><a href="global.html#%253Cs%253Eproperties/add%253C/s%253E"><s>properties/add</s></a></li><li><a href="global.html#%253Cs%253Eproperties/head%253C/s%253E"><s>properties/head</s></a></li><li><a href="global.html#%253Cs%253Eproperties/keep%253C/s%253E"><s>properties/keep</s></a></li><li><a href="global.html#%253Cs%253Eproperties/remove%253C/s%253E"><s>properties/remove</s></a></li><li><a href="global.html#%253Cs%253Eproperties/select%253C/s%253E"><s>properties/select</s></a></li><li><a href="global.html#%253Cs%253Eproperties/subset%253C/s%253E"><s>properties/subset</s></a></li><li><a href="global.html#%253Cs%253Eproperties/tail%253C/s%253E"><s>properties/tail</s></a></li><li><a href="global.html#aggregate">aggregate</a></li><li><a href="global.html#autotype">autotype</a></li><li><a href="global.html#bbox">bbox</a></li><li><a href="global.html#border">border</a></li><li><a href="global.html#buffer">buffer</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#clip">clip</a></li><li><a href="global.html#clipbyrect">clipbyrect</a></li><li><a href="global.html#columns">columns</a></li><li><a href="global.html#combine">combine</a></li><li><a href="global.html#concavehull">concavehull</a></li><li><a href="global.html#contains">contains</a></li><li><a href="global.html#convexhull">convexhull</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#coveredby">coveredby</a></li><li><a href="global.html#covers">covers</a></li><li><a href="global.html#crosses">crosses</a></li><li><a href="global.html#dedupe">dedupe</a></li><li><a href="global.html#densify">densify</a></li><li><a href="global.html#derive">derive</a></li><li><a href="global.html#disjoint">disjoint</a></li><li><a href="global.html#dissolve">dissolve</a></li><li><a href="global.html#envelope">envelope</a></li><li><a href="global.html#equals">equals</a></li><li><a href="global.html#filter">filter</a></li><li><a href="global.html#geolines">geolines</a></li><li><a href="global.html#groupby">groupby</a></li><li><a href="global.html#head">head</a></li><li><a href="global.html#htmltable">htmltable</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#intersects">intersects</a></li><li><a href="global.html#isvalid">isvalid</a></li><li><a href="global.html#iterate">iterate</a></li><li><a href="global.html#join">join</a></li><li><a href="global.html#largestemptycircle">largestemptycircle</a></li><li><a href="global.html#makevalid">makevalid</a></li><li><a href="global.html#nodes">nodes</a></li><li><a href="global.html#overlaps">overlaps</a></li><li><a href="global.html#removeemptygeom">removeemptygeom</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#resolveemptygeom">resolveemptygeom</a></li><li><a href="global.html#reverse">reverse</a></li><li><a href="global.html#rewind">rewind</a></li><li><a href="global.html#rewind2">rewind2</a></li><li><a href="global.html#roundcoordinates">roundcoordinates</a></li><li><a href="global.html#simplify">simplify</a></li><li><a href="global.html#sort">sort</a></li><li><a href="global.html#stitch">stitch</a></li><li><a href="global.html#table">table</a></li><li><a href="global.html#tail">tail</a></li><li><a href="global.html#tissot">tissot</a></li><li><a href="global.html#togeojson">togeojson</a></li><li><a href="global.html#touches">touches</a></li><li><a href="global.html#type">type</a></li><li><a href="global.html#union">union</a></li><li><a href="global.html#within">within</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Apr 04 2025 16:17:25 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

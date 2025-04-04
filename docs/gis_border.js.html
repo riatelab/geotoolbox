@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: gis/border.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: gis/border.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { topology } from "topojson-server";
+import { neighbors, mesh } from "topojson-client";
+const topojson = Object.assign({}, { topology, neighbors, mesh });
+import { featurecollection } from "../featurecollection.js";
+import * as d3array from "d3-array";
+const d3 = Object.assign({}, d3array);
+
+/**
+ * Extract boundaries from a GeoJSON FeatureCollection / an array of Features / an array of Geometries
+ * (of polygons).
+ * Options enable to get ids and calculate discontinuities.
+ *
+ * Example: {@link https://observablehq.com/@neocartocnrs/border?collection=@neocartocnrs/geotoolbox Observable notebook}
+ *
+ * @param {object|array} geojson - The GeoJSON FeatureCollection / array of Features / array of Geometries
+ * @param {object} options - Optional parameters
+ * @param {boolean} [options.id] - Get ids of boundaries
+ * @param {boolean} [options.values] - Todo
+ * @param {boolean} [options.type] - Todo
+ * @param {boolean} [options.share] - Todo
+ *
+ */
+export function border(geojson, options = {}) {
+  let geo = featurecollection(geojson);
+
+  if (options.values == undefined &amp;&amp; options.id == undefined) {
+    const topo = topojson.topology({ d: geo });
+    return {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: topojson.mesh(
+            topo,
+            Object.entries(topo.objects)[0][1],
+            (a, b) => a !== b
+          ),
+        },
+      ],
+    };
+  } else {
+    const id = options.id;
+    const values = options.values;
+    const type = options.type ? options.type : "rel";
+    const share = options.share ? options.share : null;
+
+    const topo = topojson.topology({ d: geo });
+    const ids = geo.features.map((d) => d.properties[id]);
+    const neighbors = topojson.neighbors(topo.objects["d"].geometries);
+    const valbyid = new Map(
+      geo.features.map((d) => [d.properties[id], d.properties[values]])
+    );
+
+    let result = [];
+    ids.forEach((e) => {
+      let r = neighbors[ids.indexOf(e)].map((i) => ({
+        properties: {
+          i: e,
+          j: ids[i],
+          varoptionsi: +valbyid.get(e),
+          varoptionsj: +valbyid.get(ids[i]),
+          disc:
+            type == "rel"
+              ? d3.min([+valbyid.get(e), +valbyid.get(ids[i])]) != 0
+                ? d3.max([+valbyid.get(e), +valbyid.get(ids[i])]) /
+                  d3.min([+valbyid.get(e), +valbyid.get(ids[i])])
+                : null
+              : d3.max([+valbyid.get(e), +valbyid.get(ids[i])]) -
+                d3.min([+valbyid.get(e), +valbyid.get(ids[i])]),
+        },
+      }));
+
+      r.forEach((e) => {
+        let geom = topojson.mesh(
+          topo,
+          topo.objects["d"],
+          (a, b) =>
+            (a.properties[id] == e.properties.i) &amp;
+            (b.properties[id] == e.properties.j)
+        );
+
+        let output = Object.assign({ type: "Feature" }, e);
+        result.push(Object.assign(output, { geometry: geom }));
+      });
+    });
+
+    result.sort((a, b) => d3.descending(a.properties.disc, b.properties.disc));
+
+    const l = result.length;
+    result
+      .map((d) => d.properties)
+      .forEach((e, i) => {
+        Object.assign(e, { share: (i + 1) / l });
+      });
+
+    if (share != null) {
+      result = result.filter((d) => d.properties.share &lt; share);
+    }
+
+    geo.features = result;
+    return geo;
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addproperty">addproperty</a></li><li><a href="global.html#aggregate">aggregate</a></li><li><a href="global.html#autotype">autotype</a></li><li><a href="global.html#bbox">bbox</a></li><li><a href="global.html#border">border</a></li><li><a href="global.html#buffer">buffer</a></li><li><a href="global.html#buffer2">buffer2</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#columns">columns</a></li><li><a href="global.html#comine">comine</a></li><li><a href="global.html#coords2geo">coords2geo</a></li><li><a href="global.html#densify">densify</a></li><li><a href="global.html#dissolve">dissolve</a></li><li><a href="global.html#featurecollection">featurecollection</a></li><li><a href="global.html#filter">filter</a></li><li><a href="global.html#geolines">geolines</a></li><li><a href="global.html#head">head</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#isvalid">isvalid</a></li><li><a href="global.html#makevalid">makevalid</a></li><li><a href="global.html#map">map</a></li><li><a href="global.html#nodes">nodes</a></li><li><a href="global.html#op/contains">op/contains</a></li><li><a href="global.html#op/coveredby">op/coveredby</a></li><li><a href="global.html#op/covers">op/covers</a></li><li><a href="global.html#op/crosses">op/crosses</a></li><li><a href="global.html#op/disjoint">op/disjoint</a></li><li><a href="global.html#op/equals">op/equals</a></li><li><a href="global.html#op/intersects">op/intersects</a></li><li><a href="global.html#op/overlaps">op/overlaps</a></li><li><a href="global.html#op/touches">op/touches</a></li><li><a href="global.html#op/within">op/within</a></li><li><a href="global.html#properties/add">properties/add</a></li><li><a href="global.html#properties/head">properties/head</a></li><li><a href="global.html#properties/keep">properties/keep</a></li><li><a href="global.html#properties/remove">properties/remove</a></li><li><a href="global.html#properties/select">properties/select</a></li><li><a href="global.html#properties/subset">properties/subset</a></li><li><a href="global.html#properties/tail">properties/tail</a></li><li><a href="global.html#removeemptygeom">removeemptygeom</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#resolveemptygeom">resolveemptygeom</a></li><li><a href="global.html#rewind">rewind</a></li><li><a href="global.html#rewind2">rewind2</a></li><li><a href="global.html#roundcoordinates">roundcoordinates</a></li><li><a href="global.html#simplify">simplify</a></li><li><a href="global.html#stitch">stitch</a></li><li><a href="global.html#tail">tail</a></li><li><a href="global.html#tissot">tissot</a></li><li><a href="global.html#type">type</a></li><li><a href="global.html#union">union</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Mar 27 2025 14:21:13 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

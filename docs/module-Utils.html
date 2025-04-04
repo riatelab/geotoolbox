@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: Utils</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: Utils</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~featurecollection"><span class="type-signature">(inner) </span>featurecollection<span class="signature">(data, options)</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Retrieve a FeatureCollection.</p>
+    
+
+
+
+<div class="description">
+    <p>Retrieve a FeatureCollection.<br/><br/>
+<img src="img/featurecollection.svg" alt="">
+<br/><br/>The <code>featurecollection()</code> function allows to retrieve a FeatureCollection from a</p>
+<ul>
+<li>a topoJSON ✅</li>
+<li>an array of features ✅</li>
+<li>a single feature ✅</li>
+<li>an array of geometries ✅</li>
+<li>a single geometry ✅</li>
+<li>an array of objects with coordinates (points) ✅</li>
+<li>an array coordinates (points) ✅</li>
+<li>a couple of coordinates (points) ✅</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a GeoJSON FeatureCollection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Optional parameters</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Field containing latitude coordinates. <code>lat</code>, <code>Lat</code>, <code>LAT</code>, <code>Latitude</code>, <code>latitude</code> are set by default.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>latitude</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Field containing latitude coordinates. <code>lat</code>, <code>Lat</code>, <code>LAT</code>, <code>Latitude</code>, <code>latitude</code> are set by default.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Field containing longitude coordinates. <code>lon</code>, <code>Lon</code>, <code>LON</code>, <code>lng</code>, <code>Lng</code>, <code>LNG</code>, <code>Longitude</code>, <code>longitude</code> are set by default.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>longitude</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Field containing longitude coordinates. <code>lon</code>, <code>Lon</code>, <code>LON</code>, <code>lng</code>, <code>Lng</code>, <code>LNG</code>, <code>Longitude</code>, <code>longitude</code> are set by default.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>coords</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If the coordinates are in a single column, this also works.  The fields  <code>coords</code>, <code>coord</code>, <code>Coords</code>, <code>Coordinates</code>, <code>coordinates</code>, <code>Coordinate</code>, <code>coordinate</code> are set by default but, as previsously, you can specify in option with <code>coordinates</code> or <code>coords</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>coordinates</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If the coordinates are in a single column, this also works.  The fields  <code>coords</code>, <code>coord</code>, <code>Coords</code>, <code>Coordinates</code>, <code>coordinates</code>, <code>Coordinate</code>, <code>coordinate</code> are set by default but, as previsously, you can specify in option with <code>coordinates</code> or <code>coords</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reperse</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>If the latitude and longitude coordinates are inverted, you can use the <code>reverse = true</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>properties</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>With the <code>properties</code> option, you can choose which fields you'd like to keep.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rename</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>With the <code>rename</code> option, you can even rename them.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>with <code>filter</code>, you can filter data.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deepcopy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Use true to ensure that the input object is not modified and to create a new object.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="featurecollection.js.html">featurecollection.js</a>, <a href="featurecollection.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Array of coordinates
+geoclean.featurecollection([
+  [32.33, 45.66],
+  [10, 10]
+])
+
+// A geometry  
+geoclean.featurecollection({
+  type: "Polygon",
+  coordinates: [
+    [
+      [100.0, 0.0],
+      [101.0, 0.0],
+      [101.0, 1.0],
+      [100.0, 1.0],
+      [100.0, 0.0]
+    ]
+  ]
+})
+
+// An array of objects containing coordinates
+geoclean.featurecollection(*a JSON*, {lat: "lat", lon: "lon"})
+
+// Data handling
+geoclean.featurecollection(*a geoJSON*, {
+      filter: (d) => d.properties.pop2018 >= 200,
+      properties: ["id", "capital", "pop2018"],
+      rename: ["code", "name", "pop"
+  })  
+ </code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-GIS.html">GIS</a></li><li><a href="module-Properties.html">Properties</a></li><li><a href="module-Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bbox">bbox</a></li><li><a href="global.html#border">border</a></li><li><a href="global.html#buffer">buffer</a></li><li><a href="global.html#buffer2">buffer2</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#coords2geo">coords2geo</a></li><li><a href="global.html#densify">densify</a></li><li><a href="global.html#dissolve">dissolve</a></li><li><a href="global.html#filter">filter</a></li><li><a href="global.html#geolines">geolines</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#makevalid">makevalid</a></li><li><a href="global.html#map">map</a></li><li><a href="global.html#simplify">simplify</a></li><li><a href="global.html#tissot">tissot</a></li><li><a href="global.html#type">type</a></li><li><a href="global.html#union">union</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Mar 21 2025 10:39:30 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

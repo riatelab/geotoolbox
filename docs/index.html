@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p><img src="https://img.shields.io/npm/v/geotoolbox" alt="npm"> <img src="https://img.shields.io/jsdelivr/npm/hw/geotoolbox" alt="jsdeliver"> <img src="https://img.shields.io/badge/license-MIT-success" alt="license"> <img src="https://img.shields.io/github/languages/code-size/riatelab/geotoolbox" alt="code size"></p>
+<h1><code>geotoolbox@3</code></h1>
+<h4><strong><code>geotoolbox</code></strong> is a javascript tool for geographers. It allows one to manage GeoJSON properties (attribute data) and provides several useful <strong>GIS operations</strong> for thematic cartography. The aim of geotoolbox is to offer functions designed to handle geoJSON directly, not just single features or geometries. As a result, the library is particularly <strong>user-friendly</strong> for users with little experience of javascript development. From a technical point of view, geotoolbox is largely based on <strong>geos-wasm</strong> GIS operators (a big thanks to Christoph Pahmeyer 🙏), but also on d3.geo and topojson. Geotoolbox also works well with other cartographic libraries such as <code>geoviz</code> and <code>bertin.js</code>. Note that there are other GIS libraries like <code>turf.js</code>, which is really great.</h4>
+<p><img src="img/geotoolbox.svg" alt="logo"></p>
+<h3>➡️ Installation</h3>
+<ul>
+<li>CDN</li>
+</ul>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/geotoolbox@3&quot; charset=&quot;utf-8&quot;>&lt;/script>
+</code></pre>
+<ul>
+<li>npm</li>
+</ul>
+<pre class="prettyprint source"><code>npm install geotoolbox@3
+</code></pre>
+<ul>
+<li>Observable notebooks</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>geo = require(&quot;geotoolbox@3&quot;);
+</code></pre>
+<h3>➡️ Usage</h3>
+<p>Most functions take the same type of argument as input - a dataset and options - like <code>geotoolbox.myfunction(data, {options})</code>. Please note that functions based on geos-wasm are asynchronous.</p>
+<ul>
+<li>A buffer example</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>const mybyffer = await geotoolbox.buffer(data, {dist: 1000});
+</code></pre>
+<ul>
+<li>Data handling example (add a field in a geoJSON)</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>geotoolbox.derive(data, {
+  field: &quot;gdppc&quot;, // the name of the new field
+  value: &quot;gdp/pop*1000&quot;, // a function to calculate the value
+  mutate: true // to update the dataset
+});
+</code></pre>
+<ul>
+<li>Tests if two geometries intersect</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>geotoolbox.intersects(data1, data2);
+</code></pre>
+<h3>➡️ Data handling</h3>
+<p><strong>1 - To create a featureCollection from anything</strong></p>
+<ul>
+<li><a href="global.html#togeojson"><strong><code>togeojson()</code></strong></a> - The function allows to retrieve a geoJSON FeatureCollection from a topoJSON, an array of features, a single feature, an array of geometries, a single geometry, an array of objects with coordinates (points), an array coordinates (points) or a couple of coordinates (points).</li>
+</ul>
+<p><strong>2 - Data formatting</strong></p>
+<p><em>These functions can be applied to a geoJSON (in this case, properties are considered) or a simple data table (array of objects).</em></p>
+<ul>
+<li><a href="global.html#autotype"><strong><code>autotype()</code></strong></a> - The function detects common data types such as numbers, dates and booleans, and convert properties values to the corresponding JavaScript type.</li>
+<li><a href="global.html#columns"><strong><code>columns()</code></strong></a> - Select, rename and reorder properties.</li>
+<li><a href="global.html#combine"><strong><code>combine()</code></strong></a> - Puts several datsets into one.</li>
+<li><a href="global.html#copy"><strong><code>copy()</code></strong></a> - Deep copy.</li>
+<li><a href="global.html#dedupe"><strong><code>dedupe()</code></strong></a> - Deletes duplicates. Keeps the first element.</li>
+<li><a href="global.html#derive"><strong><code>derive()</code></strong></a> - The function add a field to a dataset</li>
+<li><a href="global.html#groupby"><strong><code>groupby()</code></strong></a> - The functions groups data by category. If the input data is a geoJSON, then the geometries are also merged.</li>
+<li><a href="global.html#iterate"><strong><code>iterate()</code></strong></a> - Iterate and apply a function.</li>
+<li><a href="global.html#join"><strong><code>join()</code></strong></a> - Join datasets using a common identifier.</li>
+<li><a href="global.html#head"><strong><code>head()</code></strong></a> - The function returns the n first elements.</li>
+<li><a href="global.html#filter"><strong><code>filter()</code></strong></a> - Filter a dataset.</li>
+<li><a href="global.html#replace"><strong><code>replace()</code></strong></a> - Replace substrings in a dataset.</li>
+<li><a href="global.html#sort"><strong><code>sort()</code></strong></a> - Sort a dataset according to a field.</li>
+<li><a href="global.html#table"><strong><code>table()</code></strong></a> - Retrieves the dataset's attribute table (properties)</li>
+<li><a href="global.html#tail"><strong><code>tail()</code></strong></a> - The function returns the n last elements.</li>
+</ul>
+<p><strong>3 - Describe</strong></p>
+<p><em>Some functions to view and describe the content of geoJSONs.</em></p>
+<ul>
+<li><a href="global.html#htmltable"><strong><code>htmltable()</code></strong></a> - View a data table.</li>
+<li><a href="global.html#info"><strong><code>info()</code></strong></a> - The function gives some informations about a geoJSON (size, number of nodes, type of features, etc)</li>
+</ul>
+<h3>➡️ Geometry handling</h3>
+<p><strong>1 - geoprocessing</strong></p>
+<p><em>Main GIS functions and geoprocessing. These functions take as input a geoJSON, an array of features, a single feature, an array of geometries or a single geometry. They return an object of the same type.</em></p>
+<ul>
+<li><a href="global.html#aggregate"><strong><code>aggregate()</code></strong></a> - Aggregate geometries.</li>
+<li><a href="global.html#bbox"><strong><code>bbox()</code></strong></a> - Geographic bounding box.</li>
+<li><a href="global.html#border"><strong><code>border()</code></strong></a> - Extract boundaries from polygons or  multipolygons.</li>
+<li><a href="global.html#buffer"><strong><code>buffer()</code></strong></a> - Create buffer areas.</li>
+<li><a href="global.html#centroid"><strong><code>centroid()</code></strong></a> - Centroids of polygons or multipolygons.</li>
+<li><a href="global.html#clip"><strong><code>clip()</code></strong></a> - Clip a geometry with another.</li>
+<li><a href="global.html#clipbyrect"><strong><code>clipbyrect()</code></strong></a> - Intersection optimized for a rectangular clipping.</li>
+<li><a href="global.html#concavehull"><strong><code>concavehull()</code></strong></a> - Returns a &quot;concave hull&quot; of a geoJSON.</li>
+<li><a href="global.html#convexhull"><strong><code>convexhull()</code></strong></a> - Returns a &quot;convex hull&quot; of a geometry.</li>
+<li><a href="global.html#densify"><strong><code>densify()</code></strong></a> - Densifies a geometry using a given distance tolerance.</li>
+<li><a href="global.html#dissolve"><strong><code>dissolve()</code></strong></a> - The function allows to convert &quot;MultiPoint&quot;, &quot;MultiLineString&quot; or &quot;MultiPolygon&quot; to single &quot;Point&quot;, &quot;LineString&quot; or &quot;Polygon&quot;.</li>
+<li><a href="global.html#envelope"><strong><code>envelope()</code></strong></a> - Returns minimum rectangular polygon or point that contains the geometry, or an empty point for empty inputs.</li>
+<li><a href="global.html#nodes"><strong><code>nodes()</code></strong></a> - Retrieve geometry nodes.</li>
+<li><a href="global.html#simplify"><strong><code>simplify()</code></strong></a> - The function allows to simplify a geometry. By default, the generalization level is calculated automatically to ensure smooth map display.</li>
+<li><a href="global.html#stitch"><strong><code>stitch()</code></strong></a> - The function remove antimeridian and polar cuts, and replacing straight Cartesian line segments with geodesic segments.</li>
+<li><a href="global.html#union"><strong><code>union()</code></strong></a> - Merge geometries.</li>
+</ul>
+<p><strong>2 - Improve and clean</strong></p>
+<p><em>Some functions for improving and correcting gemetries errors.</em></p>
+<ul>
+<li><a href="global.html#makevalid"><strong><code>makevalid()</code></strong></a> - The function allows to make geometries valid .</li>
+<li><a href="global.html#removeemptygeom"><strong><code>removeemptygeom()</code></strong></a> - The function remove all features with undefined geometries.</li>
+<li><a href="global.html#resolveemptygeom"><strong><code>resolveemptygeom()</code></strong></a> - The function replace all features with undefined geometries by a valid geometry, but without coordinates</li>
+<li><a href="global.html#reverse"><strong><code>reverse()</code></strong></a> - Converts CCW rings to CW. Reverses direction of LineStrings.</li>
+<li><a href="global.html#rewind"><strong><code>rewind()</code></strong></a> - Rewind a geoJSON (Fil recipe).</li>
+<li><a href="global.html#rewind2"><strong><code>rewind2()</code></strong></a> - Rewind a geoJSON (Mapbox recipe).</li>
+<li><a href="global.html#roundcoordinates"><strong><code>roundcoordinates()</code></strong></a> - The function allows to round the coordinates of geometries.</li>
+</ul>
+<p><strong>3 - Tests</strong></p>
+<p><em>GIS operators. All these functions return a true or false boolean.</em></p>
+<ul>
+<li><a href="global.html#contains"><strong><code>contains()</code></strong></a> - Tests if geometry g2 is completely within g1, but not wholly contained in the boundary of g1.</li>
+<li><a href="global.html#covers"><strong><code>covers()</code></strong></a> - Tests if geometry g1 covers g2, which is the case if every point of g2 lies in g1.</li>
+<li><a href="global.html#crosses"><strong><code>crosses()</code></strong></a> - Tests if two geometries interiors intersect but their boundaries do not. Most useful for finding line crosses cases.</li>
+<li><a href="global.html#disjoint"><strong><code>disjoint()</code></strong></a> - Tests if two geometries have no point in common.</li>
+<li><a href="global.html#coveredby"><strong><code>coveredby()</code></strong></a> - Tests if geometry g1 is covered by g2, which is the case if every point of g1 lies in g2.</li>
+<li><a href="global.html#equals"><strong><code>equals()</code></strong></a> - Tests if two geometries contain the same set of points in the plane.</li>
+<li><a href="global.html#intersects"><strong><code>intersects()</code></strong></a> - Tests if two geometries intersect.</li>
+<li><a href="global.html#isvalid"><strong><code>isvalid()</code></strong></a> - Tests the validity of the geometries.</li>
+<li><a href="global.html#overlaps"><strong><code>overlaps()</code></strong></a> - Tests if two geometries share interiors but are neither within nor contained.</li>
+<li><a href="global.html#touches"><strong><code>touches()</code></strong></a> - Tests if two geometries share boundaries at one or more points, but do not have interior points in common.</li>
+<li><a href="global.html#within"><strong><code>within()</code></strong></a> - Tests if geometry g1 is completely within g2, but not wholly contained in the boundary of g2.</li>
+</ul>
+<p><strong>4 - Other</strong></p>
+<p><em>Useful functions for cartography.</em></p>
+<ul>
+<li><a href="global.html#geolines"><strong><code>geolines()</code></strong></a> - Equator, tropics &amp; polar circles.</li>
+<li><a href="global.html#tissot"><strong><code>tissot()</code></strong></a> - Generate Tissot's indicatrix.</li>
+</ul>
+<hr/>
+<h3>🚧 Work in progress 🚧</h3>
+<ul>
+<li>stuff about projection. proj4. proj4d3</li>
+<li>harminisation of parameter names: id/key - isProjected/planar/geo etc.</li>
+<li>harmoniser coordonnées des bbox []</li>
+<li>compare : to test join ?.</li>
+<li>le rewind de geos</li>
+<li>function filter and remove</li>
+<li>fonction split ?</li>
+</ul>
+<p>Other ideas? =&gt; <a href="https://github.com/riatelab/geotoolbox/issues">issues</a></p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#%253Cs%253Ecoords2geo%253C/s%253E"><s>coords2geo</s></a></li><li><a href="global.html#%253Cs%253Eproperties/add%253C/s%253E"><s>properties/add</s></a></li><li><a href="global.html#%253Cs%253Eproperties/head%253C/s%253E"><s>properties/head</s></a></li><li><a href="global.html#%253Cs%253Eproperties/keep%253C/s%253E"><s>properties/keep</s></a></li><li><a href="global.html#%253Cs%253Eproperties/remove%253C/s%253E"><s>properties/remove</s></a></li><li><a href="global.html#%253Cs%253Eproperties/select%253C/s%253E"><s>properties/select</s></a></li><li><a href="global.html#%253Cs%253Eproperties/subset%253C/s%253E"><s>properties/subset</s></a></li><li><a href="global.html#%253Cs%253Eproperties/tail%253C/s%253E"><s>properties/tail</s></a></li><li><a href="global.html#aggregate">aggregate</a></li><li><a href="global.html#autotype">autotype</a></li><li><a href="global.html#bbox">bbox</a></li><li><a href="global.html#border">border</a></li><li><a href="global.html#buffer">buffer</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#clip">clip</a></li><li><a href="global.html#clipbyrect">clipbyrect</a></li><li><a href="global.html#columns">columns</a></li><li><a href="global.html#combine">combine</a></li><li><a href="global.html#concavehull">concavehull</a></li><li><a href="global.html#contains">contains</a></li><li><a href="global.html#convexhull">convexhull</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#coveredby">coveredby</a></li><li><a href="global.html#covers">covers</a></li><li><a href="global.html#crosses">crosses</a></li><li><a href="global.html#dedupe">dedupe</a></li><li><a href="global.html#densify">densify</a></li><li><a href="global.html#derive">derive</a></li><li><a href="global.html#disjoint">disjoint</a></li><li><a href="global.html#dissolve">dissolve</a></li><li><a href="global.html#envelope">envelope</a></li><li><a href="global.html#equals">equals</a></li><li><a href="global.html#filter">filter</a></li><li><a href="global.html#geolines">geolines</a></li><li><a href="global.html#groupby">groupby</a></li><li><a href="global.html#head">head</a></li><li><a href="global.html#htmltable">htmltable</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#intersects">intersects</a></li><li><a href="global.html#isvalid">isvalid</a></li><li><a href="global.html#iterate">iterate</a></li><li><a href="global.html#join">join</a></li><li><a href="global.html#largestemptycircle">largestemptycircle</a></li><li><a href="global.html#makevalid">makevalid</a></li><li><a href="global.html#nodes">nodes</a></li><li><a href="global.html#overlaps">overlaps</a></li><li><a href="global.html#removeemptygeom">removeemptygeom</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#resolveemptygeom">resolveemptygeom</a></li><li><a href="global.html#reverse">reverse</a></li><li><a href="global.html#rewind">rewind</a></li><li><a href="global.html#rewind2">rewind2</a></li><li><a href="global.html#roundcoordinates">roundcoordinates</a></li><li><a href="global.html#simplify">simplify</a></li><li><a href="global.html#sort">sort</a></li><li><a href="global.html#stitch">stitch</a></li><li><a href="global.html#table">table</a></li><li><a href="global.html#tail">tail</a></li><li><a href="global.html#tissot">tissot</a></li><li><a href="global.html#togeojson">togeojson</a></li><li><a href="global.html#touches">touches</a></li><li><a href="global.html#type">type</a></li><li><a href="global.html#union">union</a></li><li><a href="global.html#within">within</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Apr 04 2025 16:17:25 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
