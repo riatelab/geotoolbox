@@ -9,6 +9,7 @@ export default {
   output: {
     format: "umd",
     file: "dist/index.min.js",
+    inlineDynamicImports: true,
     name: "geotoolbox",
   },
 

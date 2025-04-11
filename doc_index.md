@@ -152,11 +152,8 @@ geotoolbox.intersects(data1, data2);
 
 ### 🚧 Work in progress 🚧
 
+- plot function
 - stuff about projection. proj4. proj4d3 
-- harminisation of parameter names: id/key - isProjected/planar/geo etc.
-- harmoniser coordonnées des bbox []
-- compare : to test join ?. 
-- le rewind de geos
 - function filter and remove
 - fonction split ?
 
