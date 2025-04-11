@@ -23,7 +23,7 @@ export function isFieldNumber2(data, field) {
 }
 
 // Che if geometry is empty
-function isemptygeom(geometry) {
+export function isemptygeom(geometry) {
   if (
     typeof geometry == "object" &&
     [
@@ -37,7 +37,6 @@ function isemptygeom(geometry) {
     Array.isArray(geometry?.coordinates) &&
     geometry?.coordinates.length !== 0
   ) {
-    // Vérifier si les coordonnées contiennent NaN, undefined ou null
     if (
       geometry.coordinates.every(
         (coord) => coord === null || coord === undefined || Number.isNaN(coord)

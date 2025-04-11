@@ -1,6 +1,8 @@
 import { geojsonToGeosGeom, geosGeomToGeojson } from "geos-wasm/helpers";
 import { geosloader } from "./helpers/geos.js";
-import { rewind as filrewind } from "./rewind.js";
+import { rewind as filrewind, rewind } from "./rewind.js";
+import { removeemptygeom } from "./removeemptygeom.js";
+import { isemptygeom } from "./helpers/helpers.js";
 import { check } from "./helpers/check.js";
 import { expressiontovaluesinageojson } from "./helpers/expressiontovaluesinageojson.js";
 import { geoAzimuthalEquidistant, geoCentroid } from "d3-geo";
@@ -18,6 +20,7 @@ const d3 = Object.assign({}, { geoAzimuthalEquidistant, geoCentroid });
  * @param {boolean} [options.isProjected = false] - Use false (default) if you are using geometries that are not projected in latitude-longitude. Use true if your base map is already projected.
  * @param {number} [options.quadsegs = 8] - The number of segments per quadrant to generate. More segments provides a more "precise" buffer at the expense of size.
  * @param {boolean} [options.rewind = true] - Rewind output buffer (fill recipe).
+ * @param {boolean} [options.removeempty = true] - Remove empty geometries from the output. Usefull for negative distances.
  * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * // A global buffer
@@ -36,23 +39,36 @@ export async function buffer(
     dist = 0,
     each = true,
     rewind = true,
+    removeempty = true,
   } = {}
 ) {
+  let output;
   if (typeof dist == "number" && each == false) {
-    return singlebuffer(data, { quadsegs, isProjected, dist, rewind });
+    output = singlebuffer(data, { quadsegs, isProjected, dist, rewind });
   } else {
-    return multiplebuffer(data, { quadsegs, isProjected, dist, rewind });
+    output = multiplebuffer(data, { quadsegs, isProjected, dist, rewind });
   }
+
+  if (removeempty) {
+    output = removeemptygeom(await output);
+  }
+
+  return output;
 }
 
-async function multiplebuffer(data, { dist, rewind }) {
+async function multiplebuffer(data, { dist, quadsegs, isProjected, rewind }) {
   const handle = check(data);
   let x = handle.import(data);
   let dists = expressiontovaluesinageojson(x, dist);
 
   let result = await Promise.all(
     x.features.map(async (d, i) => {
-      return await singlebuffer(d, { dist: dists[i] });
+      return await singlebuffer(d, {
+        dist: dists[i],
+        quadsegs,
+        isProjected,
+        rewind,
+      });
     })
   );
 
@@ -62,15 +78,12 @@ async function multiplebuffer(data, { dist, rewind }) {
     features: result,
   };
 
-  if (rewind) {
-    geojson = filrewind(geojson);
-  }
   return handle.export(geojson);
 }
 
 async function singlebuffer(
   data,
-  { quadsegs = 8, isProjected = false, dist = 0, rewind } = {}
+  { quadsegs = 8, isProjected = false, dist = 0 } = {}
 ) {
   const geos = await geosloader();
   const handle = check(data);
@@ -87,6 +100,7 @@ async function singlebuffer(
   // Buffer with geos
   const geosgeom = geojsonToGeosGeom(x, geos);
   const buffer = geos.GEOSBuffer(geosgeom, dist, quadsegs);
+
   let result = {
     type: "FeatureCollection",
     features: [
@@ -106,8 +120,8 @@ async function singlebuffer(
   }
   result.name = "buffer";
 
-  if (rewind) {
-    result = filrewind(result);
+  if (rewind && !isemptygeom(result.features[0].geometry)) {
+    result = filrewind(result, { simple: true });
   }
 
   return handle.export(result);
