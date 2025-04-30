@@ -1,0 +1,10 @@
+<script src="../dist/index.min.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+<script>
+  let geojson = "./world.json";
+  d3.json(geojson).then((data) => {
+    const test = geotoolbox.stitch(data);
+    console.log(test);
+  });
+</script>

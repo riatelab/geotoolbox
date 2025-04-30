@@ -1,6 +1,9 @@
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/geoviz" charset="utf-8"></script>
-<script src="http://127.0.0.1:5500/dist/index.min.js" charset="utf-8"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/geotoolbox@3"
+  charset="utf-8"
+></script>
 
 <div>
   <h2><code>geotoolbox.simplify(geojson, {k})</code></h2>
@@ -11,7 +14,6 @@
 <svg width="800" height="500"></svg>
 <!-- Ajout du SVG -->
 
-<script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
   const slider = document.getElementById("size");
   const label = document.getElementById("labelsize");

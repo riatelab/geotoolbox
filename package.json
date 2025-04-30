@@ -51,6 +51,7 @@
     "d3-array": "^3.2.4",
     "d3-dsv": "^3.0.1",
     "d3-geo": "^3.0.1",
+    "d3-geo-projection": "^4.0.0",
     "docdash": "^2.0.2",
     "gdal3.js": "^2.8.1",
     "geojson-precision": "^1.0.0",
@@ -59,8 +60,5 @@
     "topojson-client": "^3.1.0",
     "topojson-server": "^3.0.1",
     "topojson-simplify": "^3.0.3"
-  },
-  "peerDependencies": {
-    "gdal3.js": "^3.0.0"
   }
 }
