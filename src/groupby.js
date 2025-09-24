@@ -21,12 +21,13 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @summary This function allows you to group objects according to an identifier. If the input dataset is a geoJSON, then the geometries are grouped using the aggregate function.
  * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
+ * @param {string} [options.by] - Key to group by. This key must be present in the properties of the objects.
  * @param {array} [options.keys] - Properties to be retained after regrouping. By default, all properties are kept.
  * @param {array} [options.operators] - Functions to be applied to each variable. You can enter any function to be applied to an array. You can also enter operators directly: `"all"` (to retrieve all values), `"count"`, `"sum"`, `"min"`, `"max"`, `"median"`, `"mode"`, `"mean"`, `"first"`, `"last"`, `"variance"` and `"deviation"`.
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
- * geotoolbox.groupby(*a geojson or an array of objects*, {keys: ["pop", "gdp", "gdppc"], operators:["sum", "sum", "mean"]})
+ * geotoolbox.groupby(*a geojson or an array of objects*, {by: "id", keys: ["pop", "gdp", "gdppc"], operators:["sum", "sum", "mean"]})
  */
 export function groupby(data, { by, keys, operators, mutate = false } = {}) {
   let x = data;
