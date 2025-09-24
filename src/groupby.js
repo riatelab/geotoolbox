@@ -22,6 +22,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {object|array} data - A GeoJSON FeatureCollection or an array of objects
  * @param {object} options - Optional parameters
  * @param {string} [options.by] - Key to group by. This key must be present in the properties of the objects.
+ * @param {string} [options.id = "id"] - Name of the property to be created to store the identifier of each group.
  * @param {array} [options.keys] - Properties to be retained after regrouping. By default, all properties are kept.
  * @param {array} [options.operators] - Functions to be applied to each variable. You can enter any function to be applied to an array. You can also enter operators directly: `"all"` (to retrieve all values), `"count"`, `"sum"`, `"min"`, `"max"`, `"median"`, `"mode"`, `"mean"`, `"first"`, `"last"`, `"variance"` and `"deviation"`.
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
@@ -29,7 +30,10 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @example
  * geotoolbox.groupby(*a geojson or an array of objects*, {by: "id", keys: ["pop", "gdp", "gdppc"], operators:["sum", "sum", "mean"]})
  */
-export function groupby(data, { by, keys, operators, mutate = false } = {}) {
+export function groupby(
+  data,
+  { by, id = "id", keys, operators, mutate = false } = {}
+) {
   let x = data;
 
   if (isgeojson(x) && by !== undefined) {
@@ -56,7 +60,7 @@ export function groupby(data, { by, keys, operators, mutate = false } = {}) {
     let features = [];
     ids.forEach((categ) => {
       const subset = x?.features.filter((d) => d?.properties[by] == categ);
-      const properties = { [by]: categ };
+      const properties = { [id]: categ };
       prop.forEach((p) => {
         properties[p] = func.get(p)(subset.map((d) => d?.properties[p]));
       });
@@ -87,7 +91,7 @@ export function groupby(data, { by, keys, operators, mutate = false } = {}) {
     let arr = [];
     ids.forEach((categ) => {
       const subset = x.filter((d) => d[by] == categ);
-      const obj = { [by]: categ };
+      const obj = { [id]: categ };
       prop.forEach((p) => {
         obj[p] = func.get(p)(subset.map((d) => d[p]));
       });
