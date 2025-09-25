@@ -13,6 +13,7 @@ import { check } from "./helpers/check.js";
  * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`).
  * @example
  * await geotoolbox.union(*a geojson*)
+ * await geotoolbox.union(*a geojson*, {id: "id"})
  */
 
 export async function union(data, { id } = {}) {
