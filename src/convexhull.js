@@ -10,7 +10,7 @@ import { check } from "./helpers/check.js";
  * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @returns {object|array} - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry (it depends on what you've set as `data`)
  * @example
- * await geotoolbox.convexehull(*a geojson*)
+ * await geotoolbox.convexhull(*a geojson*)
  */
 
 export async function convexhull(data) {
