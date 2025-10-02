@@ -9,7 +9,7 @@ import { isarrayofobjects, isgeojson } from "./helpers/helpers.js";
  * @param {boolean} [options.mutate = false] - Use `true` to update the input data. With false, you create a new object, but the input object remains the same.
  * @returns {object|array} -  A GeoJSON FeatureCollection or an array of objects. (it depends on what you've set as `data`).
  * @example
- * geotoolbox.filter(*a geojson or an array of objects*, {filter: "gdp >= 1000000" })
+ * geotoolbox.filter(*a geojson or an array of objects*, {func: "gdp >= 1000000" })
  */
 export function filter(data, { func, mutate = false } = {}) {
   let x = data;
