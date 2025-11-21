@@ -35,6 +35,7 @@ export { dissolve } from "./dissolve.js";
 export { clip } from "./clip.js";
 export { buffer } from "./buffer.js";
 export { clipbyrect } from "./clipbyrect.js";
+export { clipoutline } from "./clipoutline.js";
 export { makevalid } from "./makevalid.js";
 export { densify } from "./densify.js";
 export { union } from "./union.js";
