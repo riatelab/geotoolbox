@@ -14,7 +14,10 @@ import { geosloader } from "./helpers/geos.js";
  * @example
  * await geotoolbox.clipbyrect(*a geojson*, {bbox:[50, 50, -50, -50]})
  */
-export async function clipbyrect(data, { bbox = [90, 180, -90, -180] } = {}) {
+export async function clipbyrect(
+  data,
+  { bbox = [90 - 0.01, 180 - 0.01, -90 + 0.01, -180 + 0.01] } = {}
+) {
   const geos = await geosloader();
   const handle = check(data);
   let x = handle.import(data);
