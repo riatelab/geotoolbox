@@ -194,11 +194,18 @@ export async function touches(g1, g2) {
  */
 export async function within(g1, g2) {
   const geos = await geosloader();
+
   const geosgeom1 = geojsonToGeosGeom(togeojson(g1), geos);
   const geosgeom2 = geojsonToGeosGeom(togeojson(g2), geos);
-  const test = geos.GEOSWithin(geosgeom1, geosgeom2);
-  geos.GEOSFree(geosgeom1);
-  geos.GEOSFree(geosgeom2);
+
+  let test;
+  try {
+    test = geos.GEOSWithin(geosgeom1, geosgeom2);
+  } finally {
+    geos.GEOSFree(geosgeom1);
+    geos.GEOSFree(geosgeom2);
+  }
+
   return result(test);
 }
 
