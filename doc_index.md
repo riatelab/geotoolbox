@@ -120,6 +120,7 @@ geotoolbox.intersects(data1, data2);
 - [**`reverse()`**](global.html#reverse) - Converts CCW rings to CW. Reverses direction of LineStrings.
 - [**`rewind()`**](global.html#rewind) - Rewind a geoJSON (Fil recipe).
 - [**`rewind2()`**](global.html#rewind2) - Rewind a geoJSON (Mapbox recipe).
+- [**`smartrewind()`**](global.html#smartrewind) - Rewind a geoJSON (Homemade recipe).
 - [**`roundcoordinates()`**](global.html#roundcoordinates) - The function allows to round the coordinates of geometries.
 
 **3 - Tests**

@@ -30,6 +30,7 @@ export { centroid } from "./centroid.js";
 export { aggregate } from "./aggregate.js";
 export { rewind } from "./rewind.js";
 export { rewind2 } from "./rewind2.js";
+export { smartrewind } from "./smartrewind.js";
 export { reverse } from "./reverse.js";
 export { dissolve } from "./dissolve.js";
 export { clip } from "./clip.js";
