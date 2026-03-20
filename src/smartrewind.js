@@ -57,11 +57,11 @@ export function smartrewind(data, options = {}) {
       continue; // skip normal rewind
     }
 
-    console.log(
-      isPolar
-        ? `Polar polygon detected (${isPolar}) - ${feature.id || "unknown id"}`
-        : `Non-polar polygon - ${feature.id || "unknown id"}`,
-    );
+    isPolar &&
+      console.log(
+        `Polar polygon detected (${isPolar}) - ${feature.properties.ISO3 || "unknown id"}`,
+      );
+      
     // ---------------------
     // Rewind regular polygons
     // ---------------------
