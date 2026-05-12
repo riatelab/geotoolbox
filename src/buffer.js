@@ -16,7 +16,7 @@ const d3 = Object.assign({}, { geoAzimuthalEquidistant, geoCentroid });
  * @param {object|array} data - A GeoJSON FeatureCollection, an array of features, an array of geometries, a single feature or a single geometry.
  * @param {object} options - Optional parameters
  * @param {number|string|function} [options.dist = 0] - The distance to expand the geometry (or contract if the value is negative). If the geometry is unprojected, then the unit is in kilometers. If the geometry is projected, it's in map units. You can use a numer, or a function like `d => d.properties.pop/100000` or a string like `"pop/100000"`
- * @param {boolean} [options.each = true] - Compute a buffur for each features
+ * @param {boolean} [options.each = true] - Compute a buffer for each features
  * @param {boolean} [options.isProjected = false] - Use false (default) if you are using geometries that are not projected in latitude-longitude. Use true if your base map is already projected.
  * @param {number} [options.quadsegs = 8] - The number of segments per quadrant to generate. More segments provides a more "precise" buffer at the expense of size.
  * @param {boolean} [options.rewind = true] - Rewind output buffer (fill recipe).
@@ -40,7 +40,7 @@ export async function buffer(
     each = true,
     rewind = true,
     removeempty = true,
-  } = {}
+  } = {},
 ) {
   let output;
   if (typeof dist == "number" && each == false) {
@@ -69,7 +69,7 @@ async function multiplebuffer(data, { dist, quadsegs, isProjected, rewind }) {
         isProjected,
         rewind,
       });
-    })
+    }),
   );
 
   let geojson = {
@@ -83,7 +83,7 @@ async function multiplebuffer(data, { dist, quadsegs, isProjected, rewind }) {
 
 async function singlebuffer(
   data,
-  { quadsegs = 8, isProjected = false, dist = 0 } = {}
+  { quadsegs = 8, isProjected = false, dist = 0 } = {},
 ) {
   const geos = await geosloader();
   const handle = check(data);
@@ -152,7 +152,7 @@ function unprojectCoords(coords, proj) {
 function toAzimuthalEquidistant(x, proj) {
   x.features.forEach(
     (d) =>
-      (d.geometry.coordinates = projectCoords(d.geometry.coordinates, proj))
+      (d.geometry.coordinates = projectCoords(d.geometry.coordinates, proj)),
   );
   return x;
 }
@@ -160,7 +160,7 @@ function toAzimuthalEquidistant(x, proj) {
 function toWGS84(x, proj) {
   x.features.forEach(
     (d) =>
-      (d.geometry.coordinates = unprojectCoords(d.geometry.coordinates, proj))
+      (d.geometry.coordinates = unprojectCoords(d.geometry.coordinates, proj)),
   );
 
   return x;
